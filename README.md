@@ -2,6 +2,8 @@
 
 本仓库收录2026-11-17的G0审计与A0离线验证结果，供ChatGPT和人工只读审核。
 
+完整上午工作回顾见 [MORNING_WORK_SUMMARY.md](MORNING_WORK_SUMMARY.md)，包含授权演进、时间线、实际验证、失败修正、未完成事项和独立审核要求。
+
 ## 当前状态
 
 - 64项验收中22项PASS、42项NOT_RUN，完整P0尚未通过。

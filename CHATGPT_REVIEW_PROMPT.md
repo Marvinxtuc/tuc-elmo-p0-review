@@ -4,7 +4,7 @@
 
 https://github.com/Marvinxtuc/tuc-elmo-p0-review
 
-先阅读README.md、REVIEW_BRIEF.md、P0_AUDIT_REPORT.md、TEST_PLAN.md和PLAN.md中的64项验收规格，再抽查patches/p0-offline.patch、upstream/elmo源码及runs/20261117T013735Z-A0里的原始证据和日志。
+先阅读README.md、MORNING_WORK_SUMMARY.md、REVIEW_BRIEF.md、P0_AUDIT_REPORT.md、TEST_PLAN.md和PLAN.md中的64项验收规格，再抽查patches/p0-offline.patch、upstream/elmo源码及runs/20261117T013735Z-A0里的原始证据和日志。
 
 重点判断22项PASS是否具备充分证据，是否存在模拟数据误当真实结果、费用或网络控制旁路、凭据回退风险、恢复与停止结论夸大、源码/补丁/版本不一致，以及未来真实批次的阻塞遗漏。
 

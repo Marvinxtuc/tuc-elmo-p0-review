@@ -1,0 +1,8 @@
+{
+  "at_utc": "2026-11-17T03:06:30.070846+00:00",
+  "status": "PASS",
+  "files_scanned": 1974,
+  "findings": [],
+  "credential_values_printed": false,
+  "scope": "Updated public review snapshot including the detailed morning summary, excluding .git and checksum metadata."
+}

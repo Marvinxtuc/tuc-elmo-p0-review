@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
-  "purpose": "Sanitized GitHub review export",
-  "created_at_utc": "2026-11-17T03:00:18.453915+00:00",
+  "purpose": "Sanitized GitHub review export with detailed morning summary",
+  "created_at_utc": "2026-11-17T03:06:30.126378+00:00",
   "files": [
     {
       "path": ".gitignore",
@@ -20,8 +20,8 @@
     },
     {
       "path": "CHATGPT_REVIEW_PROMPT.md",
-      "bytes": 1187,
-      "sha256": "24defa7c99ac4e1b10239fe41a4988bc741f7bc45f4a07ee34464360b570aed4"
+      "bytes": 1213,
+      "sha256": "f3a3d178a9320c53abcb21f004d53c181f865739a0427ceb948a392e7c441991"
     },
     {
       "path": "CONFLICTS.md",
@@ -59,6 +59,11 @@
       "sha256": "71db9c634a997a26c6b9360f148e21e1297cc53ea70c3af170fa5a14f4a8229d"
     },
     {
+      "path": "MORNING_WORK_SUMMARY.md",
+      "bytes": 17606,
+      "sha256": "6b46f4937f2e04a98b0f1e6b5725349f3b8abe9708ec56948f6aeafa74e26e8a"
+    },
+    {
       "path": "OWNER_ACTIONS.md",
       "bytes": 1616,
       "sha256": "ac9dc75c8cdec592beea418cea4da148bb9fa98e0b863089b380f25abc8d5690"
@@ -89,14 +94,19 @@
       "sha256": "13a35c1b89f0b9675d986fcdf4849499741f7deef857884bc73bc9b1d4275819"
     },
     {
+      "path": "PUBLIC_SUMMARY_SCAN.json",
+      "bytes": 275,
+      "sha256": "dc8730cf97293fc02a31c8aad23ed4b2664847b6a7e63ab13994795e227d5334"
+    },
+    {
       "path": "QUALITY_COMMANDS.md",
       "bytes": 2673,
       "sha256": "edb94f9adb4d96fbdfc0a638fdc0a654bb8a7a44e1833bcec0678c38c15b3d68"
     },
     {
       "path": "README.md",
-      "bytes": 3417,
-      "sha256": "46957d16050438b099aac3a915b7088df354b066872360531712241e76698337"
+      "bytes": 3602,
+      "sha256": "42f84a9eada5ba4f124a47312e2b04cccd0ba41a6a23ba44a82b195c8feac495"
     },
     {
       "path": "README_P0.md",
