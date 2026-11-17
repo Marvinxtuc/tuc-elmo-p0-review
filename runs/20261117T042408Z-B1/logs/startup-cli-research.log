@@ -1,0 +1,4 @@
+$ node --import tsx apps/cli/src/index.ts lab brainstorm
+
+[31mError:[39m P0 CLI is read-only and rejects execution commands
+[ELIFECYCLE] Command failed with exit code 1.

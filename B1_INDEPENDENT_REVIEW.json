@@ -1,0 +1,42 @@
+{
+  "request_id": "TUC-GEO-B1-REVIEW-20261117-01",
+  "origin_codex_thread_id": "[PRIVATE_CODEX_THREAD]",
+  "baseline_commit": "b287610a2576531a52fe6fe90bccf0fa70d80648",
+  "reviewed_commit": "2d21db26ed809d1884846106f50f4021c0b84b30",
+  "review_basis": "USER_ADOPTED_ISSUE_1",
+  "decision": "B1_PARTIAL_REQUIRES_FIXES",
+  "new_limited_pass_tests": [
+    "COST-01",
+    "COST-03",
+    "COST-04",
+    "COST-05",
+    "COST-06",
+    "COST-07",
+    "COST-08",
+    "PRV-01",
+    "PRV-05",
+    "PRV-06",
+    "SEC-07",
+    "SEC-08"
+  ],
+  "new_partial_tests": [
+    "COST-02",
+    "COST-09"
+  ],
+  "issue_1_based_overlay": {
+    "PASS": 29,
+    "PARTIAL": 7,
+    "NOT_RUN": 28
+  },
+  "additional_blocker": "B1-R02_STOP_PROCESS_IDENTITY",
+  "real_provider_calls": 0,
+  "real_provider_calls_basis": "RECORDED_FINITE_OFFLINE_RUN_NOT_BILLING_AUDIT",
+  "A1": "NOT_GRANTED",
+  "A1_gate": "NO_GO",
+  "B2_B3_authorized_by_this_review": false,
+  "repository_tests_executed_by_reviewer": false,
+  "repository_modified_by_reviewer": false,
+  "full_repository_manifest_rehashed": false,
+  "historical_records_preserved": true,
+  "handoff_status": "REPLIED_AWAITING_CODEX_ACK"
+}

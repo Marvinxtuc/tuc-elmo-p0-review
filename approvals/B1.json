@@ -1,0 +1,11 @@
+{
+  "authority": "User explicit instruction in the active Codex conversation",
+  "approval_text": "读取《SEO与GEO区别》的最新 ChatGPT 回复，返回 ACK_TUC_GEO_B1_RECEIVED，并按 GitHub Issue #1 开始执行 B1。",
+  "scope": "Issue #1 B1 offline remediation only",
+  "baseline": "b287610a2576531a52fe6fe90bccf0fa70d80648",
+  "source_A0": "A0-user-20261117",
+  "new_database_names": [],
+  "live_requests_authorized": false,
+  "resource_limit_changed": false,
+  "issue": "https://github.com/Marvinxtuc/tuc-elmo-p0-review/issues/1"
+}

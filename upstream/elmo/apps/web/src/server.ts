@@ -1,12 +1,13 @@
 import "../instrument.server.mjs";
 import * as Sentry from "@sentry/tanstackstart-react";
 import handler, { createServerEntry } from "@tanstack/react-start/server-entry";
+import { assertP0Runtime, isP0Offline } from "@workspace/lib/constants";
 import { startCredentialRefresh } from "@workspace/lib/secrets";
 import { AD_TAG_CSP } from "@workspace/ui/lib/ad-tags";
 
 // Not awaited: the app has to serve sign-in and settings whether or not the
 // credential store is reachable.
-void startCredentialRefresh();
+if (!isP0Offline()) void startCredentialRefresh();
 
 // HSTS asserts HTTPS-only for the host that served the response. Whitelabel
 // deployments run on customer-controlled custom domains, where `includeSubDomains`
@@ -56,6 +57,11 @@ export default createServerEntry(
 		// each other, so without its own scope the user set on it would stick to every later one.
 		fetch: (request: Request) =>
 			Sentry.withIsolationScope(async () => {
+				assertP0Runtime();
+				const path = new URL(request.url).pathname;
+				if (isP0Offline() && !["GET", "HEAD", "OPTIONS"].includes(request.method) && !/^\/api\/mcp\/?$/.test(path)) {
+					return Response.json({ code: "P0_READ_ONLY" }, { status: 403 });
+				}
 				const response = await handler.fetch(request);
 				return addSecurityHeaders(response);
 			}),

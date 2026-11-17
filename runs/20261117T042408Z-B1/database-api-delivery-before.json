@@ -1,0 +1,1071 @@
+{
+  "at_utc": "2026-11-17T04:48:47.036994+00:00",
+  "databases": {
+    "tuc_elmo_p0_test": {
+      "public_tables": {
+        "account": {
+          "rows": 1,
+          "md5": "70ea03f84196990cc9c3f185736d2b1e"
+        },
+        "apikey": {
+          "rows": 0,
+          "md5": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "background_migrations": {
+          "rows": 2,
+          "md5": "890e3a4bccec2316aba2a0788cef2863"
+        },
+        "brand_opportunities": {
+          "rows": 0,
+          "md5": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "brands": {
+          "rows": 1,
+          "md5": "03fb553e2b6303c7a51481c813ce3647"
+        },
+        "citations": {
+          "rows": 0,
+          "md5": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "cited_pages": {
+          "rows": 0,
+          "md5": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "competitors": {
+          "rows": 0,
+          "md5": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "invitation": {
+          "rows": 0,
+          "md5": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "jwks": {
+          "rows": 0,
+          "md5": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "member": {
+          "rows": 1,
+          "md5": "4a8b41590d26e85f016f6c4a5c9a92d7"
+        },
+        "oauth_access_token": {
+          "rows": 0,
+          "md5": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "oauth_client": {
+          "rows": 0,
+          "md5": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "oauth_client_assertion": {
+          "rows": 0,
+          "md5": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "oauth_client_resource": {
+          "rows": 0,
+          "md5": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "oauth_consent": {
+          "rows": 0,
+          "md5": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "oauth_refresh_token": {
+          "rows": 0,
+          "md5": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "oauth_resource": {
+          "rows": 1,
+          "md5": "93d8624e511a5783a64b2b11294d58a3"
+        },
+        "organization": {
+          "rows": 1,
+          "md5": "a40ab9ba987466e24f7f88584b6c31f8"
+        },
+        "organization_settings": {
+          "rows": 0,
+          "md5": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "pipeline_state": {
+          "rows": 1,
+          "md5": "962f4d3d7b9c4fccdc100428457e384b"
+        },
+        "prompt_runs": {
+          "rows": 10,
+          "md5": "4c427615d107b06065f8ee55d7bd92dc"
+        },
+        "prompts": {
+          "rows": 10,
+          "md5": "28fb62ced399d94865c10fc1ae214a3e"
+        },
+        "rate_limit": {
+          "rows": 1,
+          "md5": "6fb55dae3ad098e8b90cc38b62b15689"
+        },
+        "reports": {
+          "rows": 0,
+          "md5": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "rollup_citation_pages": {
+          "rows": 0,
+          "md5": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "rollup_citation_urls": {
+          "rows": 0,
+          "md5": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "rollup_competitor_mentions": {
+          "rows": 0,
+          "md5": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "rollup_dirty": {
+          "rows": 0,
+          "md5": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "rollup_prompt_runs": {
+          "rows": 10,
+          "md5": "9d34a335660c2e71ae86290f0a899b4c"
+        },
+        "rollup_sentiment_quotes": {
+          "rows": 2,
+          "md5": "aa028192d66586c7256f0ee5ed847fe8"
+        },
+        "rollup_web_queries": {
+          "rows": 0,
+          "md5": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "run_extractions": {
+          "rows": 10,
+          "md5": "3e1d80cc147dd6c4cba105bd6413c16e"
+        },
+        "run_mentions": {
+          "rows": 10,
+          "md5": "f97d1daa8380f6edffa82c9fe0a23216"
+        },
+        "secrets": {
+          "rows": 1,
+          "md5": "267b0831cb5fc927bf43f121979730d6"
+        },
+        "session": {
+          "rows": 1,
+          "md5": "8200cd1c1ce0b896fd8d62070834a296"
+        },
+        "sso_provider": {
+          "rows": 0,
+          "md5": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "subscription": {
+          "rows": 0,
+          "md5": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "usage_events": {
+          "rows": 10,
+          "md5": "04296274964647052e01b4d172225b0e"
+        },
+        "user": {
+          "rows": 1,
+          "md5": "88040cb8edb4eeb3cede91ba98f28aa8"
+        },
+        "verification": {
+          "rows": 0,
+          "md5": "d41d8cd98f00b204e9800998ecf8427e"
+        }
+      },
+      "jobs": [
+        {
+          "id": "02845ed8-5a8e-4e75-82d0-9e149b5c35e1",
+          "name": "derive-runs",
+          "state": "completed",
+          "retry_count": 0,
+          "data": {
+            "runIds": [
+              "49acacb6-1a2f-4a74-9826-a366161a0e73"
+            ],
+            "brandId": "tuc-p0-internal"
+          }
+        },
+        {
+          "id": "078d1fff-15a7-4fef-970c-d6ca8521e967",
+          "name": "refresh-rollups",
+          "state": "completed",
+          "retry_count": 0,
+          "data": {
+            "source": "derive"
+          }
+        },
+        {
+          "id": "0a4be2e4-47d1-4d64-a4db-d951dd9b5e48",
+          "name": "rollup-catch-up",
+          "state": "completed",
+          "retry_count": 0,
+          "data": {
+            "since": null
+          }
+        },
+        {
+          "id": "11ca1c49-8bd0-4809-98ac-ec98e2988013",
+          "name": "process-prompt",
+          "state": "completed",
+          "retry_count": 0,
+          "data": {
+            "promptId": "fb47279d-2a8f-4953-99dd-7fdf90ad69a3"
+          }
+        },
+        {
+          "id": "1ce11087-7cdf-4a5b-8467-af4c463f5f6e",
+          "name": "refresh-rollups",
+          "state": "completed",
+          "retry_count": 0,
+          "data": {
+            "source": "derive"
+          }
+        },
+        {
+          "id": "2ce51e30-1af7-48e6-9e8d-5823225c7812",
+          "name": "refresh-rollups",
+          "state": "completed",
+          "retry_count": 0,
+          "data": {
+            "source": "scheduled"
+          }
+        },
+        {
+          "id": "465ff9ef-820a-4974-9318-89e0d83b6713",
+          "name": "derive-runs",
+          "state": "completed",
+          "retry_count": 0,
+          "data": {
+            "runIds": [
+              "39222eed-6c06-416a-95d7-8199af6d5b20"
+            ],
+            "brandId": "tuc-p0-internal"
+          }
+        },
+        {
+          "id": "538f796c-6033-4d5d-9a0b-4f0a001c1d16",
+          "name": "process-prompt",
+          "state": "completed",
+          "retry_count": 0,
+          "data": {
+            "promptId": "28b7f36e-5bad-47fb-8e5e-0a9515dc7b77"
+          }
+        },
+        {
+          "id": "597ac9c5-01a6-41e2-9bf3-c6fde6898f43",
+          "name": "derive-runs",
+          "state": "completed",
+          "retry_count": 0,
+          "data": {
+            "runIds": [
+              "f48da105-d95b-4b62-96e2-68b46f44d7bc"
+            ],
+            "brandId": "tuc-p0-internal"
+          }
+        },
+        {
+          "id": "5b4c9cec-076c-40b9-9992-8a540ec478f9",
+          "name": "refresh-rollups",
+          "state": "completed",
+          "retry_count": 0,
+          "data": {
+            "source": "p0-manual-batch-finish"
+          }
+        },
+        {
+          "id": "6bc9edfe-f74b-4ee4-ad88-12079054b046",
+          "name": "derive-runs",
+          "state": "completed",
+          "retry_count": 0,
+          "data": {
+            "runIds": [
+              "daf07328-83dd-46a7-b43e-ded16dd43cfe"
+            ],
+            "brandId": "tuc-p0-internal"
+          }
+        },
+        {
+          "id": "6dd86a60-63fe-49bb-9e2f-fc99143af22a",
+          "name": "derive-runs",
+          "state": "completed",
+          "retry_count": 0,
+          "data": {
+            "runIds": [
+              "7ac55600-d713-436c-b1d6-1c81a613f271"
+            ],
+            "brandId": "tuc-p0-internal"
+          }
+        },
+        {
+          "id": "715476c5-a056-4890-a06a-c2632a380107",
+          "name": "__pgboss__send-it",
+          "state": "completed",
+          "retry_count": 0,
+          "data": {
+            "key": "",
+            "data": {
+              "source": "scheduled"
+            },
+            "name": "refresh-rollups",
+            "slot": "2026-11-17 01:54:00",
+            "options": {
+              "tz": "UTC",
+              "singletonKey": "refresh-rollups"
+            }
+          }
+        },
+        {
+          "id": "8ad93800-ce54-4f24-953c-68e180b933ba",
+          "name": "request-reprocesses",
+          "state": "completed",
+          "retry_count": 0,
+          "data": {}
+        },
+        {
+          "id": "8d797241-bb34-40cf-a858-a0196a312249",
+          "name": "process-prompt",
+          "state": "completed",
+          "retry_count": 0,
+          "data": {
+            "promptId": "13bef519-6ed7-4852-a56e-869d62b7a12f"
+          }
+        },
+        {
+          "id": "90e4dbdc-4f28-4e0f-906d-005f95c1ac5c",
+          "name": "derive-runs",
+          "state": "completed",
+          "retry_count": 0,
+          "data": {
+            "runIds": [
+              "dcdc0a0c-b2dc-47b9-969c-ab7539023421"
+            ],
+            "brandId": "tuc-p0-internal"
+          }
+        },
+        {
+          "id": "9e289d94-dd6b-4071-9790-c87d88419957",
+          "name": "process-prompt",
+          "state": "completed",
+          "retry_count": 0,
+          "data": {
+            "promptId": "dccd10d9-350f-43a6-8435-5b45c6fcd22d"
+          }
+        },
+        {
+          "id": "9f1b7878-7a5a-4491-ae41-642f3af1f317",
+          "name": "process-prompt",
+          "state": "completed",
+          "retry_count": 0,
+          "data": {
+            "promptId": "73425cbf-4d26-4987-9581-1f50af73b0bd"
+          }
+        },
+        {
+          "id": "a60c9ab5-e118-4c5e-bae3-5cb07a8d190e",
+          "name": "derive-runs",
+          "state": "completed",
+          "retry_count": 0,
+          "data": {
+            "runIds": [
+              "3ec71cf2-1948-41ac-9086-0fc907ed180f"
+            ],
+            "brandId": "tuc-p0-internal"
+          }
+        },
+        {
+          "id": "a9f2c42a-9994-47a0-a79d-9e7b3f472606",
+          "name": "process-prompt",
+          "state": "completed",
+          "retry_count": 0,
+          "data": {
+            "promptId": "fa434e1c-a443-4575-afdf-a78af0f5bbc7"
+          }
+        },
+        {
+          "id": "b961bebd-fa3b-4460-9f16-53d80b6a4e92",
+          "name": "process-prompt",
+          "state": "completed",
+          "retry_count": 0,
+          "data": {
+            "promptId": "8cd62bce-a275-4e1f-9ed9-0299aad2da8a"
+          }
+        },
+        {
+          "id": "c05ca992-846e-4eb3-93ad-89dc42ddc7cf",
+          "name": "derive-runs",
+          "state": "completed",
+          "retry_count": 0,
+          "data": {
+            "runIds": [
+              "bc70d260-2f55-44fd-a5ed-2ce65cfaa3f1"
+            ],
+            "brandId": "tuc-p0-internal"
+          }
+        },
+        {
+          "id": "c3da24bc-5fe0-43d6-9e9b-3a2103798fc9",
+          "name": "rollup-catch-up",
+          "state": "cancelled",
+          "retry_count": 0,
+          "data": {
+            "since": "2026-11-17T00:50:48.966Z"
+          }
+        },
+        {
+          "id": "c5551d7e-552d-46f0-bc89-28d39205b0f8",
+          "name": "derive-runs",
+          "state": "completed",
+          "retry_count": 0,
+          "data": {
+            "runIds": [
+              "7458826b-bab3-4876-afd1-f0904e6b2d17"
+            ],
+            "brandId": "tuc-p0-internal"
+          }
+        },
+        {
+          "id": "c978a361-1ea4-449f-a1e8-6bd9b3cab4b0",
+          "name": "process-prompt",
+          "state": "completed",
+          "retry_count": 0,
+          "data": {
+            "promptId": "dd8402af-96c9-4849-ae66-b155cc07fad0"
+          }
+        },
+        {
+          "id": "d06b6008-8c9e-44e0-8ff6-aa4ff01582d1",
+          "name": "__pgboss__send-it",
+          "state": "completed",
+          "retry_count": 0,
+          "data": {
+            "key": "",
+            "data": {},
+            "name": "request-reprocesses",
+            "slot": "2026-11-17 01:54:00",
+            "options": {
+              "tz": "UTC",
+              "singletonKey": "request-reprocesses"
+            }
+          }
+        },
+        {
+          "id": "d0822240-3f90-4a1e-9273-09c7734b19b9",
+          "name": "refresh-rollups",
+          "state": "completed",
+          "retry_count": 0,
+          "data": {
+            "source": "derive"
+          }
+        },
+        {
+          "id": "d0ffd537-afc4-4fb3-a317-3ecd1f7e9803",
+          "name": "process-prompt",
+          "state": "completed",
+          "retry_count": 0,
+          "data": {
+            "promptId": "611a5e40-392b-47d1-9bd5-ce308abc54b1"
+          }
+        },
+        {
+          "id": "d571913c-6838-426f-b8d8-76f60a1a91da",
+          "name": "process-prompt",
+          "state": "completed",
+          "retry_count": 0,
+          "data": {
+            "promptId": "dfe5b8a4-cd88-411c-9751-a8b60be0138a"
+          }
+        },
+        {
+          "id": "f8a8516f-ed8c-4972-8e93-15c4518c114b",
+          "name": "derive-runs",
+          "state": "completed",
+          "retry_count": 0,
+          "data": {
+            "runIds": [
+              "b094bd25-2060-4db2-93da-4a530a8e3d7c"
+            ],
+            "brandId": "tuc-p0-internal"
+          }
+        }
+      ],
+      "schedules": []
+    },
+    "tuc_elmo_p0_restore": {
+      "public_tables": {
+        "account": {
+          "rows": 1,
+          "md5": "70ea03f84196990cc9c3f185736d2b1e"
+        },
+        "apikey": {
+          "rows": 0,
+          "md5": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "background_migrations": {
+          "rows": 2,
+          "md5": "890e3a4bccec2316aba2a0788cef2863"
+        },
+        "brand_opportunities": {
+          "rows": 0,
+          "md5": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "brands": {
+          "rows": 1,
+          "md5": "03fb553e2b6303c7a51481c813ce3647"
+        },
+        "citations": {
+          "rows": 0,
+          "md5": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "cited_pages": {
+          "rows": 0,
+          "md5": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "competitors": {
+          "rows": 1,
+          "md5": "a404cfd241d557a0045d0f96e7c08ebd"
+        },
+        "invitation": {
+          "rows": 0,
+          "md5": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "jwks": {
+          "rows": 0,
+          "md5": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "member": {
+          "rows": 1,
+          "md5": "4a8b41590d26e85f016f6c4a5c9a92d7"
+        },
+        "oauth_access_token": {
+          "rows": 0,
+          "md5": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "oauth_client": {
+          "rows": 0,
+          "md5": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "oauth_client_assertion": {
+          "rows": 0,
+          "md5": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "oauth_client_resource": {
+          "rows": 0,
+          "md5": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "oauth_consent": {
+          "rows": 0,
+          "md5": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "oauth_refresh_token": {
+          "rows": 0,
+          "md5": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "oauth_resource": {
+          "rows": 1,
+          "md5": "93d8624e511a5783a64b2b11294d58a3"
+        },
+        "organization": {
+          "rows": 1,
+          "md5": "a40ab9ba987466e24f7f88584b6c31f8"
+        },
+        "organization_settings": {
+          "rows": 0,
+          "md5": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "pipeline_state": {
+          "rows": 1,
+          "md5": "962f4d3d7b9c4fccdc100428457e384b"
+        },
+        "prompt_runs": {
+          "rows": 10,
+          "md5": "4c427615d107b06065f8ee55d7bd92dc"
+        },
+        "prompts": {
+          "rows": 10,
+          "md5": "28fb62ced399d94865c10fc1ae214a3e"
+        },
+        "rate_limit": {
+          "rows": 0,
+          "md5": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "reports": {
+          "rows": 0,
+          "md5": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "rollup_citation_pages": {
+          "rows": 0,
+          "md5": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "rollup_citation_urls": {
+          "rows": 0,
+          "md5": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "rollup_competitor_mentions": {
+          "rows": 0,
+          "md5": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "rollup_dirty": {
+          "rows": 0,
+          "md5": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "rollup_prompt_runs": {
+          "rows": 10,
+          "md5": "9d34a335660c2e71ae86290f0a899b4c"
+        },
+        "rollup_sentiment_quotes": {
+          "rows": 2,
+          "md5": "aa028192d66586c7256f0ee5ed847fe8"
+        },
+        "rollup_web_queries": {
+          "rows": 0,
+          "md5": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "run_extractions": {
+          "rows": 10,
+          "md5": "3e1d80cc147dd6c4cba105bd6413c16e"
+        },
+        "run_mentions": {
+          "rows": 10,
+          "md5": "f97d1daa8380f6edffa82c9fe0a23216"
+        },
+        "secrets": {
+          "rows": 1,
+          "md5": "267b0831cb5fc927bf43f121979730d6"
+        },
+        "session": {
+          "rows": 0,
+          "md5": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "sso_provider": {
+          "rows": 0,
+          "md5": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "subscription": {
+          "rows": 0,
+          "md5": "d41d8cd98f00b204e9800998ecf8427e"
+        },
+        "usage_events": {
+          "rows": 10,
+          "md5": "04296274964647052e01b4d172225b0e"
+        },
+        "user": {
+          "rows": 1,
+          "md5": "88040cb8edb4eeb3cede91ba98f28aa8"
+        },
+        "verification": {
+          "rows": 0,
+          "md5": "d41d8cd98f00b204e9800998ecf8427e"
+        }
+      },
+      "jobs": [
+        {
+          "id": "02845ed8-5a8e-4e75-82d0-9e149b5c35e1",
+          "name": "derive-runs",
+          "state": "completed",
+          "retry_count": 0,
+          "data": {
+            "runIds": [
+              "49acacb6-1a2f-4a74-9826-a366161a0e73"
+            ],
+            "brandId": "tuc-p0-internal"
+          }
+        },
+        {
+          "id": "078d1fff-15a7-4fef-970c-d6ca8521e967",
+          "name": "refresh-rollups",
+          "state": "completed",
+          "retry_count": 0,
+          "data": {
+            "source": "derive"
+          }
+        },
+        {
+          "id": "0a4be2e4-47d1-4d64-a4db-d951dd9b5e48",
+          "name": "rollup-catch-up",
+          "state": "completed",
+          "retry_count": 0,
+          "data": {
+            "since": null
+          }
+        },
+        {
+          "id": "11ca1c49-8bd0-4809-98ac-ec98e2988013",
+          "name": "process-prompt",
+          "state": "completed",
+          "retry_count": 0,
+          "data": {
+            "promptId": "fb47279d-2a8f-4953-99dd-7fdf90ad69a3"
+          }
+        },
+        {
+          "id": "1ce11087-7cdf-4a5b-8467-af4c463f5f6e",
+          "name": "refresh-rollups",
+          "state": "completed",
+          "retry_count": 0,
+          "data": {
+            "source": "derive"
+          }
+        },
+        {
+          "id": "2ce51e30-1af7-48e6-9e8d-5823225c7812",
+          "name": "refresh-rollups",
+          "state": "completed",
+          "retry_count": 0,
+          "data": {
+            "source": "scheduled"
+          }
+        },
+        {
+          "id": "39f1b268-0d42-441f-a789-e1a09a0a7c6d",
+          "name": "refresh-rollups",
+          "state": "completed",
+          "retry_count": 0,
+          "data": {
+            "source": "B1_TEST_FIXTURE",
+            "p0BatchId": "20261117T042408Z-B1"
+          }
+        },
+        {
+          "id": "465ff9ef-820a-4974-9318-89e0d83b6713",
+          "name": "derive-runs",
+          "state": "completed",
+          "retry_count": 0,
+          "data": {
+            "runIds": [
+              "39222eed-6c06-416a-95d7-8199af6d5b20"
+            ],
+            "brandId": "tuc-p0-internal"
+          }
+        },
+        {
+          "id": "4d56822c-7830-4dd4-925e-54ae94fe8689",
+          "name": "derive-runs",
+          "state": "cancelled",
+          "retry_count": 0,
+          "data": {
+            "source": "B1_TEST_FIXTURE",
+            "aliases": [
+              "synthetic-b1-alias"
+            ],
+            "brandId": "tuc-p0-internal",
+            "p0BatchId": "20261117T042408Z-B1",
+            "judgeVersion": "synthetic-new-judge"
+          }
+        },
+        {
+          "id": "538f796c-6033-4d5d-9a0b-4f0a001c1d16",
+          "name": "process-prompt",
+          "state": "completed",
+          "retry_count": 0,
+          "data": {
+            "promptId": "28b7f36e-5bad-47fb-8e5e-0a9515dc7b77"
+          }
+        },
+        {
+          "id": "582dadf5-a296-4044-bc11-c75ba81ff1df",
+          "name": "rollup-catch-up",
+          "state": "cancelled",
+          "retry_count": 0,
+          "data": {
+            "source": "B1_TEST_FIXTURE",
+            "aliases": [
+              "synthetic-b1-alias"
+            ],
+            "brandId": "tuc-p0-internal",
+            "p0BatchId": "20261117T042408Z-B1",
+            "judgeVersion": "synthetic-new-judge"
+          }
+        },
+        {
+          "id": "597ac9c5-01a6-41e2-9bf3-c6fde6898f43",
+          "name": "derive-runs",
+          "state": "completed",
+          "retry_count": 0,
+          "data": {
+            "runIds": [
+              "f48da105-d95b-4b62-96e2-68b46f44d7bc"
+            ],
+            "brandId": "tuc-p0-internal"
+          }
+        },
+        {
+          "id": "6bc9edfe-f74b-4ee4-ad88-12079054b046",
+          "name": "derive-runs",
+          "state": "completed",
+          "retry_count": 0,
+          "data": {
+            "runIds": [
+              "daf07328-83dd-46a7-b43e-ded16dd43cfe"
+            ],
+            "brandId": "tuc-p0-internal"
+          }
+        },
+        {
+          "id": "6dd86a60-63fe-49bb-9e2f-fc99143af22a",
+          "name": "derive-runs",
+          "state": "completed",
+          "retry_count": 0,
+          "data": {
+            "runIds": [
+              "7ac55600-d713-436c-b1d6-1c81a613f271"
+            ],
+            "brandId": "tuc-p0-internal"
+          }
+        },
+        {
+          "id": "715476c5-a056-4890-a06a-c2632a380107",
+          "name": "__pgboss__send-it",
+          "state": "completed",
+          "retry_count": 0,
+          "data": {
+            "key": "",
+            "data": {
+              "source": "scheduled"
+            },
+            "name": "refresh-rollups",
+            "slot": "2026-11-17 01:54:00",
+            "options": {
+              "tz": "UTC",
+              "singletonKey": "refresh-rollups"
+            }
+          }
+        },
+        {
+          "id": "8ad93800-ce54-4f24-953c-68e180b933ba",
+          "name": "request-reprocesses",
+          "state": "completed",
+          "retry_count": 0,
+          "data": {}
+        },
+        {
+          "id": "8d797241-bb34-40cf-a858-a0196a312249",
+          "name": "process-prompt",
+          "state": "completed",
+          "retry_count": 0,
+          "data": {
+            "promptId": "13bef519-6ed7-4852-a56e-869d62b7a12f"
+          }
+        },
+        {
+          "id": "90e4dbdc-4f28-4e0f-906d-005f95c1ac5c",
+          "name": "derive-runs",
+          "state": "completed",
+          "retry_count": 0,
+          "data": {
+            "runIds": [
+              "dcdc0a0c-b2dc-47b9-969c-ab7539023421"
+            ],
+            "brandId": "tuc-p0-internal"
+          }
+        },
+        {
+          "id": "9e289d94-dd6b-4071-9790-c87d88419957",
+          "name": "process-prompt",
+          "state": "completed",
+          "retry_count": 0,
+          "data": {
+            "promptId": "dccd10d9-350f-43a6-8435-5b45c6fcd22d"
+          }
+        },
+        {
+          "id": "9f1b7878-7a5a-4491-ae41-642f3af1f317",
+          "name": "process-prompt",
+          "state": "completed",
+          "retry_count": 0,
+          "data": {
+            "promptId": "73425cbf-4d26-4987-9581-1f50af73b0bd"
+          }
+        },
+        {
+          "id": "a60c9ab5-e118-4c5e-bae3-5cb07a8d190e",
+          "name": "derive-runs",
+          "state": "completed",
+          "retry_count": 0,
+          "data": {
+            "runIds": [
+              "3ec71cf2-1948-41ac-9086-0fc907ed180f"
+            ],
+            "brandId": "tuc-p0-internal"
+          }
+        },
+        {
+          "id": "a9f2c42a-9994-47a0-a79d-9e7b3f472606",
+          "name": "process-prompt",
+          "state": "completed",
+          "retry_count": 0,
+          "data": {
+            "promptId": "fa434e1c-a443-4575-afdf-a78af0f5bbc7"
+          }
+        },
+        {
+          "id": "ab394e4c-1f57-4200-9d09-3eed576c285d",
+          "name": "request-reprocesses",
+          "state": "cancelled",
+          "retry_count": 0,
+          "data": {
+            "source": "B1_TEST_FIXTURE",
+            "aliases": [
+              "synthetic-b1-alias"
+            ],
+            "brandId": "tuc-p0-internal",
+            "p0BatchId": "20261117T042408Z-B1",
+            "judgeVersion": "synthetic-new-judge"
+          }
+        },
+        {
+          "id": "b961bebd-fa3b-4460-9f16-53d80b6a4e92",
+          "name": "process-prompt",
+          "state": "completed",
+          "retry_count": 0,
+          "data": {
+            "promptId": "8cd62bce-a275-4e1f-9ed9-0299aad2da8a"
+          }
+        },
+        {
+          "id": "ba88ee95-a0aa-4b92-84e6-93fa6d304bb4",
+          "name": "reprocess",
+          "state": "cancelled",
+          "retry_count": 0,
+          "data": {
+            "source": "B1_TEST_FIXTURE",
+            "aliases": [
+              "synthetic-b1-alias"
+            ],
+            "brandId": "tuc-p0-internal",
+            "p0BatchId": "20261117T042408Z-B1",
+            "judgeVersion": "synthetic-new-judge"
+          }
+        },
+        {
+          "id": "c05ca992-846e-4eb3-93ad-89dc42ddc7cf",
+          "name": "derive-runs",
+          "state": "completed",
+          "retry_count": 0,
+          "data": {
+            "runIds": [
+              "bc70d260-2f55-44fd-a5ed-2ce65cfaa3f1"
+            ],
+            "brandId": "tuc-p0-internal"
+          }
+        },
+        {
+          "id": "c3da24bc-5fe0-43d6-9e9b-3a2103798fc9",
+          "name": "rollup-catch-up",
+          "state": "cancelled",
+          "retry_count": 0,
+          "data": {
+            "since": "2026-11-17T00:50:48.966Z"
+          }
+        },
+        {
+          "id": "c5551d7e-552d-46f0-bc89-28d39205b0f8",
+          "name": "derive-runs",
+          "state": "completed",
+          "retry_count": 0,
+          "data": {
+            "runIds": [
+              "7458826b-bab3-4876-afd1-f0904e6b2d17"
+            ],
+            "brandId": "tuc-p0-internal"
+          }
+        },
+        {
+          "id": "c978a361-1ea4-449f-a1e8-6bd9b3cab4b0",
+          "name": "process-prompt",
+          "state": "completed",
+          "retry_count": 0,
+          "data": {
+            "promptId": "dd8402af-96c9-4849-ae66-b155cc07fad0"
+          }
+        },
+        {
+          "id": "d06b6008-8c9e-44e0-8ff6-aa4ff01582d1",
+          "name": "__pgboss__send-it",
+          "state": "completed",
+          "retry_count": 0,
+          "data": {
+            "key": "",
+            "data": {},
+            "name": "request-reprocesses",
+            "slot": "2026-11-17 01:54:00",
+            "options": {
+              "tz": "UTC",
+              "singletonKey": "request-reprocesses"
+            }
+          }
+        },
+        {
+          "id": "d0822240-3f90-4a1e-9273-09c7734b19b9",
+          "name": "refresh-rollups",
+          "state": "completed",
+          "retry_count": 0,
+          "data": {
+            "source": "derive"
+          }
+        },
+        {
+          "id": "d0ffd537-afc4-4fb3-a317-3ecd1f7e9803",
+          "name": "process-prompt",
+          "state": "completed",
+          "retry_count": 0,
+          "data": {
+            "promptId": "611a5e40-392b-47d1-9bd5-ce308abc54b1"
+          }
+        },
+        {
+          "id": "d571913c-6838-426f-b8d8-76f60a1a91da",
+          "name": "process-prompt",
+          "state": "completed",
+          "retry_count": 0,
+          "data": {
+            "promptId": "dfe5b8a4-cd88-411c-9751-a8b60be0138a"
+          }
+        },
+        {
+          "id": "d6049262-bfe7-4162-a8fe-e69569c91382",
+          "name": "process-prompt",
+          "state": "cancelled",
+          "retry_count": 0,
+          "data": {
+            "source": "B1_TEST_FIXTURE",
+            "fixtureState": "active"
+          }
+        },
+        {
+          "id": "ecfe6bb8-bfb3-490d-97b0-bac1b09f820b",
+          "name": "process-prompt",
+          "state": "cancelled",
+          "retry_count": 0,
+          "data": {
+            "source": "B1_TEST_FIXTURE",
+            "aliases": [
+              "synthetic-b1-alias"
+            ],
+            "brandId": "tuc-p0-internal",
+            "p0BatchId": "20261117T042408Z-B1",
+            "judgeVersion": "synthetic-new-judge"
+          }
+        },
+        {
+          "id": "f8a8516f-ed8c-4972-8e93-15c4518c114b",
+          "name": "derive-runs",
+          "state": "completed",
+          "retry_count": 0,
+          "data": {
+            "runIds": [
+              "b094bd25-2060-4db2-93da-4a530a8e3d7c"
+            ],
+            "brandId": "tuc-p0-internal"
+          }
+        },
+        {
+          "id": "fff4411d-6c55-4c18-9486-5beb75306a43",
+          "name": "process-prompt",
+          "state": "cancelled",
+          "retry_count": 0,
+          "data": {
+            "source": "B1_TEST_FIXTURE",
+            "fixtureState": "retry"
+          }
+        }
+      ],
+      "schedules": []
+    }
+  }
+}

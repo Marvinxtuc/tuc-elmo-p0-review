@@ -1,0 +1,52 @@
+apps/worker/src/index.ts:39:16 lint/complexity/noExcessiveCognitiveComplexity ━━━━━━━━━━━━━━━━━━━━━━
+
+  × Excessive complexity of 16 detected (max: 15).
+  
+    37 │ }
+    38 │ 
+  > 39 │ async function main() {
+       │                ^^^^
+    40 │ 	assertP0Runtime();
+    41 │ 	console.log("Starting pg-boss worker...");
+  
+  i Please refactor this function to reduce its complexity score from 16 to the max allowed complexity 15.
+  
+
+apps/worker/src/p0-jobs.ts:20:23 lint/complexity/noExcessiveCognitiveComplexity ━━━━━━━━━━━━━━━━━━━━
+
+  × Excessive complexity of 26 detected (max: 15).
+  
+    18 │ }
+    19 │ 
+  > 20 │ export async function quarantineP0Jobs(boss: PgBoss): Promise<void> {
+       │                       ^^^^^^^^^^^^^^^^
+    21 │ 	let afterQueue: string | undefined;
+    22 │ 	for (;;) {
+  
+  i Please refactor this function to reduce its complexity score from 26 to the max allowed complexity 15.
+  
+
+packages/lib/src/secrets/store.ts:60:23 lint/complexity/noExcessiveCognitiveComplexity ━━━━━━━━━━━━━
+
+  × Excessive complexity of 16 detected (max: 15).
+  
+    58 │ }
+    59 │ 
+  > 60 │ export async function refreshCredentialOverlay(): Promise<void> {
+       │                       ^^^^^^^^^^^^^^^^^^^^^^^^
+    61 │ 	let keyring: Keyring | null = null;
+    62 │ 	try {
+  
+  i Please refactor this function to reduce its complexity score from 16 to the max allowed complexity 15.
+  
+
+Skipped 121 suggested fixes.
+If you wish to apply the suggested (unsafe) fixes, use the command biome check --write --unsafe
+
+Checked 1076 files in 373ms. Fixed 17 files.
+Found 3 errors.
+check ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Some errors were emitted while applying fixes.
+  
+

@@ -1,0 +1,14 @@
+$ vitest run --project=unit p0-policy
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.1.0 [39m[90m<USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo/packages/lib[39m
+
+[90mstderr[2m | src/p0-policy.test.ts[2m > [22m[2mP0 offline request policy[2m > [22m[2mrejects real judge credentials and fallback selection in offline mode
+[22m[39m[mention-judge] TYPESAFE_API_KEY=stub: judging from cue words, not Jev. For tests and development only.
+
+ [32m✓[39m [30m[42m unit [49m[39m src/p0-policy.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m7 passed[39m[22m[90m (7)[39m
+[2m   Start at [22m 12:54:06
+[2m   Duration [22m 658ms[2m (import 91%, transform 7%, tests 2%)[22m
+

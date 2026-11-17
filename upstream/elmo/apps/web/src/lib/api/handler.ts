@@ -8,6 +8,7 @@
  */
 
 import { getDeployment } from "@workspace/deployment";
+import { isP0Offline } from "@workspace/lib/constants";
 import { WriteDeniedError } from "@workspace/lib/entitlements";
 import type { z } from "zod";
 import { type ApiAuth, type ApiAuthFailure, principalScopes, resolveApiAuth } from "@/lib/auth/api-auth";
@@ -196,6 +197,9 @@ export function createApiHandler<
 		if ("failure" in resolved) return authFailureResponse(resolved.failure);
 
 		const auth = resolved.auth;
+		if (isP0Offline() && !["GET", "HEAD", "OPTIONS"].includes(request.method)) {
+			return Response.json({ code: "P0_READ_ONLY" }, { status: 403 });
+		}
 		const refusal = refuseRequest(auth, request, opts);
 		if (refusal) return refusal;
 

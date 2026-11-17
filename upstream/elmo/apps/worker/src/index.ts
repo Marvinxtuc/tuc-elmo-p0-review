@@ -2,7 +2,7 @@ import * as Sentry from "@sentry/node";
 import { assertRequiredEnv } from "@workspace/config/env";
 import { parseScrapeTargets } from "@workspace/config/scrape-targets";
 import { getDeploymentFeatures } from "@workspace/deployment";
-import { isP0Offline } from "@workspace/lib/constants";
+import { assertP0Runtime, isP0Offline } from "@workspace/lib/constants";
 import { db } from "@workspace/lib/db/db";
 import { getProvider, validateScrapeTargets } from "@workspace/lib/providers";
 import { PROCESS_PROMPT_QUEUE, PROMPT_JOB_OPTIONS } from "@workspace/lib/queues/prompt-jobs";
@@ -22,6 +22,7 @@ import {
 } from "./jobs/reprocess";
 import { MAINTENANCE_CRON } from "./jobs/schedule-maintenance";
 import { configureMentionAnalyzer, mentionAnalyzer } from "./mention-judge";
+import { quarantineP0Jobs } from "./p0-jobs";
 import { initializePipeline } from "./rollups-startup";
 import { shutdownTelemetry } from "./telemetry";
 
@@ -36,6 +37,7 @@ async function createOrUpdateQueue(
 }
 
 async function main() {
+	assertP0Runtime();
 	console.log("Starting pg-boss worker...");
 	assertRequiredEnv();
 	const boss = getBoss();
@@ -63,6 +65,13 @@ async function main() {
 
 	await boss.start();
 	console.log("pg-boss started");
+
+	if (isP0Offline()) {
+		await quarantineP0Jobs(boss);
+		await registerHandlers(boss);
+		console.log("All handlers registered, worker is ready");
+		return;
+	}
 
 	// Queue defaults too, so a job sent without them is never retried into a second fan-out.
 	await createOrUpdateQueue(boss, PROCESS_PROMPT_QUEUE, PROMPT_JOB_OPTIONS);
@@ -122,22 +131,7 @@ async function main() {
 	});
 	console.log("Queues created");
 
-	if (isP0Offline()) {
-		for (const name of [
-			"schedule-maintenance",
-			REQUEST_REPROCESSES_QUEUE,
-			REFRESH_ROLLUPS_QUEUE,
-			ROLLUP_CATCH_UP_QUEUE,
-		]) {
-			await boss.unschedule(name);
-			const queued = await boss.findJobs(name, { queued: true });
-			if (queued.length > 0)
-				await boss.cancel(
-					name,
-					queued.map((job) => job.id),
-				);
-		}
-	} else {
+	{
 		await boss.schedule("schedule-maintenance", MAINTENANCE_CRON, { source: "scheduled" }, { tz: "UTC" });
 		console.log("Scheduled maintenance job (every 5 minutes)");
 

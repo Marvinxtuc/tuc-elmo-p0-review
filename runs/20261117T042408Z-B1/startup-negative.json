@@ -1,0 +1,50 @@
+[
+  {
+    "label": "startup-default-no-app-env",
+    "exit_code": 0,
+    "assertion": "PASS",
+    "evidence": "logs/startup-default-no-app-env.log"
+  },
+  {
+    "label": "startup-conflict-offline",
+    "exit_code": 1,
+    "assertion": "PASS",
+    "evidence": "logs/startup-conflict-offline.log"
+  },
+  {
+    "label": "startup-conflict-provider",
+    "exit_code": 1,
+    "assertion": "PASS",
+    "evidence": "logs/startup-conflict-provider.log"
+  },
+  {
+    "label": "startup-conflict-judge",
+    "exit_code": 1,
+    "assertion": "PASS",
+    "evidence": "logs/startup-conflict-judge.log"
+  },
+  {
+    "label": "startup-conflict-fanout",
+    "exit_code": 1,
+    "assertion": "PASS",
+    "evidence": "logs/startup-conflict-fanout.log"
+  },
+  {
+    "label": "startup-direct-worker",
+    "exit_code": 1,
+    "assertion": "PASS",
+    "evidence": "logs/startup-direct-worker.log"
+  },
+  {
+    "label": "startup-direct-cli",
+    "exit_code": 1,
+    "assertion": "PASS",
+    "evidence": "logs/startup-direct-cli.log"
+  },
+  {
+    "label": "startup-cli-research",
+    "exit_code": 1,
+    "assertion": "PASS",
+    "evidence": "logs/startup-cli-research.log"
+  }
+]

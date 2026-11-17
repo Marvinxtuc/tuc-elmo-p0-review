@@ -1,0 +1,130 @@
+apps/worker/src/p0-generation.test.ts:3:25 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Declarations inside of a `import` declaration may not have duplicates
+  
+    1 │ import { afterEach, expect, it, vi } from "vitest";
+    2 │ import { analyzeBrandJob } from "./jobs/analyze-brand";
+  > 3 │ import { deriveRunsJob, deriveRunsJob } from "./jobs/derive-runs";
+      │                         ^^^^^^^^^^^^^
+    4 │ import { generateReportJob } from "./jobs/generate-report";
+    5 │ import { processPromptJob, processPromptJob } from "./jobs/process-prompt";
+  
+  i a second declaration of `deriveRunsJob` is not allowed
+  
+    1 │ import { afterEach, expect, it, vi } from "vitest";
+    2 │ import { analyzeBrandJob } from "./jobs/analyze-brand";
+  > 3 │ import { deriveRunsJob, deriveRunsJob } from "./jobs/derive-runs";
+      │                         ^^^^^^^^^^^^^
+    4 │ import { generateReportJob } from "./jobs/generate-report";
+    5 │ import { processPromptJob, processPromptJob } from "./jobs/process-prompt";
+  
+  i `deriveRunsJob` is first declared here
+  
+    1 │ import { afterEach, expect, it, vi } from "vitest";
+    2 │ import { analyzeBrandJob } from "./jobs/analyze-brand";
+  > 3 │ import { deriveRunsJob, deriveRunsJob } from "./jobs/derive-runs";
+      │          ^^^^^^^^^^^^^
+    4 │ import { generateReportJob } from "./jobs/generate-report";
+    5 │ import { processPromptJob, processPromptJob } from "./jobs/process-prompt";
+  
+
+apps/worker/src/p0-generation.test.ts:5:28 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Declarations inside of a `import` declaration may not have duplicates
+  
+    3 │ import { deriveRunsJob, deriveRunsJob } from "./jobs/derive-runs";
+    4 │ import { generateReportJob } from "./jobs/generate-report";
+  > 5 │ import { processPromptJob, processPromptJob } from "./jobs/process-prompt";
+      │                            ^^^^^^^^^^^^^^^^
+    6 │ import { reprocessJob, reprocessJob, requestReprocessesJob, requestReprocessesJob } from "./jobs/reprocess";
+    7 │ import { suggestPromptsJob } from "./jobs/suggest-prompts";
+  
+  i a second declaration of `processPromptJob` is not allowed
+  
+    3 │ import { deriveRunsJob, deriveRunsJob } from "./jobs/derive-runs";
+    4 │ import { generateReportJob } from "./jobs/generate-report";
+  > 5 │ import { processPromptJob, processPromptJob } from "./jobs/process-prompt";
+      │                            ^^^^^^^^^^^^^^^^
+    6 │ import { reprocessJob, reprocessJob, requestReprocessesJob, requestReprocessesJob } from "./jobs/reprocess";
+    7 │ import { suggestPromptsJob } from "./jobs/suggest-prompts";
+  
+  i `processPromptJob` is first declared here
+  
+    3 │ import { deriveRunsJob, deriveRunsJob } from "./jobs/derive-runs";
+    4 │ import { generateReportJob } from "./jobs/generate-report";
+  > 5 │ import { processPromptJob, processPromptJob } from "./jobs/process-prompt";
+      │          ^^^^^^^^^^^^^^^^
+    6 │ import { reprocessJob, reprocessJob, requestReprocessesJob, requestReprocessesJob } from "./jobs/reprocess";
+    7 │ import { suggestPromptsJob } from "./jobs/suggest-prompts";
+  
+
+apps/worker/src/p0-generation.test.ts:6:24 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Declarations inside of a `import` declaration may not have duplicates
+  
+    4 │ import { generateReportJob } from "./jobs/generate-report";
+    5 │ import { processPromptJob, processPromptJob } from "./jobs/process-prompt";
+  > 6 │ import { reprocessJob, reprocessJob, requestReprocessesJob, requestReprocessesJob } from "./jobs/reprocess";
+      │                        ^^^^^^^^^^^^
+    7 │ import { suggestPromptsJob } from "./jobs/suggest-prompts";
+    8 │ 
+  
+  i a second declaration of `reprocessJob` is not allowed
+  
+    4 │ import { generateReportJob } from "./jobs/generate-report";
+    5 │ import { processPromptJob, processPromptJob } from "./jobs/process-prompt";
+  > 6 │ import { reprocessJob, reprocessJob, requestReprocessesJob, requestReprocessesJob } from "./jobs/reprocess";
+      │                        ^^^^^^^^^^^^
+    7 │ import { suggestPromptsJob } from "./jobs/suggest-prompts";
+    8 │ 
+  
+  i `reprocessJob` is first declared here
+  
+    4 │ import { generateReportJob } from "./jobs/generate-report";
+    5 │ import { processPromptJob, processPromptJob } from "./jobs/process-prompt";
+  > 6 │ import { reprocessJob, reprocessJob, requestReprocessesJob, requestReprocessesJob } from "./jobs/reprocess";
+      │          ^^^^^^^^^^^^
+    7 │ import { suggestPromptsJob } from "./jobs/suggest-prompts";
+    8 │ 
+  
+
+apps/worker/src/p0-generation.test.ts:6:61 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Declarations inside of a `import` declaration may not have duplicates
+  
+    4 │ import { generateReportJob } from "./jobs/generate-report";
+    5 │ import { processPromptJob, processPromptJob } from "./jobs/process-prompt";
+  > 6 │ import { reprocessJob, reprocessJob, requestReprocessesJob, requestReprocessesJob } from "./jobs/reprocess";
+      │                                                             ^^^^^^^^^^^^^^^^^^^^^
+    7 │ import { suggestPromptsJob } from "./jobs/suggest-prompts";
+    8 │ 
+  
+  i a second declaration of `requestReprocessesJob` is not allowed
+  
+    4 │ import { generateReportJob } from "./jobs/generate-report";
+    5 │ import { processPromptJob, processPromptJob } from "./jobs/process-prompt";
+  > 6 │ import { reprocessJob, reprocessJob, requestReprocessesJob, requestReprocessesJob } from "./jobs/reprocess";
+      │                                                             ^^^^^^^^^^^^^^^^^^^^^
+    7 │ import { suggestPromptsJob } from "./jobs/suggest-prompts";
+    8 │ 
+  
+  i `requestReprocessesJob` is first declared here
+  
+    4 │ import { generateReportJob } from "./jobs/generate-report";
+    5 │ import { processPromptJob, processPromptJob } from "./jobs/process-prompt";
+  > 6 │ import { reprocessJob, reprocessJob, requestReprocessesJob, requestReprocessesJob } from "./jobs/reprocess";
+      │                                      ^^^^^^^^^^^^^^^^^^^^^
+    7 │ import { suggestPromptsJob } from "./jobs/suggest-prompts";
+    8 │ 
+  
+
+Skipped 124 suggested fixes.
+If you wish to apply the suggested (unsafe) fixes, use the command biome check --write --unsafe
+
+Checked 1077 files in 384ms. Fixed 2 files.
+Found 4 errors.
+check ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Some errors were emitted while applying fixes.
+  
+

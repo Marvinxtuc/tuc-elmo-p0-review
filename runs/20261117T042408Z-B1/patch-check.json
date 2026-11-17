@@ -1,0 +1,5 @@
+{
+  "reverse_apply_check": "PASS",
+  "source_hashes_match": true,
+  "patch_sha256_matches": true
+}

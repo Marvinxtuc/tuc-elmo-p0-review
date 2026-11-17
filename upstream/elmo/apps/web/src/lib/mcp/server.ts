@@ -2,8 +2,10 @@
  * Stateless: a fresh server per POST, because the request that opens a session
  * and the one that uses it need not land on the same instance.
  */
+
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { WebStandardStreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/webStandardStreamableHttp.js";
+import { isP0Offline } from "@workspace/lib/constants";
 import { ApiError } from "@/lib/api/handler";
 import type { Principal } from "@/lib/auth/api-auth";
 import { type McpTool, toolsFor } from "./tools";
@@ -63,6 +65,9 @@ export function createMcpServer(auth: Principal, tools: readonly McpTool[]): Mcp
 				},
 			},
 			async (args: Record<string, unknown>) => {
+				if (isP0Offline() && !tool.readOnly) {
+					return { content: [{ type: "text" as const, text: "P0_READ_ONLY" }], isError: true };
+				}
 				try {
 					const result = await tool.run(context, args);
 					// Text rather than `structuredContent`: an output schema per tool is a

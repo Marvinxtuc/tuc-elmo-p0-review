@@ -1,3 +1,4 @@
+import { isP0Offline } from "@workspace/lib/constants";
 import { analyzeBrand, type OnboardingSuggestion } from "@workspace/lib/onboarding";
 import type { Job } from "pg-boss";
 
@@ -21,6 +22,7 @@ export interface AnalyzeBrandData {
  * one job and the returned suggestion becomes that job's output.
  */
 export async function analyzeBrandJob(jobs: Job<AnalyzeBrandData>[]): Promise<OnboardingSuggestion> {
+	if (isP0Offline()) throw new Error("P0 rejects unapproved generation jobs before side effects");
 	const [job] = jobs;
 	if (!job) {
 		throw new Error("analyze-brand handler received an empty batch");

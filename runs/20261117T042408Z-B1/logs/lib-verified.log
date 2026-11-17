@@ -1,0 +1,187 @@
+$ vitest run --project=unit
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.1.0 [39m[90m<USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo/packages/lib[39m
+
+ [32m✓[39m [30m[42m unit [49m[39m src/secrets/crypto.test.ts [2m([22m[2m21 tests[22m[2m)[22m[32m 57[2mms[22m[39m
+[90mstderr[2m | src/mention-judge/analyze.test.ts[2m > [22m[2mcreateMentionAnalyzer[2m > [22m[2mstamps the stub's judgements apart from Jev's, so a real key re-judges them
+[22m[39m[mention-judge] TYPESAFE_API_KEY=stub: judging from cue words, not Jev. For tests and development only.
+
+[90mstdout[2m | src/mention-judge/analyze.test.ts[2m > [22m[2mcreateMentionAnalyzer[2m > [22m[2mcalls Jev through OpenRouter, with OpenRouter's model name, when that's the only key
+[22m[39m[mention-judge] No TYPESAFE_API_KEY: calling Jev through OpenRouter, billed to OPENROUTER_API_KEY.
+
+[90mstdout[2m | src/mention-judge/analyze.test.ts[2m > [22m[2mcreateMentionAnalyzer[2m > [22m[2mstops at a rejected OpenRouter key without trying TypeSafe
+[22m[39m[mention-judge] No TYPESAFE_API_KEY: calling Jev through OpenRouter, billed to OPENROUTER_API_KEY.
+
+[90mstdout[2m | src/mention-judge/analyze.test.ts[2m > [22m[2mcreateMentionAnalyzer[2m > [22m[2mkeeps judgements made through TypeSafe after switching to OpenRouter
+[22m[39m[mention-judge] No TYPESAFE_API_KEY: calling Jev through OpenRouter, billed to OPENROUTER_API_KEY.
+
+[90mstderr[2m | src/mention-judge/analyze.test.ts[2m > [22m[2mcreateMentionAnalyzer[2m > [22m[2mjudges locally with the stub key, calling no one
+[22m[39m[mention-judge] TYPESAFE_API_KEY=stub: judging from cue words, not Jev. For tests and development only.
+
+ [32m✓[39m [30m[42m unit [49m[39m src/mention-judge/analyze.test.ts [2m([22m[2m21 tests[22m[2m)[22m[32m 76[2mms[22m[39m
+[90mstderr[2m | src/website-excerpt.test.ts[2m > [22m[2mgetWebsiteExcerpt[2m > [22m[2mpreserves an absolute page URL through both excerpt sources
+[22m[39m[website-excerpt] jina returned no content for https://www.nike.com/golf?category=clubs#featured
+
+[90mstderr[2m | src/website-excerpt.test.ts[2m > [22m[2mgetWebsiteExcerpt[2m > [22m[2mfalls back to backend fetch + Readability when Jina is blocked (401)
+[22m[39m[website-excerpt] jina returned no content for https://acme.com
+
+[90mstderr[2m | src/website-excerpt.test.ts[2m > [22m[2mgetWebsiteExcerpt[2m > [22m[2mcontinues past Jina when it throws (network error)
+[22m[39m[website-excerpt] jina failed for https://acme.com: Error: network down
+    at [90m<USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo/packages/lib/[39msrc/website-excerpt.test.ts:127:52
+    at Mock (file://<USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo/node_modules/[4m.pnpm[24m/vitest@5.1.0_@opentelemetry+api@1.9.1_@types+node@26.6.6_@vitest+browser-playwright@5.1_6199c7d23a9b280d65281d2e2f190ca6/node_modules/[4mvitest[24m/dist/chunks/spy.DDMXghXv.js:353:40)
+    at fromJina [90m(<USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo/packages/lib/[39msrc/website-excerpt.ts:51:25[90m)[39m
+    at Object.fetch [90m(<USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo/packages/lib/[39msrc/website-excerpt.ts:24:32[90m)[39m
+    at getWebsiteExcerpt [90m(<USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo/packages/lib/[39msrc/website-excerpt.ts:30:33[90m)[39m
+    at [90m<USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo/packages/lib/[39msrc/website-excerpt.test.ts:132:16
+    at file://<USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo/node_modules/[4m.pnpm[24m/vitest@5.1.0_@opentelemetry+api@1.9.1_@types+node@26.6.6_@vitest+browser-playwright@5.1_6199c7d23a9b280d65281d2e2f190ca6/node_modules/[4mvitest[24m/dist/chunks/run.CjdgFZiW.js:1632:35
+    at file://<USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo/node_modules/[4m.pnpm[24m/vitest@5.1.0_@opentelemetry+api@1.9.1_@types+node@26.6.6_@vitest+browser-playwright@5.1_6199c7d23a9b280d65281d2e2f190ca6/node_modules/[4mvitest[24m/dist/chunks/run.CjdgFZiW.js:2801:26
+    at file://<USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo/node_modules/[4m.pnpm[24m/vitest@5.1.0_@opentelemetry+api@1.9.1_@types+node@26.6.6_@vitest+browser-playwright@5.1_6199c7d23a9b280d65281d2e2f190ca6/node_modules/[4mvitest[24m/dist/chunks/run.CjdgFZiW.js:3338:20
+    at new Promise (<anonymous>)
+
+[90mstderr[2m | src/website-excerpt.test.ts[2m > [22m[2mgetWebsiteExcerpt[2m > [22m[2mreturns an empty string when both tiers fail
+[22m[39m[website-excerpt] jina returned no content for https://acme.com
+
+[90mstderr[2m | src/website-excerpt.test.ts[2m > [22m[2mgetWebsiteExcerpt[2m > [22m[2mreturns an empty string when both tiers fail
+[22m[39m[website-excerpt] readability returned no content for https://acme.com
+[website-excerpt] all sources failed for https://acme.com
+
+[90mstderr[2m | src/website-excerpt.test.ts[2m > [22m[2mgetWebsiteExcerpt[2m > [22m[2mstops reading a site that sends an endless body
+[22m[39m[website-excerpt] jina returned no content for https://acme.com
+
+[90mstderr[2m | src/text-extraction.test.ts[2m > [22m[2mtext-extraction[2m > [22m[2mtryExtractTextContent[2m > [22m[2mreports no text when a payload cannot be parsed
+[22m[39mError extracting text content: SyntaxError: Expected property name or '}' in JSON at position 1 (line 1 column 2)
+    at JSON.parse (<anonymous>)
+    at [90m<USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo/packages/lib/[39msrc/text-extraction.ts:157:54
+    at firstText [90m(<USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo/packages/lib/[39msrc/text-extraction.ts:8:17[90m)[39m
+    at extractTextFromOlostep [90m(<USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo/packages/lib/[39msrc/text-extraction.ts:154:9[90m)[39m
+    at extractTextContent [90m(<USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo/packages/lib/[39msrc/text-extraction.ts:330:67[90m)[39m
+    at tryExtractTextContent [90m(<USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo/packages/lib/[39msrc/text-extraction.ts:374:22[90m)[39m
+    at [90m<USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo/packages/lib/[39msrc/text-extraction.test.ts:348:11
+    at file://<USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo/node_modules/[4m.pnpm[24m/vitest@5.1.0_@opentelemetry+api@1.9.1_@types+node@26.6.6_@vitest+browser-playwright@5.1_6199c7d23a9b280d65281d2e2f190ca6/node_modules/[4mvitest[24m/dist/chunks/run.CjdgFZiW.js:1632:35
+    at file://<USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo/node_modules/[4m.pnpm[24m/vitest@5.1.0_@opentelemetry+api@1.9.1_@types+node@26.6.6_@vitest+browser-playwright@5.1_6199c7d23a9b280d65281d2e2f190ca6/node_modules/[4mvitest[24m/dist/chunks/run.CjdgFZiW.js:2801:26
+    at file://<USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo/node_modules/[4m.pnpm[24m/vitest@5.1.0_@opentelemetry+api@1.9.1_@types+node@26.6.6_@vitest+browser-playwright@5.1_6199c7d23a9b280d65281d2e2f190ca6/node_modules/[4mvitest[24m/dist/chunks/run.CjdgFZiW.js:3338:20
+
+ [32m✓[39m [30m[42m unit [49m[39m src/text-extraction.test.ts [2m([22m[2m88 tests[22m[2m)[22m[32m 16[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/website-excerpt.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 147[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/mention-judge/clean.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 26[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/secrets/store.test.ts [2m([22m[2m19 tests[22m[2m)[22m[32m 47[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/providers/registry/searchapi.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 48[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/auth/client-registration.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 107[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/providers/registry/brightdata.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 74[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/providers/registry/sdk-contract.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 17[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/providers/registry/cloro.test.ts [2m([22m[2m17 tests[22m[2m)[22m[32m 190[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/mention-judge/passages.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 14[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/citations/domain-categories.test.ts [2m([22m[2m40 tests[22m[2m)[22m[32m 20[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/rollups/dirty.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/entitlements/guards.test.ts [2m([22m[2m37 tests[22m[2m)[22m[32m 37[2mms[22m[39m
+[90mstdout[2m | src/onboarding/analyze.test.ts[2m > [22m[2manalyzeBrand[2m > [22m[2muses the full page URL for analysis while retaining the domain identity
+[22m[39m[onboarding] analyzeBrand start: https://www.nike.com/golf?category=clubs#featured
+
+[90mstdout[2m | src/onboarding/analyze.test.ts[2m > [22m[2manalyzeBrand[2m > [22m[2muses the full page URL for analysis while retaining the domain identity
+[22m[39m[onboarding] analyzeBrand done: https://www.nike.com/golf?category=clubs#featured in 1ms (tracking="nike.com", brand="Nike Golf", competitors=0, prompts=0)
+
+[90mstdout[2m | src/onboarding/analyze.test.ts[2m > [22m[2manalyzeBrand[2m > [22m[2mscopes a sub-page to its own brand without moving the tracked domain
+[22m[39m[onboarding] analyzeBrand start: https://www.nike.com/golf
+
+[90mstdout[2m | src/onboarding/analyze.test.ts[2m > [22m[2manalyzeBrand[2m > [22m[2mscopes a sub-page to its own brand without moving the tracked domain
+[22m[39m[onboarding] analyzeBrand done: https://www.nike.com/golf in 0ms (tracking="nike.com", brand="Nike Golf", competitors=1, prompts=1)
+
+[90mstdout[2m | src/onboarding/analyze.test.ts[2m > [22m[2manalyzeBrand[2m > [22m[2mkeeps the caller's brand name when the model answers with the parent brand
+[22m[39m[onboarding] analyzeBrand start: nike.com
+
+[90mstdout[2m | src/onboarding/analyze.test.ts[2m > [22m[2manalyzeBrand[2m > [22m[2mkeeps the caller's brand name when the model answers with the parent brand
+[22m[39m[onboarding] analyzeBrand done: https://nike.com/ in 1ms (tracking="nike.com", brand="Nike Golf", competitors=0, prompts=0)
+
+[90mstdout[2m | src/onboarding/analyze.test.ts[2m > [22m[2manalyzeBrand[2m > [22m[2mkeeps aliases that only contain the brand name inside a longer word
+[22m[39m[onboarding] analyzeBrand start: acme.com
+
+[90mstdout[2m | src/onboarding/analyze.test.ts[2m > [22m[2manalyzeBrand[2m > [22m[2mkeeps aliases that only contain the brand name inside a longer word
+[22m[39m[onboarding] analyzeBrand done: https://acme.com/ in 2ms (tracking="acme.com", brand="Acme", competitors=0, prompts=0)
+
+[90mstdout[2m | src/onboarding/analyze.test.ts[2m > [22m[2manalyzeBrand[2m > [22m[2mtakes the model's brand name when the caller supplied none
+[22m[39m[onboarding] analyzeBrand start: acmecorp.com
+
+[90mstdout[2m | src/onboarding/analyze.test.ts[2m > [22m[2manalyzeBrand[2m > [22m[2mtakes the model's brand name when the caller supplied none
+[22m[39m[onboarding] analyzeBrand done: https://acmecorp.com/ in 0ms (tracking="acmecorp.com", brand="Acme", competitors=0, prompts=0)
+
+[90mstdout[2m | src/onboarding/analyze.test.ts[2m > [22m[2manalyzeBrand[2m > [22m[2mnormalizes brand fields, dedupes domains, and filters self-referential competitors
+[22m[39m[onboarding] analyzeBrand start: https://www.acme.com
+
+[90mstdout[2m | src/onboarding/analyze.test.ts[2m > [22m[2manalyzeBrand[2m > [22m[2mnormalizes brand fields, dedupes domains, and filters self-referential competitors
+[22m[39m[onboarding] analyzeBrand done: https://www.acme.com/ in 2ms (tracking="acme.com", brand="Acme", competitors=1, prompts=2)
+
+[90mstdout[2m | src/onboarding/analyze.test.ts[2m > [22m[2manalyzeBrand[2m > [22m[2mfalls back to inferred brand name when LLM omits it
+[22m[39m[onboarding] analyzeBrand start: nike.com
+
+[90mstdout[2m | src/onboarding/analyze.test.ts[2m > [22m[2manalyzeBrand[2m > [22m[2mfalls back to inferred brand name when LLM omits it
+[22m[39m[onboarding] analyzeBrand done: https://nike.com/ in 0ms (tracking="nike.com", brand="Nike", competitors=0, prompts=0)
+
+[90mstdout[2m | src/onboarding/analyze.test.ts[2m > [22m[2manalyzeBrand[2m > [22m[2mrespects maxCompetitors=0 / maxPrompts=0
+[22m[39m[onboarding] analyzeBrand start: acme.com
+
+[90mstdout[2m | src/onboarding/analyze.test.ts[2m > [22m[2manalyzeBrand[2m > [22m[2mrespects maxCompetitors=0 / maxPrompts=0
+[22m[39m[onboarding] analyzeBrand done: https://acme.com/ in 0ms (tracking="acme.com", brand="Acme", competitors=0, prompts=0)
+
+[90mstdout[2m | src/onboarding/analyze.test.ts[2m > [22m[2manalyzeBrand[2m > [22m[2mcaps competitors and prompts at the requested maxes
+[22m[39m[onboarding] analyzeBrand start: acme.com
+
+[90mstdout[2m | src/onboarding/analyze.test.ts[2m > [22m[2manalyzeBrand[2m > [22m[2mcaps competitors and prompts at the requested maxes
+[22m[39m[onboarding] analyzeBrand done: https://acme.com/ in 0ms (tracking="acme.com", brand="Acme", competitors=3, prompts=5)
+
+ [32m✓[39m [30m[42m unit [49m[39m src/onboarding/analyze.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 13[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/report-metrics.test.ts [2m([22m[2m49 tests[22m[2m)[22m[32m 16[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/providers/registry/oxylabs.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 34[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/mentions.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/tag-utils.test.ts [2m([22m[2m42 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/providers/registry/dataforseo.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 13[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/providers/registry/openai-api.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/providers/registry/anthropic-api.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/entitlements/service.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/reports/lifecycle.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/rollups/chunk.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/brand-state.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/providers/registry/poll-task.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/run-backoff.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/expedite.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/db/unique-names.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+[90mstderr[2m | src/p0-policy.test.ts[2m > [22m[2mP0 offline request policy[2m > [22m[2mrejects real judge credentials and fallback selection in offline mode
+[22m[39m[mention-judge] TYPESAFE_API_KEY=stub: judging from cue words, not Jev. For tests and development only.
+
+ [32m✓[39m [30m[42m unit [49m[39m src/p0-policy.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 15[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/providers/registry/openrouter.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/rollups/bucket.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/auth/permissions.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+[90mstderr[2m | src/run-policy/policy.test.ts
+[22m[39mSCRAPE_TARGETS: skipping "perplexity:brightdata:online". Perplexity now requires a login, so no scraper can reach it, but its Sonar model API still works. Replace it with perplexity:openrouter:perplexity/sonar:online or perplexity:dataforseo:online. See https://www.elmohq.com/docs/user-guide/providers.
+
+ [32m✓[39m [30m[42m unit [49m[39m src/run-policy/policy.test.ts [2m([22m[2m51 tests[22m[2m)[22m[32m 14[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/run-policy/maintenance.test.ts [2m([22m[2m19 tests[22m[2m)[22m[32m 15[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/providers/registry/scrape-shared.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/usage/cost.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/onboarding/utils.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 21[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/auth/redirect-uri.test.ts [2m([22m[2m21 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/citations/page-classification.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/app-urls.test.ts [2m([22m[2m20 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/bulk-prompts.test.ts [2m([22m[2m19 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/providers/config.test.ts [2m([22m[2m41 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/onboarding/suggest-prompts.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/providers/runner.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/constants.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/providers/registry/mistral-api.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/run-policy/cycle.test.ts [2m([22m[2m15 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/onboarding/llm.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/providers/coverage.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 13[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/mention-judge/jev.test.ts [2m([22m[2m15 tests[22m[2m)[22m[33m 3288[2mms[22m[39m
+   [32m✓[39m adaptivePool [2m(5)[22m
+     [33m[2m✓[22m[39m keeps close to the account's limit, and follows it down without dropping calls[33m 3247[2mms[22m[39m
+[90mstderr[2m | src/run-policy/brand-plans.test.ts
+[22m[39mSCRAPE_TARGETS: skipping "perplexity:brightdata:online". Perplexity now requires a login, so no scraper can reach it, but its Sonar model API still works. Replace it with perplexity:openrouter:perplexity/sonar:online or perplexity:dataforseo:online. See https://www.elmohq.com/docs/user-guide/providers.
+
+ [32m✓[39m [30m[42m unit [49m[39m src/run-policy/brand-plans.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/scheduling-under-failure.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m55 passed[39m[22m[90m (55)[39m
+[2m      Tests [22m [1m[32m863 passed[39m[22m[90m (863)[39m
+[2m   Start at [22m 12:50:32
+[2m   Duration [22m 3.47s[2m (import 77%, tests 19%, transform 4%, worker 1%)[22m
+

@@ -1,5 +1,23 @@
 export function isP0Offline(): boolean {
-	return typeof process !== "undefined" && process.env.TUC_P0_OFFLINE === "1";
+	if (typeof process === "undefined") return true;
+	const policy = (globalThis as Record<symbol, { stage?: string } | undefined>)[Symbol.for("tuc.p0.policy-loaded")];
+	return process.env.TUC_P0_STAGE !== "quality" || policy?.stage !== "quality" || process.env.TUC_P0_OFFLINE !== "0";
+}
+
+export function assertP0Runtime(): void {
+	const policy = (globalThis as Record<symbol, unknown>)[Symbol.for("tuc.p0.policy-loaded")];
+	if (
+		!policy ||
+		process.env.RUNS_PER_PROMPT !== "1" ||
+		process.env.DEPLOYMENT_MODE !== "local" ||
+		process.env.TUC_P0_STAGE !== "runtime" ||
+		process.env.TUC_P0_OFFLINE !== "1" ||
+		process.env.SCRAPE_TARGETS !== "stub:stub" ||
+		process.env.ONBOARDING_LLM_TARGET !== "stub:stub" ||
+		process.env.TYPESAFE_API_KEY !== "stub"
+	) {
+		throw new Error("P0 runtime requires the enforced offline launcher and stub configuration");
+	}
 }
 
 export const RUNS_PER_PROMPT_FALLBACK = 5;

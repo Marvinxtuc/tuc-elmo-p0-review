@@ -5,6 +5,7 @@ import {
 	extractCitationsFromGoogle,
 } from "../../text-extraction";
 import { reportedWebQueries } from "../config";
+import { guardProvider } from "../p0";
 import type { ModelConfig, Provider, ProviderAccess, ProviderOptions, ScrapeResult } from "../types";
 import {
 	assertPromptLength,
@@ -236,7 +237,7 @@ async function runLlmScraper(model: keyof typeof SCRAPER_CALLS, prompt: string):
 	};
 }
 
-export const dataforseo: Provider = {
+export const dataforseo: Provider = guardProvider({
 	id: "dataforseo",
 	name: "DataForSEO",
 	access: "scraped",
@@ -274,4 +275,4 @@ export const dataforseo: Provider = {
 		}
 		throw new Error(`DataForSEO: unsupported model "${model}". Supported: ${[...SUPPORTED_MODELS].join(", ")}`);
 	},
-};
+});

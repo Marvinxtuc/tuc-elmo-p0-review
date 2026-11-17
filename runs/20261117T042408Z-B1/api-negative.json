@@ -1,0 +1,50 @@
+[
+  {
+    "at_utc": "2026-11-17T04:49:11.006289+00:00",
+    "route": "/api/v1/brands",
+    "status": 403,
+    "body": {
+      "code": "P0_READ_ONLY"
+    }
+  },
+  {
+    "at_utc": "2026-11-17T04:49:11.573550+00:00",
+    "route": "/api/v1/prompts",
+    "status": 403,
+    "body": {
+      "code": "P0_READ_ONLY"
+    }
+  },
+  {
+    "at_utc": "2026-11-17T04:49:12.085943+00:00",
+    "route": "/api/v1/reports",
+    "status": 403,
+    "body": {
+      "code": "P0_READ_ONLY"
+    }
+  },
+  {
+    "at_utc": "2026-11-17T04:49:13.185465+00:00",
+    "route": "/api/auth/sign-in/email",
+    "status": 403,
+    "body": {
+      "code": "P0_READ_ONLY"
+    }
+  },
+  {
+    "at_utc": "2026-11-17T04:49:14.163910+00:00",
+    "route": "/_server/onboarding",
+    "status": 403,
+    "body": {
+      "code": "P0_READ_ONLY"
+    }
+  },
+  {
+    "at_utc": "2026-11-17T04:49:14.391332+00:00",
+    "route": "/api/v1/opportunities",
+    "status": 403,
+    "body": {
+      "code": "P0_READ_ONLY"
+    }
+  }
+]

@@ -1,5 +1,6 @@
 import { getCredential } from "../../secrets";
 import { API_PROVIDER_MAX_OUTPUT_TOKENS, configuredWhen, warnIfOutputCapped } from "../config";
+import { guardProvider } from "../p0";
 import type {
 	Provider,
 	ProviderOptions,
@@ -68,7 +69,7 @@ function parseConversationsResponse(data: any): { textContent: string; webQuerie
 	return { textContent: conversationText(data), webQueries: conversationWebQueries(data) };
 }
 
-export const mistralApi: Provider = {
+export const mistralApi: Provider = guardProvider({
 	id: "mistral-api",
 	name: "Mistral API",
 	access: "api",
@@ -134,4 +135,4 @@ export const mistralApi: Provider = {
 			modelVersion: data?.model ?? DEFAULT_RESEARCH_MODEL,
 		};
 	},
-};
+});

@@ -1,0 +1,2 @@
+$ biome check --diagnostic-level=error --config-path=biome.json .
+Checked 1077 files in 216ms. No fixes applied.

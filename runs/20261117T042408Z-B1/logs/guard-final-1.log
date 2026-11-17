@@ -1,0 +1,20 @@
+✔ COST-01 missing approval and live endpoint fail before HTTP (2.675ms)
+✔ COST-02 missing evidence, shared quota, expiry and quota expiry fail closed (7.078667ms)
+✔ COST-03 twenty processes share one atomic slot across all roles (470.9875ms)
+✔ COST-04 input output thinking tools search providerOptions stream and budget limits (23.568583ms)
+✔ PRV-01 PRV-05 and COST-08 bind provider endpoint region model role and credential (12.127125ms)
+✔ COST-05 401 403 429 5xx timeout disconnect redirect unknown usage halt without retry or refund (64.960792ms)
+{"method":"revoke","stopped_within_ms":7}
+{"method":"emergencyStop","stopped_within_ms":8}
+✔ COST-09 revoke and emergency stop cancel in-flight and deny subsequent roles (16.580917ms)
+✔ PRV-06 successful local fixture has explicit empty tools and bounded usage (2.669292ms)
+{"fixture_directory":"<USER_HOME>/Desktop/tuc-elmo-b1/runtime/guard-tests-LKwkru","local_http_hits":14,"real_model_calls":0}
+✔ COST-05 process loss preserves the reservation and halts recovery (42.839292ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 937.696541

@@ -1,0 +1,11 @@
+Failed to start worker: Error: P0 runtime requires the enforced offline launcher and stub configuration
+    at assertP0Runtime (<USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo/packages/lib/src/constants.ts:17:9)
+    at main (<USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo/apps/worker/src/index.ts:40:2)
+    at import_constants (<USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo/apps/worker/src/index.ts:183:1)
+    at Object.<anonymous> (<USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo/apps/worker/src/index.ts:199:40)
+    at Module._compile (node:internal/modules/cjs/loader:1929:14)
+    at Object.transformer (<USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo/node_modules/.pnpm/tsx@4.23.15/node_modules/tsx/dist/register-B1c7OH6V.cjs:22:2188)
+    at Module.load (node:internal/modules/cjs/loader:1651:32)
+    at Module._load (node:internal/modules/cjs/loader:1443:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at loadCJSModuleWithModuleLoad (node:internal/modules/esm/translators:372:15)

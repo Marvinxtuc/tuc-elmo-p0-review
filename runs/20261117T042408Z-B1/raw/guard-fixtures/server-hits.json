@@ -1,0 +1,72 @@
+[
+  {
+    "route": "/ok",
+    "model": "fixture-v1",
+    "tools": []
+  },
+  {
+    "route": "/status/401",
+    "model": "fixture-v1",
+    "tools": []
+  },
+  {
+    "route": "/status/403",
+    "model": "fixture-v1",
+    "tools": []
+  },
+  {
+    "route": "/status/429",
+    "model": "fixture-v1",
+    "tools": []
+  },
+  {
+    "route": "/status/500",
+    "model": "fixture-v1",
+    "tools": []
+  },
+  {
+    "route": "/slow",
+    "model": "fixture-v1",
+    "tools": []
+  },
+  {
+    "route": "/disconnect",
+    "model": "fixture-v1",
+    "tools": []
+  },
+  {
+    "route": "/redirect",
+    "model": "fixture-v1",
+    "tools": []
+  },
+  {
+    "route": "/missing-usage",
+    "model": "fixture-v1",
+    "tools": []
+  },
+  {
+    "route": "/unexpected-tool",
+    "model": "fixture-v1",
+    "tools": []
+  },
+  {
+    "route": "/slow",
+    "model": "fixture-v1",
+    "tools": []
+  },
+  {
+    "route": "/slow",
+    "model": "fixture-v1",
+    "tools": []
+  },
+  {
+    "route": "/ok",
+    "model": "fixture-v1",
+    "tools": []
+  },
+  {
+    "route": "/slow",
+    "model": "fixture-v1",
+    "tools": []
+  }
+]

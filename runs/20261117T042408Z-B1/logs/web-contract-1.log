@@ -1,0 +1,34 @@
+$ vitest run --project=unit src/lib/mcp src/lib/api src/server/__tests__/opportunities
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.1.0 [39m[90m<USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo/apps/web[39m
+
+ [32m✓[39m [30m[42m unit [49m[39m src/lib/api/__tests__/scopes.test.ts [2m([22m[2m17 tests[22m[2m)[22m[32m 3[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/lib/mcp/__tests__/client-summary.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/lib/api/__tests__/openapi.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/lib/api/__tests__/handler.test.ts [2m([22m[2m24 tests[22m[2m)[22m[32m 27[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/lib/api/__tests__/analytics-range.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+[90mstderr[2m | src/lib/mcp/__tests__/auth.test.ts[2m > [22m[2mmcp scopes are not oauth scopes
+[22m[39m2026-11-17T04:44:22.730Z ERROR [Better Auth]: oauth-provider: could not seed `resources` at startup; retrying on first resource access. TypeError: db.insert is not a function
+    at Object.create (file://<USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo/node_modules/[4m.pnpm[24m/@better-auth+drizzle-adapter@1.7.18_@better-auth+core@1.7.18_@better-auth+utils@0.5.1_@_80eed34955ead807cbf4fad49964b393/node_modules/[4m@better-auth/drizzle-adapter[24m/dist/index.mjs:313:24)
+    at file://<USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo/node_modules/[4m.pnpm[24m/@better-auth+core@1.7.18_@better-auth+utils@0.5.1_@better-fetch+fetch@1.3.3_@openteleme_b7f67274173cd10c5b397b02c253b500/node_modules/[4m@better-auth/core[24m/dist/db/adapter/factory.mjs:459:29
+    at file://<USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo/node_modules/[4m.pnpm[24m/@better-auth+core@1.7.18_@better-auth+utils@0.5.1_@better-fetch+fetch@1.3.3_@openteleme_b7f67274173cd10c5b397b02c253b500/node_modules/[4m@better-auth/core[24m/dist/instrumentation/tracer.mjs:37:19
+    at Object.startActiveSpan (file://<USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo/node_modules/[4m.pnpm[24m/@better-auth+core@1.7.18_@better-auth+utils@0.5.1_@better-fetch+fetch@1.3.3_@openteleme_b7f67274173cd10c5b397b02c253b500/node_modules/[4m@better-auth/core[24m/dist/instrumentation/noop.mjs:17:10)
+    at withSpan (file://<USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo/node_modules/[4m.pnpm[24m/@better-auth+core@1.7.18_@better-auth+utils@0.5.1_@better-fetch+fetch@1.3.3_@openteleme_b7f67274173cd10c5b397b02c253b500/node_modules/[4m@better-auth/core[24m/dist/instrumentation/tracer.mjs:35:73)
+    at Object.create (file://<USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo/node_modules/[4m.pnpm[24m/@better-auth+core@1.7.18_@better-auth+utils@0.5.1_@better-fetch+fetch@1.3.3_@openteleme_b7f67274173cd10c5b397b02c253b500/node_modules/[4m@better-auth/core[24m/dist/db/adapter/factory.mjs:456:22)
+[90m    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)[39m
+    at async seedResources (file://<USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo/node_modules/[4m.pnpm[24m/@better-auth+oauth-provider@1.7.18_@better-auth+core@1.7.18_@better-auth+utils@0.5.1_@b_ab97e105f6a96c9368b794ba110f7572/node_modules/[4m@better-auth/oauth-provider[24m/dist/authorize-BzDrbYtI.mjs:1197:4)
+    at async Object.init (file://<USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo/node_modules/[4m.pnpm[24m/@better-auth+oauth-provider@1.7.18_@better-auth+core@1.7.18_@better-auth+utils@0.5.1_@b_ab97e105f6a96c9368b794ba110f7572/node_modules/[4m@better-auth/oauth-provider[24m/dist/authorize-BzDrbYtI.mjs:7132:4)
+    at async runPluginInit (file://<USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo/node_modules/[4m.pnpm[24m/better-auth@1.7.18_@opentelemetry+api@1.9.1_@prisma+client@5.22.0_@tanstack+react-start_37be7c4c7fd434939aab09609688ae4c/node_modules/[4mbetter-auth[24m/dist/context/helpers.mjs:18:40)
+
+ [32m✓[39m [30m[42m unit [49m[39m src/lib/mcp/__tests__/auth.test.ts [2m([22m[2m20 tests[22m[2m)[22m[32m 53[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/server/__tests__/opportunities-dedupe.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/lib/api/__tests__/v1-route-conformance.test.ts [2m([22m[2m135 tests[22m[2m)[22m[32m 17[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/lib/mcp/__tests__/tools.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/lib/mcp/__tests__/server.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 19[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/lib/mcp/__tests__/tenancy.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m11 passed[39m[22m[90m (11)[39m
+[2m      Tests [22m [1m[32m261 passed[39m[22m[90m (261)[39m
+[2m   Start at [22m 12:44:21
+[2m   Duration [22m 1.68s[2m (import 69%, transform 29%, tests 2%)[22m
+

@@ -11,6 +11,7 @@ import {
 	reportedWebQueries,
 	warnIfOutputCapped,
 } from "../config";
+import { guardProvider } from "../p0";
 import type {
 	Provider,
 	ProviderOptions,
@@ -59,6 +60,7 @@ async function runOpenAI(prompt: string, model: string, options?: ProviderOption
 	const webSearch = options?.webSearch === true;
 
 	const result = await generateText({
+		maxRetries: 0,
 		// Routed through getOpenAIResponsesModel (not the bare `openai` global,
 		// which reads process.env internally) so overlay credentials apply here.
 		model: getOpenAIResponsesModel(model),
@@ -91,7 +93,7 @@ async function runOpenAI(prompt: string, model: string, options?: ProviderOption
 	};
 }
 
-export const openaiApi: Provider = {
+export const openaiApi: Provider = guardProvider({
 	id: "openai-api",
 	name: "OpenAI API",
 	access: "api",
@@ -123,4 +125,4 @@ export const openaiApi: Provider = {
 		});
 		return { object, modelVersion: DEFAULT_RESEARCH_MODEL };
 	},
-};
+});

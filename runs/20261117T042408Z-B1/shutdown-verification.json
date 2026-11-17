@@ -1,0 +1,12 @@
+{
+  "listeners": {
+    "17300": false,
+    "17332": false,
+    "17440": false,
+    "17441": false,
+    "17442": false
+  },
+  "active_recorded_processes": [],
+  "vm_stop_evidence": "logs/colima-stop.log",
+  "second_stop_verified": true
+}

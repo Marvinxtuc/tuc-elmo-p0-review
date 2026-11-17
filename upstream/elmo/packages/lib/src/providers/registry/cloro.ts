@@ -1,6 +1,7 @@
 import { getCredential } from "../../secrets";
 import { type Citation, cloroAnswer, extractCitationsFromCloro } from "../../text-extraction";
 import { configuredWhen, reportedWebQueries } from "../config";
+import { guardProvider } from "../p0";
 import type { ModelConfig, Provider, ScrapeResult } from "../types";
 import { pollTask, type TaskState } from "./poll-task";
 import { failureDetails, isTransientStatus, queriesFromKeys, responseError } from "./scrape-shared";
@@ -126,7 +127,7 @@ async function runAsyncTask(taskType: string, payload: Record<string, any>): Pro
 
 const CLORO_QUERY_KEYS = ["searchQueries", "mapSearchQueries"] as const;
 
-export const cloro: Provider = {
+export const cloro: Provider = guardProvider({
 	id: "cloro",
 	name: "Cloro",
 	access: "scraped",
@@ -173,4 +174,4 @@ export const cloro: Provider = {
 			modelVersion: typeof answer.model === "string" ? answer.model : undefined,
 		};
 	},
-};
+});

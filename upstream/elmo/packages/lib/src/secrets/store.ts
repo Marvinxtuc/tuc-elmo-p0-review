@@ -1,4 +1,5 @@
 import { CREDENTIAL_ENV_NAMES } from "@workspace/config/env-registry";
+import { isP0Offline } from "../constants";
 import { db } from "../db/db";
 import { secrets } from "../db/schema";
 import {
@@ -16,9 +17,11 @@ import {
 // one exists, otherwise process.env. The overlay of stored overrides is rebuilt
 // on an interval by refreshCredentialOverlay (see ./refresh).
 const overlay = new Map<string, string>();
+const unreadable = new Set<string>();
 
 /** Stored override if present, else process.env. Sync so `isConfigured()` stays sync. */
 export function getCredential(name: string): string | undefined {
+	if (isP0Offline() && unreadable.has(name)) throw new Error("P0 stored credential is unreadable");
 	return overlay.get(name) ?? process.env[name];
 }
 
@@ -27,11 +30,16 @@ export function getCredential(name: string): string | undefined {
 export function withStoredCredentials(
 	env: Record<string, string | undefined> = process.env,
 ): Record<string, string | undefined> {
-	return { ...env, ...Object.fromEntries(overlay) };
+	const result = { ...env, ...Object.fromEntries(overlay) };
+	if (isP0Offline()) {
+		for (const name of unreadable) result[name] = undefined;
+	}
+	return result;
 }
 
 export function clearCredentialOverlay(): void {
 	overlay.clear();
+	unreadable.clear();
 }
 
 /** AAD binds each ciphertext to the env var it stands in for, so a payload can't
@@ -40,10 +48,16 @@ function aadForName(name: string): string {
 	return `secret:${name}`;
 }
 
-/** Rebuild the overlay from the secrets table. A row whose name is not a known
- *  credential, or that will not decrypt, contributes nothing rather than
- *  throwing, so one bad row can't take out the others. The overlay is swapped
- *  only after every row has been read, so a failed load leaves it untouched. */
+function maskCredentialFallback(): void {
+	overlay.clear();
+	for (const name of CREDENTIAL_ENV_NAMES) unreadable.add(name);
+}
+
+function credentialReadFailed(error: unknown): never {
+	if (isP0Offline()) maskCredentialFallback();
+	throw error;
+}
+
 export async function refreshCredentialOverlay(): Promise<void> {
 	let keyring: Keyring | null = null;
 	try {
@@ -54,18 +68,24 @@ export async function refreshCredentialOverlay(): Promise<void> {
 	}
 	// No key means nothing can be stored, so there is no query to make.
 	if (!keyring) {
-		overlay.clear();
+		unreadable.clear();
+		maskCredentialFallback();
 		return;
 	}
 
-	const rows = await db.select({ name: secrets.name, encryptedValue: secrets.encryptedValue }).from(secrets);
+	const rows = await db
+		.select({ name: secrets.name, encryptedValue: secrets.encryptedValue })
+		.from(secrets)
+		.catch(credentialReadFailed);
 
 	const next = new Map<string, string>();
+	const nextUnreadable = new Set<string>();
 	for (const row of rows) {
 		if (!CREDENTIAL_ENV_NAMES.has(row.name)) continue;
 		try {
 			next.set(row.name, await decryptSecret(row.encryptedValue, { keyring, aad: aadForName(row.name) }));
 		} catch (e) {
+			nextUnreadable.add(row.name);
 			console.error(
 				e instanceof UnknownKeyError
 					? `[secrets] stored secret "${row.name}" is ${e.message} — restore that key there to finish the rotation`
@@ -75,6 +95,8 @@ export async function refreshCredentialOverlay(): Promise<void> {
 	}
 
 	overlay.clear();
+	unreadable.clear();
+	for (const name of nextUnreadable) unreadable.add(name);
 	for (const [name, value] of next) overlay.set(name, value);
 }
 

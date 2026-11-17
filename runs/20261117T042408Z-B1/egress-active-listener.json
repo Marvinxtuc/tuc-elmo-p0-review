@@ -1,0 +1,7 @@
+{
+  "baseline_hits": 2,
+  "sandboxed_test_hits": 0,
+  "ipv4_listener": true,
+  "ipv6_listener": true,
+  "assertion": "PASS"
+}

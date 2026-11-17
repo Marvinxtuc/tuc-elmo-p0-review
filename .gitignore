@@ -5,3 +5,5 @@ node_modules/
 *.dump
 *.sql
 __pycache__/
+
+/config/local-runtime.json

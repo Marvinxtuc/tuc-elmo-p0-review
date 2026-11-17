@@ -1,6 +1,7 @@
 import { getCredential } from "../../secrets";
 import { type Citation, normalizeCitationTitle } from "../../text-extraction";
 import { API_PROVIDER_MAX_OUTPUT_TOKENS, configuredWhen, reportedWebQueries, warnIfOutputCapped } from "../config";
+import { guardProvider } from "../p0";
 import type {
 	Provider,
 	ProviderOptions,
@@ -53,7 +54,7 @@ function extractCitationsFromOpenRouterResponse(data: any): Citation[] {
 	return citations;
 }
 
-export const openrouter: Provider = {
+export const openrouter: Provider = guardProvider({
 	id: "openrouter",
 	name: "OpenRouter",
 	access: "api",
@@ -146,4 +147,4 @@ export const openrouter: Provider = {
 			modelVersion: data?.model ?? modelSlug,
 		};
 	},
-};
+});

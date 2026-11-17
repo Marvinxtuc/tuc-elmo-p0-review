@@ -1,5 +1,6 @@
 import { generateText, type LanguageModel, Output, type ToolSet } from "ai";
 import { z } from "zod";
+import { isP0Offline } from "../../constants";
 
 type GenerateTextArgs = Parameters<typeof generateText>[0];
 
@@ -14,7 +15,9 @@ export async function structuredResearch<T>(
 	model: LanguageModel,
 	{ prompt, schema, tools, providerOptions }: StructuredResearchCall<T>,
 ): Promise<T> {
+	if (isP0Offline()) throw new Error("P0 blocks direct structured research");
 	const result = await generateText({
+		maxRetries: 0,
 		model,
 		prompt,
 		output: Output.object({ schema }),

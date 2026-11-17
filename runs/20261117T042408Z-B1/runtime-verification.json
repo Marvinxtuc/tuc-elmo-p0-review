@@ -1,0 +1,18 @@
+{
+  "api_public_and_queue_unchanged": true,
+  "raw_runs_mentions_extractions_unchanged": true,
+  "brand_configuration_restored": true,
+  "original_test_database_unchanged": true,
+  "original_restored_job_cancelled": true,
+  "fixture_jobs_cancelled": 7,
+  "tagged_rollup_completed": true,
+  "expected_changed_tables": [
+    "competitors",
+    "rollup_dirty",
+    "rollup_prompt_runs",
+    "rollup_sentiment_quotes"
+  ],
+  "synthetic_competitor_retained": true,
+  "restarts": 3,
+  "real_model_calls": 0
+}

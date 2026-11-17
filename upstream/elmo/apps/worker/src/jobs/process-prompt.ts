@@ -401,6 +401,7 @@ async function processPrompt(
 
 /** After a cycle it schedules the next run: on cadence when anything came back, on a backoff when nothing did. */
 export async function processPromptJob(jobs: Job<ProcessPromptData>[]): Promise<void> {
+	if (isP0Offline()) throw new Error("P0 rejects unapproved generation jobs before side effects");
 	const scrapeConfigs = parseScrapeTargets(process.env.SCRAPE_TARGETS);
 
 	for (const job of jobs) {

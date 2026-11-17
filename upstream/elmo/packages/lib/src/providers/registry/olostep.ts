@@ -2,6 +2,7 @@ import Olostep from "olostep";
 import { getCredential } from "../../secrets";
 import { type Citation, normalizeCitationTitle } from "../../text-extraction";
 import { configuredWhen, reportedWebQueries } from "../config";
+import { guardProvider } from "../p0";
 import type { ModelConfig, Provider, ProviderOptions, ScrapeResult } from "../types";
 import { nonEmptyStrings } from "./scrape-shared";
 
@@ -76,7 +77,7 @@ function extractWebQueries(data: any): string[] {
 	);
 }
 
-export const olostep: Provider = {
+export const olostep: Provider = guardProvider({
 	id: "olostep",
 	name: "Olostep",
 	access: "scraped",
@@ -132,4 +133,4 @@ export const olostep: Provider = {
 			modelVersion: parsed?.model ?? undefined,
 		};
 	},
-};
+});

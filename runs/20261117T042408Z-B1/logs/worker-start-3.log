@@ -1,0 +1,10 @@
+Starting pg-boss worker...
+SCRAPE_TARGETS validated
+[mention-judge] TYPESAFE_API_KEY=stub: judging from cue words, not Jev. For tests and development only.
+Judging mentions with stub+request-1
+pg-boss started
+{"event":"P0_JOB_QUARANTINED","queue":"rollup-catch-up","id":"c3da24bc-5fe0-43d6-9e9b-3a2103798fc9","state":"created"}
+P0 offline handler registered: refresh-rollups
+All handlers registered, worker is ready
+Received SIGTERM, shutting down gracefully...
+Worker stopped

@@ -1,0 +1,17 @@
+$ node --import tsx --import ./src/instrument.ts src/index.ts
+Starting pg-boss worker...
+SCRAPE_TARGETS validated
+[mention-judge] TYPESAFE_API_KEY=stub: judging from cue words, not Jev. For tests and development only.
+Judging mentions with stub+request-1
+pg-boss started
+{"event":"P0_JOB_QUARANTINED","queue":"derive-runs","id":"4d56822c-7830-4dd4-925e-54ae94fe8689","state":"created"}
+{"event":"P0_JOB_QUARANTINED","queue":"process-prompt","id":"ecfe6bb8-bfb3-490d-97b0-bac1b09f820b","state":"created"}
+{"event":"P0_JOB_QUARANTINED","queue":"process-prompt","id":"d6049262-bfe7-4162-a8fe-e69569c91382","state":"active"}
+{"event":"P0_JOB_QUARANTINED","queue":"process-prompt","id":"fff4411d-6c55-4c18-9486-5beb75306a43","state":"retry"}
+{"event":"P0_JOB_QUARANTINED","queue":"reprocess","id":"ba88ee95-a0aa-4b92-84e6-93fa6d304bb4","state":"created"}
+{"event":"P0_JOB_QUARANTINED","queue":"request-reprocesses","id":"ab394e4c-1f57-4200-9d09-3eed576c285d","state":"created"}
+{"event":"P0_JOB_QUARANTINED","queue":"rollup-catch-up","id":"582dadf5-a296-4044-bc11-c75ba81ff1df","state":"created"}
+P0 offline handler registered: refresh-rollups
+All handlers registered, worker is ready
+Received SIGTERM, shutting down gracefully...
+Worker stopped

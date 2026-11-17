@@ -1,0 +1,52 @@
+✔ COST-01 missing approval and live endpoint fail before HTTP (10.553208ms)
+✔ COST-02 missing evidence, shared quota, expiry and quota expiry fail closed (8.311875ms)
+✖ COST-03 twenty processes share one atomic slot across all roles (329.144166ms)
+✔ COST-04 input output thinking tools search providerOptions stream and budget limits (19.978375ms)
+✔ PRV-01 PRV-05 and COST-08 bind provider endpoint region model role and credential (8.978083ms)
+✖ COST-05 401 403 429 5xx timeout disconnect redirect unknown usage halt without retry or refund (4.493583ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 4
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 43698.794125
+
+✖ failing tests:
+
+test at harness/request-guard.test.cjs:88:1
+✖ COST-03 twenty processes share one atomic slot across all roles (329.144166ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1
+  
+      at TestContext.<anonymous> (<USER_HOME>/Desktop/tuc-elmo-b1/harness/request-guard.test.cjs:102:10)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at harness/request-guard.test.cjs:131:1
+✖ COST-05 401 403 429 5xx timeout disconnect redirect unknown usage halt without retry or refund (4.493583ms)
+  AssertionError [ERR_ASSERTION]: /status/401
+  
+  0 !== 1
+  
+      at TestContext.<anonymous> (<USER_HOME>/Desktop/tuc-elmo-b1/harness/request-guard.test.cjs:138:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1409:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:974:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

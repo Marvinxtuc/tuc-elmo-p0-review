@@ -1,0 +1,12 @@
+[
+  {
+    "label": "b1-format-corrected",
+    "status": "INVALID_EXECUTION",
+    "reason": "No output from sparse original pnpm executable, requested tool did not execute"
+  },
+  {
+    "label": "focused-lib-unit",
+    "status": "INVALID_EXECUTION",
+    "reason": "No output from sparse original pnpm executable, requested tool did not execute"
+  }
+]

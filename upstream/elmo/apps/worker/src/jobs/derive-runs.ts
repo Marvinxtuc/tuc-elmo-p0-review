@@ -10,6 +10,7 @@ import {
 	EXTRACTION_KEY,
 	MENTIONS_KEY,
 } from "@workspace/lib/analysis-versions";
+import { isP0Offline } from "@workspace/lib/constants";
 import { db } from "@workspace/lib/db/db";
 import type { DbConnection } from "@workspace/lib/db/db-connection";
 import { loadRawOutputs, updateExtractions, updateMentions } from "@workspace/lib/db/runs";
@@ -364,5 +365,6 @@ export async function requestUnjudgedRuns(
 }
 
 export async function deriveRunsJob(jobs: Job<DeriveRunsData>[]): Promise<void> {
+	if (isP0Offline()) throw new Error("P0 rejects unapproved generation jobs before side effects");
 	for (const job of jobs) await deriveRuns(job.data);
 }

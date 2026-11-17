@@ -1,0 +1,83 @@
+{
+  "results": [
+    {
+      "case": "fetch",
+      "url": "https://example.invalid/v1",
+      "outcome": "DENIED"
+    },
+    {
+      "case": "fetch",
+      "url": "http://127.0.0.1:17442/",
+      "outcome": "DENIED"
+    },
+    {
+      "case": "fetch",
+      "url": "http://[::1]:17442/",
+      "outcome": "DENIED"
+    },
+    {
+      "case": "socket",
+      "target": {
+        "host": "127.0.0.1",
+        "port": 17442
+      },
+      "outcome": "DENIED"
+    },
+    {
+      "case": "socket",
+      "target": {
+        "host": "::1",
+        "port": 17442
+      },
+      "outcome": "DENIED"
+    },
+    {
+      "case": "socket",
+      "target": {
+        "path": "/tmp/unapproved.sock"
+      },
+      "outcome": "DENIED"
+    },
+    {
+      "case": "native-child-with-cleared-environment",
+      "args": [
+        "--noproxy",
+        "*",
+        "http://127.0.0.1:17442/"
+      ],
+      "exit_code": 7,
+      "stderr": "curl: (7) Failed to connect to 127.0.0.1 port 17442 after 0 ms: Couldn't connect to server"
+    },
+    {
+      "case": "native-child-with-cleared-environment",
+      "args": [
+        "--noproxy",
+        "*",
+        "http://[::1]:17442/"
+      ],
+      "exit_code": 7,
+      "stderr": "curl: (7) Failed to connect to ::1 port 17442 after 0 ms: Couldn't connect to server"
+    },
+    {
+      "case": "native-child-with-cleared-environment",
+      "args": [
+        "--proxy",
+        "http://127.0.0.1:17442",
+        "http://example.invalid/"
+      ],
+      "exit_code": 7,
+      "stderr": "curl: (7) Failed to connect to 127.0.0.1 port 17442 after 0 ms: Couldn't connect to server"
+    },
+    {
+      "case": "native-child-with-cleared-environment",
+      "args": [
+        "--noproxy",
+        "*",
+        "http://192.0.2.1:80/"
+      ],
+      "exit_code": 7,
+      "stderr": "curl: (7) Failed to connect to 192.0.2.1 port 80 after 1 ms: Couldn't connect to server"
+    }
+  ],
+  "external_requests": 0
+}

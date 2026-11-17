@@ -1,0 +1,2451 @@
+diff --git a/.gitignore b/.gitignore
+index e3f9d03..0f7e6cf 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -5,3 +5,5 @@ node_modules/
+ *.dump
+ *.sql
+ __pycache__/
++
++/config/local-runtime.json
+diff --git a/config/active-run.json b/config/active-run.json
+index 7b51060..3a5d755 100644
+--- a/config/active-run.json
++++ b/config/active-run.json
+@@ -1,4 +1,4 @@
+ {
+-  "run_id": "20261117T013735Z-A0",
+-  "path": "<AUDIT_ROOT>/runs/20261117T013735Z-A0"
++  "run_id": "20261117T042408Z-B1",
++  "path": "runs/20261117T042408Z-B1"
+ }
+diff --git a/config/mock.sb b/config/mock.sb
+new file mode 100644
+index 0000000..4ab969c
+--- /dev/null
++++ b/config/mock.sb
+@@ -0,0 +1,6 @@
++(version 1)
++(allow default)
++(deny network-outbound)
++(allow network-outbound (remote ip "localhost:17441"))
++(deny network-bind)
++(allow network-bind (local ip "localhost:*"))
+diff --git a/config/quality.sb b/config/quality.sb
+index 9966258..8f811d8 100644
+--- a/config/quality.sb
++++ b/config/quality.sb
+@@ -1,6 +1,6 @@
+ (version 1)
+ (allow default)
+ (deny network-outbound)
+-(allow network-outbound (remote ip "localhost:*"))
++(allow network-outbound (remote ip "localhost:17440"))
+ (deny network-bind)
+ (allow network-bind (local ip "localhost:*"))
+diff --git a/config/schema-snapshot.json b/config/schema-snapshot.json
+new file mode 100644
+index 0000000..48e8b41
+--- /dev/null
++++ b/config/schema-snapshot.json
+@@ -0,0 +1,4 @@
++{
++  "file": "packages/lib/src/db/schema-auth.ts",
++  "sha256": "e48a5c3ca3d20830b70429d670d12695469de6b12e376a08fc1326a0cbc6b69b"
++}
+diff --git a/harness/b1-database-admin.py b/harness/b1-database-admin.py
+new file mode 100644
+index 0000000..e3bc3e1
+--- /dev/null
++++ b/harness/b1-database-admin.py
+@@ -0,0 +1,59 @@
++import datetime
++import hashlib
++import json
++import os
++from pathlib import Path
++import subprocess
++import sys
++
++root = Path(__file__).resolve().parents[1]
++run = root / Path(json.loads((root / 'config/active-run.json').read_text())['path'])
++runtime = Path(json.loads((root / 'config/local-runtime.json').read_text())['runtime_root'])
++env = dict(os.environ, DOCKER_HOST=f'unix://{runtime}/colima/tuc-p0/docker.sock', DOCKER_CONFIG=str(runtime / 'docker-client'))
++container = 'tuc-elmo-p0-postgres'
++def docker(*args):
++    return subprocess.check_output(['/opt/homebrew/bin/docker', *args], env=env)
++def sql(database, query):
++    if database not in ['tuc_elmo_p0_test', 'tuc_elmo_p0_restore']: raise ValueError('database outside scope')
++    return docker('exec', container, 'psql', '-X', '-U', 'tuc_p0', '-d', database, '-At', '-c', query).decode().strip()
++operation = sys.argv[1]
++if operation == 'backup':
++    folder = root / 'runtime/restore-backups'
++    folder.mkdir(mode=0o700, parents=True, exist_ok=True)
++    records = []
++    for database in ['tuc_elmo_p0_test', 'tuc_elmo_p0_restore']:
++        data = docker('exec', container, 'pg_dump', '-U', 'tuc_p0', '-Fc', database)
++        target = folder / f'{database}-before-b1.dump'
++        with target.open('xb') as stream: stream.write(data)
++        target.chmod(0o600)
++        records.append(dict(database=database, bytes=len(data), sha256=hashlib.sha256(data).hexdigest()))
++    (run / 'restore-backups.redacted.json').write_text(json.dumps(records, indent=2)+'\n')
++elif operation == 'snapshot':
++    label = sys.argv[2]
++    result = {'at_utc': datetime.datetime.now(datetime.timezone.utc).isoformat(), 'databases': {}}
++    for database in ['tuc_elmo_p0_test', 'tuc_elmo_p0_restore']:
++        tables = sql(database, "SELECT tablename FROM pg_tables WHERE schemaname='public' ORDER BY tablename").splitlines()
++        hashes = {}
++        for table in tables:
++            quoted = '"' + table.replace('"', '""') + '"'
++            digest = sql(database, f"SELECT json_build_object('rows',count(*),'md5',md5(coalesce(string_agg(to_jsonb(t)::text,E'\\n' ORDER BY to_jsonb(t)::text),''))) FROM public.{quoted} t")
++            hashes[table] = json.loads(digest)
++        jobs = json.loads(sql(database, "SELECT coalesce(json_agg(t ORDER BY t.id),'[]') FROM (SELECT id,name,state,retry_count,data FROM pgboss.job) t"))
++        result['databases'][database] = {'public_tables':hashes,'jobs':jobs,
++            'schedules': json.loads(sql(database,"SELECT coalesce(json_agg(t),'[]') FROM pgboss.schedule t"))}
++    (run / f'database-{label}.json').write_text(json.dumps(result,indent=2)+'\n')
++elif operation == 'tunnel':
++    state = json.loads(docker('inspect', container))[0]
++    assert state['HostConfig']['Memory'] <= 6 * 1024**3
++    networks = state['NetworkSettings']['Networks']
++    assert set(networks) == {'tuc-elmo-p0_internal'}
++    assert state['HostConfig']['PortBindings'] == {'5432/tcp': [{'HostIp': '127.0.0.1', 'HostPort': '17332'}]}
++    ip = networks['tuc-elmo-p0_internal']['IPAddress']
++    log = (run / 'logs/database-tunnel.log').open('x')
++    command = ['/usr/bin/ssh','-F',str(runtime/'lima/colima-tuc-p0/ssh.config'),'-o','ControlMaster=no',
++        '-o','ControlPath=none','-o','ExitOnForwardFailure=yes','-N','-L',f'127.0.0.1:17332:{ip}:5432','lima-colima-tuc-p0']
++    process = subprocess.Popen(command,cwd='/tmp',stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
++    (run/'tunnel-process.json').write_text(json.dumps({'pid':process.pid,'command':command},indent=2)+'\n')
++    print(json.dumps({'pid':process.pid,'local_port':17332,'container_ip':ip}))
++else:
++    raise SystemExit('unknown operation')
+diff --git a/harness/b1-queue-fixtures.mjs b/harness/b1-queue-fixtures.mjs
+new file mode 100644
+index 0000000..753822f
+--- /dev/null
++++ b/harness/b1-queue-fixtures.mjs
+@@ -0,0 +1,60 @@
++import { createRequire } from 'node:module';
++import { readFileSync, writeFileSync } from 'node:fs';
++import path from 'node:path';
++import { fileURLToPath } from 'node:url';
++const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
++const require = createRequire(path.join(root, 'upstream/elmo/apps/worker/package.json'));
++const { PgBoss } = require('pg-boss');
++const { Client } = require('pg');
++const client = new Client({ connectionString: process.env.DATABASE_URL });
++const boss = new PgBoss({ connectionString: process.env.DATABASE_URL, migrate: false, supervise: false, schedule: false });
++const run = path.resolve(root, JSON.parse(readFileSync(path.join(root,'config/active-run.json'))).path);
++const privateFile = path.join(root,'runtime/restore-backups/brand-before-fixture.json');
++const action = process.argv[2];
++try {
++  await client.connect();
++  if (action === 'seed') {
++    const brands = (await client.query('SELECT id,aliases,analysis_versions,enabled FROM brands ORDER BY id')).rows;
++    const competitors = (await client.query('SELECT id,aliases FROM competitors ORDER BY id')).rows;
++    writeFileSync(privateFile, JSON.stringify({ brands, competitors }), { flag:'wx', mode:0o600 });
++    await client.query("UPDATE brands SET aliases=array_append(aliases,'synthetic-b1-alias'),analysis_versions='{}'::jsonb,enabled=false");
++    await client.query("UPDATE competitors SET aliases=array_append(aliases,'synthetic-b1-competitor')");
++    await client.query('UPDATE brands SET enabled=true');
++    await boss.start();
++    const ids = [];
++    for (const name of ['process-prompt','derive-runs','reprocess','request-reprocesses','rollup-catch-up']) {
++      ids.push({ name, id: await boss.send(name, { brandId: brands[0].id, p0BatchId: process.env.TUC_P0_BATCH_ID,
++        aliases: ['synthetic-b1-alias'], judgeVersion:'synthetic-new-judge', source:'B1_TEST_FIXTURE' }) });
++    }
++    const active = await boss.send('process-prompt',{ source:'B1_TEST_FIXTURE', fixtureState:'active' });
++    const retry = await boss.send('process-prompt',{ source:'B1_TEST_FIXTURE', fixtureState:'retry' });
++    await client.query("UPDATE pgboss.job SET state='active' WHERE id=$1",[active]);
++    await client.query("UPDATE pgboss.job SET state='retry' WHERE id=$1",[retry]);
++    ids.push({ name:'process-prompt', id:active },{ name:'process-prompt', id:retry });
++    writeFileSync(path.join(run,'queue-fixtures.json'),JSON.stringify({ action, ids, modified_brand_count:brands.length,
++      modified_competitor_count:competitors.length, mutation:'aliases/competitors/analysis_versions/disable-reenable' },null,2));
++    console.log(JSON.stringify({ action, fixture_jobs:ids.length, brands:brands.length, competitors:competitors.length }));
++  } else if (action === 'competitor') {
++    const brand = (await client.query('SELECT id FROM brands ORDER BY id LIMIT 1')).rows[0];
++    const result = await client.query("INSERT INTO competitors(id,brand_id,name,domains,aliases) VALUES('11111111-1111-4111-8111-111111111111',$1,'Synthetic B1 Competitor',ARRAY['synthetic.invalid'],ARRAY['synthetic-initial']) RETURNING id",[brand.id]);
++    await client.query("UPDATE competitors SET aliases=ARRAY['synthetic-changed'] WHERE id=$1",[result.rows[0].id]);
++    writeFileSync(path.join(run,'competitor-fixture.json'),JSON.stringify({id:result.rows[0].id,synthetic:true,retained_for_audit:true,alias_changed:true}));
++    console.log(JSON.stringify({action,fixture_created:true,alias_changed:true}));
++  } else if (action === 'rollup') {
++    await boss.start();
++    const id = await boss.send('refresh-rollups',{ source:'B1_TEST_FIXTURE',p0BatchId:process.env.TUC_P0_BATCH_ID });
++    writeFileSync(path.join(run,'tagged-rollup.json'),JSON.stringify({ id, batch:process.env.TUC_P0_BATCH_ID }));
++    console.log(JSON.stringify({ action,id }));
++  } else if (action === 'restore-config') {
++    const previous = JSON.parse(readFileSync(privateFile));
++    await client.query('BEGIN');
++    for (const brand of previous.brands) await client.query('UPDATE brands SET aliases=$2,analysis_versions=$3,enabled=$4 WHERE id=$1',
++      [brand.id,brand.aliases,brand.analysis_versions,brand.enabled]);
++    for (const competitor of previous.competitors) await client.query('UPDATE competitors SET aliases=$2 WHERE id=$1',[competitor.id,competitor.aliases]);
++    await client.query('COMMIT');
++    console.log(JSON.stringify({ action,restored:true }));
++  } else throw new Error('unknown action');
++} finally {
++  await boss.stop();
++  await client.end();
++}
+diff --git a/harness/b1-runner.py b/harness/b1-runner.py
+new file mode 100644
+index 0000000..141ee62
+--- /dev/null
++++ b/harness/b1-runner.py
+@@ -0,0 +1,158 @@
++#!/usr/bin/env python3
++import argparse
++import datetime
++import hashlib
++import json
++import os
++from pathlib import Path
++import re
++import signal
++import subprocess
++import threading
++from urllib.parse import urlparse
++
++root = Path(__file__).resolve().parents[1]
++parser = argparse.ArgumentParser()
++parser.add_argument("--label", required=True)
++parser.add_argument("--cwd", default=str(root / "upstream/elmo"))
++parser.add_argument("--timeout", type=int, default=600)
++parser.add_argument("--stage", choices=["runtime", "quality", "mock"], default="runtime")
++parser.add_argument("--database", choices=["tuc_elmo_p0_test", "tuc_elmo_p0_restore"], default="tuc_elmo_p0_test")
++parser.add_argument("--app-env", action="store_true")
++parser.add_argument("--background", action="store_true")
++parser.add_argument("command", nargs=argparse.REMAINDER)
++args = parser.parse_args()
++command = args.command[1:] if args.command[:1] == ["--"] else args.command
++if not command or not re.fullmatch(r"[a-zA-Z0-9_-]+", args.label):
++    parser.error("A command and a simple unique label are required")
++if not Path(args.cwd).resolve().is_relative_to(root):
++    raise SystemExit("Working directory escapes the B1 worktree")
++run = root / Path(json.loads((root / "config/active-run.json").read_text())["path"])
++if not run.resolve().is_relative_to(root / "runs") or run.name.endswith("-A0"):
++    raise SystemExit("Only the new B1 evidence directory may be written")
++configuration = json.loads((root / "config/local-runtime.json").read_text())
++approval = json.loads(Path(configuration["source_approval"]).read_text())
++runtime = Path(configuration["runtime_root"])
++if approval.get("approval_id") != "A0-user-20261117" or runtime.parent != Path(approval["runtime_root"]):
++    raise SystemExit("Existing A0 runtime identity does not match")
++
++environment = {name: value for name, value in os.environ.items()
++               if name in {"USER", "LOGNAME", "TMPDIR", "LANG", "LC_ALL", "TERM"}}
++environment.update({
++    "HOME": str(root / "runtime/home"),
++    "PATH": f"{runtime}/node-v24.22.3-darwin-arm64/bin:{root}/runtime/pnpm-recovered:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
++    "COLIMA_HOME": str(runtime / "colima"), "LIMA_HOME": str(runtime / "lima"),
++    "DOCKER_CONFIG": str(runtime / "docker-client"),
++    "DOCKER_HOST": f"unix://{runtime}/colima/tuc-p0/docker.sock",
++    "XDG_CONFIG_HOME": str(root / "runtime/xdg-config"),
++    "XDG_CACHE_HOME": str(root / "runtime/xdg-cache"),
++    "XDG_DATA_HOME": str(root / "runtime/xdg-data"),
++    "npm_config_userconfig": str(root / "config/package-manager-empty.npmrc"),
++    "npm_config_globalconfig": str(root / "config/package-manager-empty.npmrc"),
++    "npm_config_store_dir": str(runtime / "pnpm-store"),
++    "npm_config_verify_deps_before_run": "false",
++    "CI": "true", "DO_NOT_TRACK": "1", "DISABLE_TELEMETRY": "1",
++    "TURBO_TELEMETRY_DISABLED": "1", "COREPACK_ENABLE_NETWORK": "0",
++    "TUC_P0_OFFLINE": "1", "TUC_P0_STAGE": args.stage, "TUC_P0_BATCH_ID": run.name,
++})
++redactions = []
++if args.stage == "runtime":
++    values = dict(line.split("=", 1) for line in (root / "secrets/app.env").read_text().splitlines()
++                  if line and not line.startswith("#"))
++    expected = {"SCRAPE_TARGETS": "stub:stub", "ONBOARDING_LLM_TARGET": "stub:stub",
++                "TYPESAFE_API_KEY": "stub", "TUC_P0_OFFLINE": "1", "RUNS_PER_PROMPT": "1",
++                "DEPLOYMENT_MODE": "local", "HOST": "127.0.0.1"}
++    if any(values.get(key) != value for key, value in expected.items()):
++        raise SystemExit("Runtime configuration conflicts with the offline policy")
++    if any(key.endswith("_API_KEY") and value != "stub" for key, value in values.items()):
++        raise SystemExit("Non-stub API credentials are outside the runtime scope")
++    database = urlparse(values["DATABASE_URL"])
++    if database.hostname != "127.0.0.1" or database.port != 17332 or args.database not in approval["new_test_databases"]:
++        raise SystemExit("Database target is outside A0")
++    values["DATABASE_URL"] = database._replace(path="/" + args.database).geturl()
++    environment.update(values)
++    redactions = [value for key, value in values.items()
++                  if key in {"DATABASE_URL", "BETTER_AUTH_SECRET", "ELMO_ENCRYPTION_KEY", "ADMIN_API_KEYS"}]
++    if database.password:
++        redactions.append(database.password)
++elif args.stage == "quality":
++    allowed = {"lint", "test", "test:scripts", "build", "check-types", "biome", "vitest"}
++    if not any(item in allowed for item in command):
++        raise SystemExit("Quality stage requires a declared quality command")
++    environment.update({"TUC_P0_OFFLINE": "0", "NODE_ENV": "test" if any(item in {"test", "vitest"} for item in command) else "production",
++                        "SCRAPE_TARGETS": "stub:stub", "ONBOARDING_LLM_TARGET": "stub:stub",
++                        "TYPESAFE_API_KEY": "stub", "APP_URL": "http://127.0.0.1:17300",
++                        "VITE_APP_URL": "http://127.0.0.1:17300",
++                        "BETTER_AUTH_SECRET": "local-schema-snapshot", "ELMO_ENCRYPTION_KEY": ""})
++    environment["TUC_P0_SCHEMA_SHA256"] = json.loads((root / "config/schema-snapshot.json").read_text())["sha256"]
++
++environment["TUC_P0_STAGE"] = args.stage
++environment["TUC_P0_BATCH_ID"] = run.name
++policy = root / "config" / ("runtime.sb" if args.stage == "runtime" else args.stage + ".sb")
++environment["TUC_P0_POLICY_SHA256"] = hashlib.sha256(policy.read_bytes()).hexdigest()
++environment["TUC_P0_EGRESS_LOG"] = str(run / "egress.jsonl")
++environment["TUC_P0_LEDGER"] = str(root / "runtime/budget.sqlite")
++environment["NODE_OPTIONS"] = f"--require={root}/harness/offline-preload.cjs"
++for directory in [root / "runtime/home", root / "runtime/xdg-config", root / "runtime/xdg-cache", root / "runtime/xdg-data"]:
++    directory.mkdir(parents=True, exist_ok=True)
++if "migrate" in command and args.stage != "runtime":
++    raise SystemExit("Migrations require the approved runtime database context")
++if Path(command[0]).name == "pnpm":
++    command.insert(1, "--config.verifyDepsBeforeRun=false")
++command = ["/usr/bin/sandbox-exec", "-f", str(policy), *command]
++log = run / "logs" / f"{args.label}.log"
++if log.exists():
++    raise SystemExit("Evidence labels are append-only and must be unique")
++record = {"label": args.label, "command": command, "cwd": args.cwd, "stage": args.stage,
++          "started_at_utc": datetime.datetime.now(datetime.timezone.utc).isoformat(),
++          "policy_sha256": environment["TUC_P0_POLICY_SHA256"],
++          "offline": environment["TUC_P0_OFFLINE"], "output": str(log.relative_to(run))}
++
++
++def execute():
++    with log.open("x") as output:
++        process = subprocess.Popen(command, cwd=args.cwd, env=environment, stdout=subprocess.PIPE,
++                                   stderr=subprocess.STDOUT, text=True, start_new_session=True)
++        record["pid"] = process.pid
++        if args.background:
++            path = run / "processes.json"
++            records = json.loads(path.read_text()) if path.exists() else []
++            records.append(dict(record))
++            path.write_text(json.dumps(records, indent=2) + "\n")
++
++        def timeout():
++            if process.poll() is None:
++                os.killpg(process.pid, signal.SIGTERM)
++
++        timer = threading.Timer(args.timeout, timeout)
++        timer.start()
++        try:
++            for line in process.stdout:
++                for value in sorted(redactions, key=len, reverse=True):
++                    line = line.replace(value, "[REDACTED_TEST_SECRET]")
++                line = re.sub(r"(secretKey:\s*)\d+", r"\1[REDACTED_PROTOCOL_TOKEN]", line)
++                output.write(line)
++                output.flush()
++            record["exit_code"] = process.wait()
++        finally:
++            timer.cancel()
++    record["ended_at_utc"] = datetime.datetime.now(datetime.timezone.utc).isoformat()
++    with (run / "commands.jsonl").open("a") as output:
++        output.write(json.dumps(record) + "\n")
++    return record["exit_code"]
++
++
++if args.background:
++    pid = os.fork()
++    if pid:
++        print(json.dumps({"supervisor_pid": pid, "label": args.label, "stage": args.stage}))
++        raise SystemExit(0)
++    os.setsid()
++    with open(os.devnull, "r+") as null:
++        for descriptor in [0, 1, 2]:
++            os.dup2(null.fileno(), descriptor)
++    os._exit(execute())
++exit_code = execute()
++print(json.dumps(record, indent=2))
++print(log.read_text(errors="replace")[-2500:])
++raise SystemExit(exit_code)
+diff --git a/harness/b1-stop.py b/harness/b1-stop.py
+new file mode 100644
+index 0000000..6d8b83c
+--- /dev/null
++++ b/harness/b1-stop.py
+@@ -0,0 +1,26 @@
++import datetime
++import json
++import os
++from pathlib import Path
++import signal
++import subprocess
++import sys
++import time
++root=Path(__file__).resolve().parents[1]
++run=root/Path(json.loads((root/'config/active-run.json').read_text())['path'])
++records=json.loads((run/'processes.json').read_text())
++for label in sys.argv[1:]:
++    row=next(item for item in records if item['label']==label)
++    pid=row['pid']
++    check=subprocess.run(['ps','-p',str(pid),'-o','command='],capture_output=True,text=True)
++    if check.returncode:
++        print(json.dumps({'label':label,'state':'ALREADY_STOPPED'}));continue
++    assert any(token in check.stdout for token in ['pnpm','src/index.ts','.output/server/index.mjs']),check.stdout
++    os.killpg(pid,signal.SIGTERM)
++    for attempt in range(60):
++        if subprocess.run(['ps','-p',str(pid)],stdout=subprocess.DEVNULL).returncode:break
++        time.sleep(.1)
++    else: raise SystemExit('Shutdown incomplete')
++    with (run/'stop-events.jsonl').open('a') as stream:
++        stream.write(json.dumps({'at_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'label':label,'state':'STOPPED'})+'\n')
++    print(json.dumps({'label':label,'state':'STOPPED'}))
+diff --git a/harness/egress-listener-proof.py b/harness/egress-listener-proof.py
+new file mode 100644
+index 0000000..9634064
+--- /dev/null
++++ b/harness/egress-listener-proof.py
+@@ -0,0 +1,35 @@
++import http.server
++import json
++from pathlib import Path
++import socket
++import subprocess
++import threading
++import urllib.request
++
++root=Path(__file__).resolve().parents[1]
++run=root/Path(json.loads((root/'config/active-run.json').read_text())['path'])
++hits=[]
++class Handler(http.server.BaseHTTPRequestHandler):
++    def do_GET(self):
++        hits.append(self.server.address_family)
++        self.send_response(200);self.end_headers();self.wfile.write(b'local-fixture')
++    def log_message(self,*args):pass
++class IPv6Server(http.server.HTTPServer):
++    address_family=socket.AF_INET6
++    def server_bind(self):
++        self.socket.setsockopt(socket.IPPROTO_IPV6,socket.IPV6_V6ONLY,1)
++        super().server_bind()
++servers=[http.server.HTTPServer(('127.0.0.1',17442),Handler),IPv6Server(('::1',17442),Handler)]
++try:
++    for server in servers: threading.Thread(target=server.serve_forever,daemon=True).start()
++    opener=urllib.request.build_opener(urllib.request.ProxyHandler({}))
++    for url in ['http://127.0.0.1:17442/','http://[::1]:17442/']:
++        assert opener.open(url,timeout=3).status==200
++    before=len(hits)
++    result=subprocess.run(['python3',str(root/'harness/run-command.py'),'--label','egress-active-listener','--timeout','30','--cwd',str(root),'--','node','harness/egress-negative.cjs'],cwd=root,capture_output=True,text=True,timeout=40)
++    assert result.returncode==0,result.stdout
++    assert len(hits)==before,(before,len(hits))
++    (run/'egress-active-listener.json').write_text(json.dumps({'baseline_hits':before,'sandboxed_test_hits':len(hits)-before,'ipv4_listener':True,'ipv6_listener':True,'assertion':'PASS'},indent=2)+'\n')
++    print(result.stdout[-1000:]);print('ACTIVE_LISTENER_ZERO_HITS_CONFIRMED')
++finally:
++    for server in servers:server.shutdown();server.server_close()
+diff --git a/harness/egress-negative.cjs b/harness/egress-negative.cjs
+new file mode 100644
+index 0000000..85e0eeb
+--- /dev/null
++++ b/harness/egress-negative.cjs
+@@ -0,0 +1,29 @@
++const assert = require('node:assert/strict');
++const net = require('node:net');
++const dns = require('node:dns');
++const { spawnSync } = require('node:child_process');
++(async () => {
++  const results = [];
++  for (const url of ['https://example.invalid/v1', 'http://127.0.0.1:17442/', 'http://[::1]:17442/']) {
++    await assert.rejects(fetch(url), /LIVE_REQUEST_DISABLED/);
++    results.push({ case: 'fetch', url, outcome: 'DENIED' });
++  }
++  assert.throws(() => dns.lookup('example.invalid', () => {}), /DNS_DENIED/);
++  for (const target of [{ host: '127.0.0.1', port: 17442 }, { host: '::1', port: 17442 }, { path: '/tmp/unapproved.sock' }]) {
++    assert.throws(() => net.connect(target), /OUTBOUND_SOCKET_DENIED/);
++    results.push({ case: 'socket', target, outcome: 'DENIED' });
++  }
++  for (const args of [
++    ['--noproxy', '*', 'http://127.0.0.1:17442/'],
++    ['--noproxy', '*', 'http://[::1]:17442/'],
++    ['--proxy', 'http://127.0.0.1:17442', 'http://example.invalid/'],
++    ['--noproxy', '*', 'http://192.0.2.1:80/'],
++  ]) {
++    const result = spawnSync('/usr/bin/curl', ['--silent', '--show-error', '--max-time', '1', ...args],
++      { env: { PATH: '/usr/bin:/bin' }, encoding: 'utf8' });
++    assert.notEqual(result.status, 0);
++    results.push({ case: 'native-child-with-cleared-environment', args, exit_code: result.status,
++      stderr: result.stderr.trim() });
++  }
++  console.log(JSON.stringify({ results, external_requests: 0 }, null, 2));
++})().catch(error => { console.error(error); process.exitCode = 1; });
+diff --git a/harness/offline-preload.cjs b/harness/offline-preload.cjs
+new file mode 100644
+index 0000000..f98e1da
+--- /dev/null
++++ b/harness/offline-preload.cjs
+@@ -0,0 +1,86 @@
++const fs = require('node:fs');
++const net = require('node:net');
++const dns = require('node:dns');
++const { RequestGuard, GuardDenied, networkPermission } = require('./request-guard.cjs');
++
++const stage = process.env.TUC_P0_STAGE;
++if (!/^[a-f0-9]{64}$/.test(process.env.TUC_P0_POLICY_SHA256 ?? '')) throw new GuardDenied('P0_POLICY_MISSING');
++if (!['runtime', 'quality', 'mock'].includes(stage)) throw new GuardDenied('P0_STAGE_MISSING');
++if (stage !== 'quality' && process.env.TUC_P0_OFFLINE !== '1') throw new GuardDenied('P0_OFFLINE_REQUIRED');
++if (stage === 'runtime') {
++  for (const [key, expected] of Object.entries({
++    SCRAPE_TARGETS: 'stub:stub', ONBOARDING_LLM_TARGET: 'stub:stub',
++    TYPESAFE_API_KEY: 'stub', RUNS_PER_PROMPT: '1', DEPLOYMENT_MODE: 'local',
++  })) {
++    if (process.env[key] !== expected) throw new GuardDenied(`P0_CONFIG_${key}`);
++  }
++}
++
++function event(kind, target) {
++  const row = { at_utc: new Date().toISOString(), pid: process.pid, ppid: process.ppid,
++    stage, kind, target, policy: process.env.TUC_P0_POLICY_SHA256 };
++  if (process.env.TUC_P0_EGRESS_LOG) fs.appendFileSync(process.env.TUC_P0_EGRESS_LOG, JSON.stringify(row) + '\n');
++}
++
++event('POLICY_LOADED', process.argv[1] ?? 'node');
++globalThis[Symbol.for('tuc.p0.policy-loaded')] = { stage, policy: process.env.TUC_P0_POLICY_SHA256 };
++const originalConnect = net.Socket.prototype.connect;
++net.Socket.prototype.connect = function (...args) {
++  const first = Array.isArray(args[0]) ? args[0][0] : args[0];
++  const options = typeof first === 'object' && first !== null ? first : { port: first, host: args[1] };
++  const host = options.host ?? 'localhost';
++  const port = Number(options.port);
++  const permission = networkPermission.getStore();
++  const database = stage === 'runtime' && host === '127.0.0.1' && port === 17332;
++  const sitemap = stage === 'quality' && host === '127.0.0.1' && port === 17440;
++  const mock = stage === 'mock' && host === permission?.host && port === permission?.port;
++  if (!database && !sitemap && !mock) {
++    event('SOCKET_DENIED', `${host}:${Number.isFinite(port) ? port : 'unix'}`);
++    throw new GuardDenied('OUTBOUND_SOCKET_DENIED');
++  }
++  event('SOCKET_ALLOWED', `${host}:${port}`);
++  return originalConnect.apply(this, args);
++};
++
++for (const object of [dns, dns.promises]) {
++  for (const name of ['lookup', 'resolve', 'resolve4', 'resolve6', 'resolveAny']) {
++    if (typeof object[name] !== 'function') continue;
++    const original = object[name].bind(object);
++    object[name] = (host, ...args) => {
++      if (!['127.0.0.1', 'localhost', '::1'].includes(host)) {
++        event('DNS_DENIED', host);
++        throw new GuardDenied('DNS_DENIED');
++      }
++      return original(host, ...args);
++    };
++  }
++}
++
++const nativeFetch = globalThis.fetch;
++let gate;
++globalThis.fetch = async (input, init = {}) => {
++  const request = new Request(input, init);
++  const url = new URL(request.url);
++  if (stage === 'quality' && url.origin === 'http://127.0.0.1:17440' &&
++      url.pathname === '/sitemap.xml' && request.method === 'GET') {
++    return nativeFetch(request);
++  }
++  if (stage !== 'mock' || !process.env.TUC_P0_LEDGER || request.method !== 'POST') {
++    event('FETCH_DENIED', url.origin + url.pathname);
++    throw new GuardDenied('LIVE_REQUEST_DISABLED');
++  }
++  const headers = new Headers(request.headers);
++  const metadata = {};
++  for (const key of ['approval_id', 'provider', 'workspace', 'role', 'model', 'region', 'credential_ref']) {
++    const header = 'x-tuc-' + key.replaceAll('_', '-');
++    metadata[key] = headers.get(header);
++    headers.delete(header);
++  }
++  if (!metadata.approval_id) throw new GuardDenied('APPROVAL_MISSING');
++  gate ??= new RequestGuard(process.env.TUC_P0_LEDGER);
++  const data = await gate.request({ ...metadata, endpoint: url.href, headers: Object.fromEntries(headers),
++    body: await request.json() });
++  return Response.json(data);
++};
++
++require('node:module').syncBuiltinESMExports();
+diff --git a/harness/p0-api-negative.py b/harness/p0-api-negative.py
+new file mode 100644
+index 0000000..c7e8309
+--- /dev/null
++++ b/harness/p0-api-negative.py
+@@ -0,0 +1,19 @@
++import datetime
++import json
++from pathlib import Path
++import urllib.request
++import urllib.error
++
++root=Path(__file__).resolve().parents[1]
++run=root/Path(json.loads((root/'config/active-run.json').read_text())['path'])
++records=[]
++for route in ['/api/v1/brands','/api/v1/prompts','/api/v1/reports','/api/auth/sign-in/email', '/_server/onboarding', '/api/v1/opportunities']:
++    request=urllib.request.Request('http://127.0.0.1:17300'+route, data=b'{}', headers={'Content-Type':'application/json'},method='POST')
++    try: response=urllib.request.urlopen(request,timeout=10)
++    except urllib.error.HTTPError as error: response=error
++    body=response.read().decode()
++    assert response.status==403,(route,response.status,body)
++    assert json.loads(body)['code']=='P0_READ_ONLY'
++    records.append({'at_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'route':route,'status':response.status,'body':json.loads(body)})
++(run/'api-negative.json').write_text(json.dumps(records,indent=2)+'\n')
++print(json.dumps(records,indent=2))
+diff --git a/harness/p0-db-probe.mjs b/harness/p0-db-probe.mjs
+new file mode 100644
+index 0000000..0d38ed7
+--- /dev/null
++++ b/harness/p0-db-probe.mjs
+@@ -0,0 +1,9 @@
++import pg from '../upstream/elmo/packages/lib/node_modules/pg/lib/index.js';
++const client = new pg.Client({ connectionString: process.env.DATABASE_URL, connectionTimeoutMillis: 3000 });
++try {
++  await client.connect();
++  const result = await client.query('SELECT current_database() AS database,count(*)::integer AS runs FROM prompt_runs');
++  console.log(JSON.stringify(result.rows));
++} finally {
++  await client.end();
++}
+diff --git a/harness/p0-mcp-negative.py b/harness/p0-mcp-negative.py
+new file mode 100644
+index 0000000..ba80344
+--- /dev/null
++++ b/harness/p0-mcp-negative.py
+@@ -0,0 +1,32 @@
++import datetime
++import json
++from pathlib import Path
++import urllib.request
++import urllib.error
++
++root=Path(__file__).resolve().parents[1]
++run=root/Path(json.loads((root/'config/active-run.json').read_text())['path'])
++values=dict(line.split('=',1) for line in (root/'secrets/app.env').read_text().splitlines() if line and not line.startswith('#'))
++key=values['ADMIN_API_KEYS'].split(',')[0].strip()
++headers={'Content-Type':'application/json','Accept':'application/json, text/event-stream','Authorization':'Bearer '+key,'mcp-protocol-version':'2025-03-26'}
++results=[]
++for index,(method,params) in enumerate([
++ ('initialize',{'protocolVersion':'2025-03-26','capabilities':{},'clientInfo':{'name':'synthetic-b1-client','version':'1'}}),
++ ('tools/list',{}),
++ ('tools/call',{'name':'create_prompts','arguments':{'brand_id':'tuc-p0-internal','prompts':['unapproved']}}),
++ ('tools/call',{'name':'update_prompt','arguments':{'id':'unapproved','name':'unapproved'}}),
++ ('tools/call',{'name':'get_opportunities','arguments':{'brand_id':'tuc-p0-internal'}}),
++]):
++ request=urllib.request.Request('http://127.0.0.1:17300/api/mcp',data=json.dumps({'jsonrpc':'2.0','id':index+1,'method':method,'params':params}).encode(),headers=headers)
++ try: response=urllib.request.urlopen(request,timeout=10)
++ except urllib.error.HTTPError as error: response=error
++ body=json.loads(response.read())
++ assert response.status==200,(method,response.status,body)
++ if method=='tools/list':
++  names=[tool['name'] for tool in body['result']['tools']]
++  assert 'create_prompts' not in names and 'update_prompt' not in names
++ if method=='tools/call' and params['name'] in ['create_prompts','update_prompt']:
++  assert 'error' in body or body.get('result',{}).get('isError') is True,body
++ results.append({'at_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'method':method,'params':params,'status':response.status,'response':body})
++(run/'mcp-negative.json').write_text(json.dumps(results,indent=2)+'\n')
++print(json.dumps({'cases':len(results),'write_tools_hidden':True,'write_calls_rejected':True}))
+diff --git a/harness/p0-startup-negative.py b/harness/p0-startup-negative.py
+new file mode 100644
+index 0000000..ddc9057
+--- /dev/null
++++ b/harness/p0-startup-negative.py
+@@ -0,0 +1,26 @@
++import json
++from pathlib import Path
++import subprocess
++
++root=Path(__file__).resolve().parents[1]
++run=root/Path(json.loads((root/'config/active-run.json').read_text())['path'])
++results=[]
++cases=[
++ ('default-no-app-env',['node','-e',"const a=require('node:assert/strict');a.equal(process.env.TUC_P0_OFFLINE,'1');a.equal(process.env.SCRAPE_TARGETS,'stub:stub');a.equal(process.env.RUNS_PER_PROMPT,'1');a.ok(globalThis[Symbol.for('tuc.p0.policy-loaded')]);console.log('DEFAULT_POLICY_ENFORCED')"],0,'DEFAULT_POLICY_ENFORCED'),
++ ('conflict-offline',['env','TUC_P0_OFFLINE=0','node','-e','process.exit(0)'],1,'P0_OFFLINE_REQUIRED'),
++ ('conflict-provider',['env','SCRAPE_TARGETS=openai-api:chatgpt','node','-e','process.exit(0)'],1,'P0_CONFIG_SCRAPE_TARGETS'),
++ ('conflict-judge',['env','TYPESAFE_API_KEY=synthetic-account-b','node','-e','process.exit(0)'],1,'P0_CONFIG_TYPESAFE_API_KEY'),
++ ('conflict-fanout',['env','RUNS_PER_PROMPT=2','node','-e','process.exit(0)'],1,'P0_CONFIG_RUNS_PER_PROMPT'),
++ ('direct-worker',['env','-u','NODE_OPTIONS','node','--import','tsx','apps/worker/src/index.ts'],1,'enforced offline launcher'),
++ ('direct-cli',['env','-u','NODE_OPTIONS','node','--import','tsx','apps/cli/src/index.ts','lab','brainstorm'],1,'enforced offline launcher'),
++ ('cli-research',['pnpm','elmo','lab','brainstorm'],1,'P0 CLI is read-only'),
++]
++for label,command,expected,text in cases:
++    label='startup-'+label
++    result=subprocess.run(['python3',str(root/'harness/run-command.py'),'--label',label,'--timeout','25','--',*command],cwd=root,capture_output=True,text=True,timeout=35)
++    log=(run/'logs'/f'{label}.log').read_text()
++    assert (result.returncode==0)==(expected==0),(label,result.returncode,log[-1000:])
++    assert text in log,(label,log[-1000:])
++    results.append({'label':label,'exit_code':result.returncode,'assertion':'PASS','evidence':f'logs/{label}.log'})
++(run/'startup-negative.json').write_text(json.dumps(results,indent=2)+'\n')
++print(json.dumps(results,indent=2))
+diff --git a/harness/request-contender.cjs b/harness/request-contender.cjs
+new file mode 100644
+index 0000000..87fc9ba
+--- /dev/null
++++ b/harness/request-contender.cjs
+@@ -0,0 +1,6 @@
++const { RequestGuard } = require('./request-guard.cjs');
++const gate = new RequestGuard(process.argv[2]);
++gate.request(JSON.parse(process.argv[3])).then(
++  () => console.log(JSON.stringify({ ok: true })),
++  error => console.log(JSON.stringify({ ok: false, code: error.code })),
++).finally(() => gate.close());
+diff --git a/harness/request-guard.cjs b/harness/request-guard.cjs
+new file mode 100644
+index 0000000..a0a5929
+--- /dev/null
++++ b/harness/request-guard.cjs
+@@ -0,0 +1,257 @@
++const { AsyncLocalStorage } = require('node:async_hooks');
++const { createHash, randomUUID } = require('node:crypto');
++const { DatabaseSync } = require('node:sqlite');
++
++const rawFetch = globalThis.fetch;
++const networkPermission = new AsyncLocalStorage();
++
++class GuardDenied extends Error {
++  constructor(code) {
++    super(code);
++    this.name = 'GuardDenied';
++    this.code = code;
++  }
++}
++
++function deny(code) {
++  throw new GuardDenied(code);
++}
++
++function positiveInteger(value) {
++  return Number.isSafeInteger(value) && value > 0;
++}
++
++function endpointOf(value) {
++  let url;
++  try {
++    url = new URL(value);
++  } catch {
++    deny('INVALID_ENDPOINT');
++  }
++  if (url.protocol !== 'http:' || url.hostname !== '127.0.0.1' ||
++      url.port !== '17441' || url.username || url.password || url.search || url.hash || !url.port) {
++    deny('LIVE_ENDPOINT_DISABLED');
++  }
++  return url;
++}
++
++class RequestGuard {
++  constructor(filename, { now = Date.now } = {}) {
++    this.now = now;
++    this.controllers = new Map();
++    this.db = new DatabaseSync(filename);
++    this.db.exec(`
++      PRAGMA busy_timeout=10000;
++      PRAGMA journal_mode=WAL;
++      CREATE TABLE IF NOT EXISTS approvals (
++        id TEXT PRIMARY KEY, payload TEXT NOT NULL, halted TEXT
++      );
++      CREATE TABLE IF NOT EXISTS attempts (
++        id TEXT PRIMARY KEY, approval_id TEXT NOT NULL, role TEXT NOT NULL, owner_pid INTEGER NOT NULL,
++        started_at INTEGER NOT NULL, ended_at INTEGER, state TEXT NOT NULL,
++        reserved_tokens INTEGER NOT NULL, input_bound INTEGER NOT NULL,
++        output_bound INTEGER NOT NULL, input_used INTEGER, output_used INTEGER,
++        body_sha256 TEXT NOT NULL, error_code TEXT
++      );
++      CREATE TABLE IF NOT EXISTS events (
++        sequence INTEGER PRIMARY KEY, at INTEGER NOT NULL, kind TEXT NOT NULL,
++        approval_id TEXT, attempt_id TEXT, detail TEXT
++      );
++    `);
++    this.recoverAbandoned();
++  }
++
++  recoverAbandoned() {
++    this.db.exec('BEGIN IMMEDIATE');
++    try {
++      const pending = this.db.prepare("SELECT id,approval_id,owner_pid FROM attempts WHERE state IN ('RESERVED','IN_FLIGHT')").all();
++      for (const row of pending) {
++        try {
++          process.kill(row.owner_pid, 0);
++        } catch (error) {
++          if (error.code !== 'ESRCH') continue;
++          this.db.prepare("UPDATE attempts SET state='UNKNOWN_CHARGE',ended_at=?,error_code='OWNER_PROCESS_LOST' WHERE id=?").run(this.now(), row.id);
++          this.db.prepare("UPDATE approvals SET halted=coalesce(halted,'RECOVERY_UNKNOWN_CHARGE') WHERE id=?").run(row.approval_id);
++          this.event('UNKNOWN_CHARGE', row.approval_id, row.id, 'OWNER_PROCESS_LOST');
++        }
++      }
++      this.db.exec('COMMIT');
++    } catch (error) {
++      this.db.exec('ROLLBACK');
++      throw error;
++    }
++  }
++
++  event(kind, approvalId, attemptId, detail) {
++    this.db.prepare('INSERT INTO events(at,kind,approval_id,attempt_id,detail) VALUES(?,?,?,?,?)')
++      .run(this.now(), kind, approvalId ?? null, attemptId ?? null, detail ?? null);
++  }
++
++  registerMockApproval(approval) {
++    endpointOf(approval.endpoint);
++    if (approval.mode !== 'MOCK_FIXTURE' || approval.approved !== true ||
++        approval.approved_by !== 'LOCAL_TEST_FIXTURE' || approval.cash_charge_usd !== 0 ||
++        approval.paid_fallback_disabled !== true || !approval.quota_evidence_ref ||
++        !approval.hard_stop_evidence_ref || !approval.credential_ref ||
++        !/^[a-f0-9]{64}$/.test(approval.credential_sha256 ?? '') ||
++        approval.quota_scope !== 'FIXTURE_EXCLUSIVE' || !approval.workspace || !approval.id || !approval.provider || !approval.model || approval.region !== 'local-mock' ||
++        !Array.isArray(approval.roles) || approval.roles.length === 0 ||
++        !Array.isArray(approval.allowed_tools) || approval.allowed_tools.length !== 0 ||
++        !Number.isFinite(approval.expires_at) || !Number.isFinite(approval.quota_expires_at) ||
++        !['max_requests', 'max_input_tokens', 'max_output_tokens', 'max_total_tokens']
++          .every(key => positiveInteger(approval[key]))) {
++      deny('INVALID_APPROVAL');
++    }
++    this.db.prepare('INSERT INTO approvals(id,payload) VALUES(?,?)')
++      .run(approval.id, JSON.stringify(approval));
++    this.event('MOCK_APPROVAL_REGISTERED', approval.id, null, 'No live authorization');
++  }
++
++  approval(id) {
++    const row = this.db.prepare('SELECT payload,halted FROM approvals WHERE id=?').get(id);
++    if (!row) deny('APPROVAL_MISSING');
++    if (row.halted) deny(row.halted);
++    const approval = JSON.parse(row.payload);
++    if (approval.expires_at <= this.now()) deny('APPROVAL_EXPIRED');
++    if (approval.quota_expires_at <= this.now()) deny('QUOTA_EXPIRED');
++    return approval;
++  }
++
++  validate(approval, request) {
++    const target = endpointOf(request.endpoint);
++    if (target.href !== endpointOf(approval.endpoint).href ||
++        request.workspace !== approval.workspace || request.provider !== approval.provider || request.model !== approval.model || request.region !== approval.region ||
++        request.credential_ref !== approval.credential_ref ||
++        !approval.roles.includes(request.role)) deny('TARGET_OR_ROLE_MISMATCH');
++    const headers = new Headers(request.headers);
++    const credentialHash = createHash('sha256').update(headers.get('authorization') ?? '').digest('hex');
++    if (credentialHash !== approval.credential_sha256) deny('CREDENTIAL_MISMATCH');
++    const body = request.body;
++    if (!body || body.model !== request.model) deny('MODEL_MISMATCH');
++    const supported = new Set(['model', 'input', 'prompt', 'messages', 'state', 'questions',
++      'max_output_tokens', 'max_tokens', 'tools', 'tool_choice', 'temperature', 'stream']);
++    if (Object.keys(body).some(key => !supported.has(key))) deny('UNSUPPORTED_PARAMETER');
++    if ((body.tools && (!Array.isArray(body.tools) || body.tools.length > 0)) ||
++        (body.tool_choice && body.tool_choice !== 'none') || body.stream === true) deny('TOOLS_OR_STREAM_DISABLED');
++    const output = body.max_output_tokens ?? body.max_tokens;
++    if (body.max_tokens !== undefined && body.max_output_tokens !== undefined) deny('AMBIGUOUS_OUTPUT_LIMIT');
++    if (!positiveInteger(output) || output > approval.max_output_tokens) deny('OUTPUT_LIMIT');
++    const input = { input: body.input, prompt: body.prompt, messages: body.messages,
++      state: body.state, questions: body.questions };
++    const inputBound = Buffer.byteLength(JSON.stringify(input), 'utf8') + 64;
++    if (inputBound > approval.max_input_tokens) deny('INPUT_LIMIT');
++    return { target, inputBound, output };
++  }
++
++  reserve(request) {
++    this.db.exec('BEGIN IMMEDIATE');
++    try {
++      const approval = this.approval(request.approval_id);
++      const limits = this.validate(approval, request);
++      const used = this.db.prepare(`SELECT count(*) AS requests,
++        coalesce(sum(reserved_tokens),0) AS tokens FROM attempts WHERE approval_id=?`).get(approval.id);
++      if (used.requests >= approval.max_requests) deny('REQUEST_LIMIT');
++      if (used.tokens + limits.inputBound + limits.output > approval.max_total_tokens) deny('TOKEN_BUDGET');
++      const id = randomUUID();
++      this.db.prepare(`INSERT INTO attempts
++        (id,approval_id,role,owner_pid,started_at,state,reserved_tokens,input_bound,output_bound,body_sha256)
++        VALUES(?,?,?,?,?,?,?,?,?,?)`).run(id, approval.id, request.role, process.pid, this.now(), 'RESERVED',
++          limits.inputBound + limits.output, limits.inputBound, limits.output,
++          createHash('sha256').update(JSON.stringify(request.body)).digest('hex'));
++      this.event('RESERVED', approval.id, id, request.role);
++      this.db.exec('COMMIT');
++      return { id, approval, ...limits };
++    } catch (error) {
++      this.db.exec('ROLLBACK');
++      this.event('DENIED', request.approval_id, null, error.code ?? 'VALIDATION_ERROR');
++      throw error;
++    }
++  }
++
++  halt(approvalId, reason) {
++    this.db.prepare('UPDATE approvals SET halted=coalesce(halted,?) WHERE id=?').run(reason, approvalId);
++    this.event('HALTED', approvalId, null, reason);
++    for (const entry of this.controllers.values()) {
++      if (entry.approvalId === approvalId) entry.controller.abort(new GuardDenied(reason));
++    }
++  }
++
++  revoke(approvalId) {
++    this.halt(approvalId, 'APPROVAL_REVOKED');
++  }
++
++  emergencyStop() {
++    for (const row of this.db.prepare('SELECT id FROM approvals').all()) this.halt(row.id, 'EMERGENCY_STOP');
++  }
++
++  async request(request) {
++    const reservation = this.reserve(request);
++    const { id, approval, target } = reservation;
++    const controller = new AbortController();
++    this.controllers.set(id, { approvalId: approval.id, controller });
++    const timeout = setTimeout(() => controller.abort(new GuardDenied('REQUEST_TIMEOUT')),
++      Math.min(request.timeout_ms ?? 5000, 5000));
++    const watch = setInterval(() => {
++      try {
++        this.approval(approval.id);
++      } catch (error) {
++        controller.abort(error);
++      }
++    }, 20);
++    try {
++      this.approval(approval.id);
++      this.db.prepare('UPDATE attempts SET state=? WHERE id=?').run('IN_FLIGHT', id);
++      this.event('HTTP_ATTEMPT', approval.id, id, target.origin + target.pathname);
++      const response = await networkPermission.run({ host: target.hostname, port: Number(target.port) }, () =>
++        rawFetch(target, { method: 'POST', headers: request.headers, body: JSON.stringify(request.body),
++          redirect: 'error', signal: controller.signal }));
++      if (!response.ok) deny(`HTTP_${response.status}`);
++      const chunks = [];
++      let size = 0;
++      for await (const chunk of response.body ?? []) {
++        size += chunk.length;
++        if (size > 1_000_000) {
++          controller.abort();
++          deny('RESPONSE_LIMIT');
++        }
++        chunks.push(chunk);
++      }
++      const data = JSON.parse(Buffer.concat(chunks).toString('utf8'));
++      const usage = data.usage;
++      if (!usage || !Number.isSafeInteger(usage.input_tokens) || !Number.isSafeInteger(usage.output_tokens) ||
++          usage.input_tokens < 0 || usage.output_tokens < 0) deny('USAGE_UNKNOWN');
++      if (usage.input_tokens > reservation.inputBound || usage.output_tokens > reservation.output) deny('USAGE_LIMIT');
++      if (data.tools_used?.length || data.search_queries?.length) deny('UNAUTHORIZED_TOOL_USAGE');
++      if (data.model !== request.model) deny('REPORTED_MODEL_MISMATCH');
++      this.approval(approval.id);
++      this.db.prepare(`UPDATE attempts SET state='SUCCEEDED',ended_at=?,input_used=?,output_used=? WHERE id=?`)
++        .run(this.now(), usage.input_tokens, usage.output_tokens, id);
++      this.event('SUCCEEDED', approval.id, id, 'MOCK_FIXTURE');
++      return data;
++    } catch (error) {
++      const code = error.code ?? error.cause?.code ?? 'UNKNOWN_TRANSPORT_FAILURE';
++      this.db.prepare(`UPDATE attempts SET state='UNKNOWN_CHARGE',ended_at=?,error_code=? WHERE id=?`)
++        .run(this.now(), String(code), id);
++      this.event('UNKNOWN_CHARGE', approval.id, id, String(code));
++      this.halt(approval.id, 'BATCH_HALTED');
++      throw new GuardDenied(String(code));
++    } finally {
++      clearTimeout(timeout);
++      clearInterval(watch);
++      this.controllers.delete(id);
++    }
++  }
++
++  snapshot() {
++    return { attempts: this.db.prepare('SELECT * FROM attempts ORDER BY started_at,id').all(),
++      events: this.db.prepare('SELECT * FROM events ORDER BY sequence').all(),
++      approvals: this.db.prepare('SELECT id,halted FROM approvals ORDER BY id').all() };
++  }
++
++  close() {
++    if (this.controllers.size) deny('REQUESTS_STILL_ACTIVE');
++    this.db.close();
++  }
++}
++
++module.exports = { RequestGuard, GuardDenied, networkPermission };
+diff --git a/harness/request-guard.test.cjs b/harness/request-guard.test.cjs
+new file mode 100644
+index 0000000..3eb1b27
+--- /dev/null
++++ b/harness/request-guard.test.cjs
+@@ -0,0 +1,194 @@
++const { test, after, before } = require('node:test');
++const assert = require('node:assert/strict');
++const http = require('node:http');
++const { mkdtempSync, writeFileSync } = require('node:fs');
++const path = require('node:path');
++const { createHash } = require('node:crypto');
++const { spawn } = require('node:child_process');
++const { RequestGuard } = require('./request-guard.cjs');
++
++const directory = mkdtempSync(path.join(__dirname, '../runtime/guard-tests-'));
++const credential = 'Bearer synthetic-account-a';
++const hits = [];
++const server = http.createServer(async (request, response) => {
++  let body = '';
++  for await (const chunk of request) body += chunk;
++  const parsed = JSON.parse(body);
++  hits.push({ route: request.url, model: parsed.model, tools: parsed.tools ?? [] });
++  if (request.url === '/disconnect') return request.socket.destroy();
++  if (request.url === '/redirect') {
++    response.writeHead(307, { location: 'http://127.0.0.1:17442/forbidden' });
++    return response.end();
++  }
++  if (request.url.startsWith('/status/')) {
++    response.writeHead(Number(request.url.split('/').pop()));
++    return response.end('{}');
++  }
++  if (request.url === '/slow') await new Promise(resolve => setTimeout(resolve, 250));
++  response.setHeader('content-type', 'application/json');
++  response.end(JSON.stringify({ model: parsed.model,
++    ...(request.url === '/missing-usage' ? {} : { usage: { input_tokens: 4, output_tokens: 2 } }),
++    ...(request.url === '/unexpected-tool' ? { tools_used: ['search'] } : {}), output: 'synthetic' }));
++});
++before(() => new Promise(resolve => server.listen(17441, '127.0.0.1', resolve)));
++after(async () => {
++  writeFileSync(path.join(directory, 'server-hits.json'), JSON.stringify(hits, null, 2));
++  server.closeAllConnections();
++  await new Promise(resolve => server.close(resolve));
++  console.log(JSON.stringify({ fixture_directory: directory, local_http_hits: hits.length, real_model_calls: 0 }));
++});
++let sequence = 0;
++function fixture(changes = {}) {
++  const filename = path.join(directory, `${++sequence}.sqlite`);
++  const gate = new RequestGuard(filename);
++  const approval = { id: 'fixture', provider: 'local-fixture', workspace: 'synthetic-workspace', quota_scope: 'FIXTURE_EXCLUSIVE', mode: 'MOCK_FIXTURE', approved: true,
++    approved_by: 'LOCAL_TEST_FIXTURE', cash_charge_usd: 0, paid_fallback_disabled: true,
++    endpoint: 'http://127.0.0.1:17441/ok', region: 'local-mock', model: 'fixture-v1',
++    roles: ['sample', 'judge', 'research', 'format-retry'], credential_ref: 'account-a',
++    credential_sha256: createHash('sha256').update(credential).digest('hex'),
++    expires_at: Date.now() + 60000, quota_expires_at: Date.now() + 60000,
++    quota_evidence_ref: 'synthetic-quota', hard_stop_evidence_ref: 'synthetic-hard-stop',
++    max_requests: 1, max_input_tokens: 512, max_output_tokens: 32, max_total_tokens: 1000,
++    allowed_tools: [], ...changes };
++  const request = { approval_id: approval.id, provider: approval.provider, workspace: approval.workspace, role: 'sample',
++    endpoint: approval.endpoint, region: approval.region, model: approval.model,
++    credential_ref: approval.credential_ref, headers: { authorization: credential },
++    body: { model: approval.model, input: 'synthetic', max_output_tokens: 16 } };
++  return { gate, filename, approval, request };
++}
++async function rejectedBeforeSend(changes, requestChanges, expected) {
++  const f = fixture(changes);
++  f.gate.registerMockApproval(f.approval);
++  const before = hits.length;
++  await assert.rejects(f.gate.request({ ...f.request, ...requestChanges }), expected);
++  assert.equal(hits.length, before);
++  assert.equal(f.gate.snapshot().attempts.length, 0);
++  f.gate.close();
++}
++
++test('COST-01 missing approval and live endpoint fail before HTTP', async () => {
++  const f = fixture();
++  await assert.rejects(f.gate.request(f.request), /APPROVAL_MISSING/);
++  assert.throws(() => f.gate.registerMockApproval({ ...f.approval, endpoint: 'https://api.invalid/v1' }), /LIVE_ENDPOINT_DISABLED/);
++  f.gate.close();
++});
++test('COST-02 missing evidence, shared quota, expiry and quota expiry fail closed', async () => {
++  for (const key of ['quota_evidence_ref', 'hard_stop_evidence_ref', 'credential_sha256']) {
++    const f = fixture({ [key]: undefined });
++    assert.throws(() => f.gate.registerMockApproval(f.approval), /INVALID_APPROVAL/);
++    f.gate.close();
++  }
++  await rejectedBeforeSend({ expires_at: 1 }, {}, /APPROVAL_EXPIRED/);
++  await rejectedBeforeSend({ quota_expires_at: 1 }, {}, /QUOTA_EXPIRED/);
++  const f = fixture();
++  f.gate.registerMockApproval(f.approval);
++  assert.throws(() => f.gate.registerMockApproval(f.approval), /UNIQUE/);
++  f.gate.close();
++});
++test('COST-03 twenty processes share one atomic slot across all roles', async () => {
++  const f = fixture();
++  f.gate.registerMockApproval(f.approval);
++  const before = hits.length;
++  const contenders = Array.from({ length: 20 }, (_, index) => new Promise((resolve, reject) => {
++    const child = spawn(process.execPath, [path.join(__dirname, 'request-contender.cjs'), f.filename,
++      JSON.stringify({ ...f.request, role: f.approval.roles[index % 4] })], { env: process.env });
++    let output = '';
++    child.stdout.on('data', chunk => output += chunk);
++    child.stderr.on('data', () => {});
++    child.on('error', reject);
++    child.on('close', code => code === 0 ? resolve(JSON.parse(output)) : reject(new Error(`child exit ${code}`)));
++  }));
++  const results = await Promise.all(contenders);
++  assert.equal(results.filter(result => result.ok).length, 1);
++  assert.equal(results.filter(result => result.code === 'REQUEST_LIMIT').length, 19);
++  assert.equal(hits.length - before, 1);
++  assert.equal(f.gate.snapshot().attempts.length, 1);
++  writeFileSync(path.join(directory, 'concurrency.json'), JSON.stringify({ contenders: results, actual_hits: hits.length - before,
++    ledger: f.gate.snapshot() }, null, 2));
++  f.gate.close();
++});
++test('COST-04 input output thinking tools search providerOptions stream and budget limits', async () => {
++  const bodies = [
++    { input: 'x'.repeat(1000) }, { max_output_tokens: 33 }, { max_output_tokens: 0 },
++    { thinking: { budget_tokens: 100000 } }, { tools: [{ type: 'web_search' }] },
++    { providerOptions: { search: true } }, { tool_choice: 'auto' }, { stream: true },
++    { max_tokens: 20 },
++  ];
++  for (const changes of bodies) {
++    await rejectedBeforeSend({}, { body: { model: 'fixture-v1', input: 'synthetic', max_output_tokens: 16, ...changes } },
++      /INPUT_LIMIT|OUTPUT_LIMIT|UNSUPPORTED_PARAMETER|TOOLS_OR_STREAM_DISABLED|AMBIGUOUS_OUTPUT_LIMIT/);
++  }
++  await rejectedBeforeSend({ max_total_tokens: 1 }, {}, /TOKEN_BUDGET/);
++});
++test('PRV-01 PRV-05 and COST-08 bind provider endpoint region model role and credential', async () => {
++  for (const changes of [ { workspace: 'other-workspace' }, { provider: 'unknown' }, { model: 'paid-default' }, { region: 'other' },
++    { endpoint: 'http://127.0.0.1:17441/other' }, { role: 'unapproved' }, { credential_ref: 'account-b' },
++    { headers: { authorization: 'Bearer synthetic-account-b' } }, { headers: {} },
++    { body: { model: 'other', input: 'synthetic', max_output_tokens: 16 } } ]) {
++    await rejectedBeforeSend({}, changes, /TARGET_OR_ROLE_MISMATCH|CREDENTIAL_MISMATCH|MODEL_MISMATCH/);
++  }
++});
++test('COST-05 401 403 429 5xx timeout disconnect redirect unknown usage halt without retry or refund', async () => {
++  for (const route of ['/status/401', '/status/403', '/status/429', '/status/500', '/slow', '/disconnect', '/redirect', '/missing-usage', '/unexpected-tool']) {
++    const f = fixture({ endpoint: `http://127.0.0.1:17441${route}`, max_requests: 3 });
++    f.gate.registerMockApproval(f.approval);
++    const before = hits.length;
++    await assert.rejects(f.gate.request({ ...f.request, timeout_ms: route === '/slow' ? 30 : 1000 }));
++    await assert.rejects(f.gate.request(f.request), /BATCH_HALTED/);
++    assert.equal(hits.length - before, 1, route);
++    const snapshot = f.gate.snapshot();
++    assert.equal(snapshot.attempts[0].state, 'UNKNOWN_CHARGE');
++    assert.ok(snapshot.attempts[0].reserved_tokens > 0);
++    writeFileSync(path.join(directory, `failure-${sequence}.json`), JSON.stringify({ route, hits: hits.length - before, snapshot }, null, 2));
++    f.gate.close();
++  }
++});
++test('COST-09 revoke and emergency stop cancel in-flight and deny subsequent roles', async () => {
++  for (const method of ['revoke', 'emergencyStop']) {
++    const f = fixture({ endpoint: 'http://127.0.0.1:17441/slow', max_requests: 3 });
++    f.gate.registerMockApproval(f.approval);
++    const before = hits.length;
++    const started = Date.now();
++    const pending = f.gate.request(f.request);
++    const result = assert.rejects(pending);
++    while (hits.length === before && Date.now() - started < 2000) await new Promise(resolve => setTimeout(resolve, 5));
++    assert.ok(hits.length > before, 'slow request reached fixture');
++    f.gate[method](f.approval.id);
++    await result;
++    await assert.rejects(f.gate.request({ ...f.request, role: 'judge' }), /APPROVAL_REVOKED|EMERGENCY_STOP/);
++    assert.equal(hits.length - before, 1);
++    assert.equal(f.gate.snapshot().attempts[0].state, 'UNKNOWN_CHARGE');
++    console.log(JSON.stringify({ method, stopped_within_ms: Date.now() - started }));
++    f.gate.close();
++  }
++});
++test('PRV-06 successful local fixture has explicit empty tools and bounded usage', async () => {
++  const f = fixture();
++  f.gate.registerMockApproval(f.approval);
++  const data = await f.gate.request(f.request);
++  assert.deepEqual(data.usage, { input_tokens: 4, output_tokens: 2 });
++  assert.equal(f.gate.snapshot().attempts[0].state, 'SUCCEEDED');
++  assert.deepEqual(hits.at(-1).tools, []);
++  f.gate.close();
++});
++
++test('COST-05 process loss preserves the reservation and halts recovery', async () => {
++  const f = fixture({ endpoint: 'http://127.0.0.1:17441/slow', max_requests: 3 });
++  f.gate.registerMockApproval(f.approval);
++  const before = hits.length;
++  const child = spawn(process.execPath, [path.join(__dirname, 'request-contender.cjs'), f.filename, JSON.stringify(f.request)],
++    { env: process.env, stdio: 'ignore' });
++  const stopped = new Promise(resolve => child.on('close', resolve));
++  const deadline = Date.now() + 2000;
++  while (hits.length === before && Date.now() < deadline) await new Promise(resolve => setTimeout(resolve, 5));
++  assert.equal(hits.length, before + 1);
++  child.kill('SIGKILL');
++  await stopped;
++  const recovered = new RequestGuard(f.filename);
++  await assert.rejects(recovered.request(f.request), /RECOVERY_UNKNOWN_CHARGE/);
++  assert.equal(recovered.snapshot().attempts[0].state, 'UNKNOWN_CHARGE');
++  assert.ok(recovered.snapshot().attempts[0].reserved_tokens > 0);
++  writeFileSync(path.join(directory, 'crash-recovery.json'),JSON.stringify(recovered.snapshot(),null,2));
++  recovered.close();
++  f.gate.close();
++});
+diff --git a/harness/run-command.py b/harness/run-command.py
+index ca8aba5..a83a8fb 100644
+--- a/harness/run-command.py
++++ b/harness/run-command.py
+@@ -1,126 +1,5 @@
+ #!/usr/bin/env python3
+-import argparse
+-import datetime
+-import json
+-import os
+ from pathlib import Path
+-import subprocess
+-from urllib.parse import urlparse
++import runpy
+ 
+-root = Path(__file__).resolve().parents[1]
+-active = json.loads((root / "config/active-run.json").read_text())
+-run = Path(active["path"])
+-parser = argparse.ArgumentParser()
+-parser.add_argument("--label", required=True)
+-parser.add_argument("--cwd", default=str(root / "upstream/elmo"))
+-parser.add_argument("--timeout", type=int, default=1200)
+-parser.add_argument("--app-env", action="store_true")
+-parser.add_argument("--background", action="store_true")
+-parser.add_argument("command", nargs=argparse.REMAINDER)
+-args = parser.parse_args()
+-command = args.command
+-if command and command[0] == "--":
+-    command = command[1:]
+-if not command:
+-    parser.error("A command is required")
+-
+-node_bin = root / "runtime/node-v24.22.3-darwin-arm64/bin"
+-pnpm_bin = root / "runtime/pnpm-native/package"
+-environment = {
+-    name: value
+-    for name, value in os.environ.items()
+-    if name in {"HOME", "USER", "LOGNAME", "TMPDIR", "LANG", "LC_ALL", "TERM"}
+-}
+-environment.update({
+-    "HOME": str(root / "runtime/home"),
+-    "PATH": f"{node_bin}:{pnpm_bin}:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+-    "COLIMA_HOME": str(root / "runtime/colima"),
+-    "LIMA_HOME": str(root / "runtime/lima"),
+-    "DOCKER_CONFIG": str(root / "runtime/docker-client"),
+-    "DOCKER_HOST": f"unix://{root}/runtime/colima/tuc-p0/docker.sock",
+-    "PNPM_HOME": str(pnpm_bin),
+-    "XDG_CONFIG_HOME": str(root / "runtime/xdg-config"),
+-    "XDG_CACHE_HOME": str(root / "runtime/xdg-cache"),
+-    "XDG_DATA_HOME": str(root / "runtime/xdg-data"),
+-    "npm_config_userconfig": str(root / "config/package-manager-empty.npmrc"),
+-    "npm_config_globalconfig": str(root / "config/package-manager-empty.npmrc"),
+-    "CI": "true",
+-    "DO_NOT_TRACK": "1",
+-    "DISABLE_TELEMETRY": "1",
+-    "TURBO_TELEMETRY_DISABLED": "1",
+-    "COREPACK_ENABLE_NETWORK": "0",
+-    "TUC_P0_OFFLINE": "0",
+-})
+-redactions = []
+-if args.app_env:
+-    app_environment = dict(
+-        line.split("=", 1)
+-        for line in (root / "secrets/app.env").read_text().splitlines()
+-        if line and not line.startswith("#")
+-    )
+-    if app_environment.get("SCRAPE_TARGETS") != "stub:stub":
+-        raise SystemExit("Only the approved stub targets are enabled by this runner")
+-    environment.update(app_environment)
+-    for name in ["DATABASE_URL", "BETTER_AUTH_SECRET", "ELMO_ENCRYPTION_KEY", "ADMIN_API_KEYS"]:
+-        if app_environment.get(name):
+-            redactions.append(app_environment[name])
+-    password = urlparse(app_environment["DATABASE_URL"]).password
+-    if password:
+-        redactions.append(password)
+-if "migrate" in command:
+-    approval = json.loads((root / "approvals/A0.json").read_text())
+-    database = urlparse(environment.get("DATABASE_URL", ""))
+-    if (
+-        approval.get("approval_id") != "A0-user-20261117"
+-        or database.hostname != "127.0.0.1"
+-        or database.port != 17332
+-        or database.path.lstrip("/") not in approval["new_test_databases"]
+-    ):
+-        raise SystemExit("Migration is outside the approved new test database scope")
+-started = datetime.datetime.now(datetime.timezone.utc).isoformat()
+-log = run / "logs" / f"{args.label}.log"
+-if args.background:
+-    with log.open("x") as output:
+-        process = subprocess.Popen(
+-            command, cwd=args.cwd, env=environment, stdout=output,
+-            stderr=subprocess.STDOUT, start_new_session=True,
+-        )
+-    path = run / "processes.json"
+-    records = json.loads(path.read_text()) if path.exists() else []
+-    record = {
+-        "name": args.label, "pid": process.pid, "command": command,
+-        "started_at_utc": started, "output": str(log.relative_to(run)),
+-    }
+-    records.append(record)
+-    path.write_text(json.dumps(records, indent=2) + "\n")
+-    print(json.dumps(record, indent=2))
+-    raise SystemExit(0)
+-with log.open("x") as output:
+-    try:
+-        result = subprocess.run(
+-            command, cwd=args.cwd, env=environment, stdout=output,
+-            stderr=subprocess.STDOUT, timeout=args.timeout,
+-        )
+-        exit_code = result.returncode
+-    except subprocess.TimeoutExpired:
+-        exit_code = 124
+-
+-sanitized = log.read_text(errors="replace")
+-for value in sorted(redactions, key=len, reverse=True):
+-    sanitized = sanitized.replace(value, "[REDACTED_TEST_SECRET]")
+-log.write_text(sanitized)
+-
+-record = {
+-    "command": command,
+-    "cwd": args.cwd,
+-    "started_at_utc": started,
+-    "ended_at_utc": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+-    "exit_code": exit_code,
+-    "output": str(log.relative_to(run)),
+-    "environment": "Allowlisted host fields and project-local tool/runtime paths",
+-}
+-with (run / "commands.jsonl").open("a") as output:
+-    output.write(json.dumps(record) + "\n")
+-print(json.dumps(record, indent=2))
+-print(log.read_text(errors="replace")[-3500:])
+-raise SystemExit(exit_code)
++runpy.run_path(str(Path(__file__).with_name("b1-runner.py")), run_name="__main__")
+diff --git a/upstream/elmo/apps/cli/src/index.ts b/upstream/elmo/apps/cli/src/index.ts
+index bebcbae..ab17130 100644
+--- a/upstream/elmo/apps/cli/src/index.ts
++++ b/upstream/elmo/apps/cli/src/index.ts
+@@ -1,4 +1,5 @@
+ #!/usr/bin/env node
++import { assertP0Runtime } from "@workspace/lib/constants";
+ import { Command } from "commander";
+ import pc from "picocolors";
+ import { type AuditOptions, runAudit } from "./commands/audit.js";
+@@ -14,6 +15,10 @@ import { printBanner } from "./util.js";
+ import { getPackageVersion, maybeNotifyNewVersion } from "./version.js";
+ 
+ async function main() {
++	assertP0Runtime();
++	if (process.argv.slice(2).some((argument) => !["--help", "-h", "--version", "-V"].includes(argument))) {
++		throw new Error("P0 CLI is read-only and rejects execution commands");
++	}
+ 	const version = await getPackageVersion();
+ 	const program = new Command();
+ 
+diff --git a/upstream/elmo/apps/web/src/env.d.ts b/upstream/elmo/apps/web/src/env.d.ts
+index 673c459..ec1635e 100644
+--- a/upstream/elmo/apps/web/src/env.d.ts
++++ b/upstream/elmo/apps/web/src/env.d.ts
+@@ -79,6 +79,8 @@ declare global {
+ 			readonly SENTRY_TRACES_SAMPLE_RATE?: string;
+ 			readonly DISABLE_TELEMETRY?: string;
+ 			readonly TUC_P0_OFFLINE?: string;
++			readonly TUC_P0_STAGE?: string;
++			readonly TUC_P0_BATCH_ID?: string;
+ 			readonly STRIPE_SECRET_KEY?: string;
+ 			readonly STRIPE_WEBHOOK_SECRET?: string;
+ 			readonly RESEND_API_KEY?: string;
+diff --git a/upstream/elmo/apps/web/src/lib/api/handler.ts b/upstream/elmo/apps/web/src/lib/api/handler.ts
+index 5d1c543..47a0f55 100644
+--- a/upstream/elmo/apps/web/src/lib/api/handler.ts
++++ b/upstream/elmo/apps/web/src/lib/api/handler.ts
+@@ -8,6 +8,7 @@
+  */
+ 
+ import { getDeployment } from "@workspace/deployment";
++import { isP0Offline } from "@workspace/lib/constants";
+ import { WriteDeniedError } from "@workspace/lib/entitlements";
+ import type { z } from "zod";
+ import { type ApiAuth, type ApiAuthFailure, principalScopes, resolveApiAuth } from "@/lib/auth/api-auth";
+@@ -196,6 +197,9 @@ export function createApiHandler<
+ 		if ("failure" in resolved) return authFailureResponse(resolved.failure);
+ 
+ 		const auth = resolved.auth;
++		if (isP0Offline() && !["GET", "HEAD", "OPTIONS"].includes(request.method)) {
++			return Response.json({ code: "P0_READ_ONLY" }, { status: 403 });
++		}
+ 		const refusal = refuseRequest(auth, request, opts);
+ 		if (refusal) return refusal;
+ 
+diff --git a/upstream/elmo/apps/web/src/lib/mcp/__tests__/server.test.ts b/upstream/elmo/apps/web/src/lib/mcp/__tests__/server.test.ts
+index df4f162..8950794 100644
+--- a/upstream/elmo/apps/web/src/lib/mcp/__tests__/server.test.ts
++++ b/upstream/elmo/apps/web/src/lib/mcp/__tests__/server.test.ts
+@@ -202,3 +202,17 @@ describe("the MCP server", () => {
+ 		await close();
+ 	});
+ });
++
++it("rejects a directly registered write tool in offline mode without calling its implementation", async () => {
++	vi.stubEnv("TUC_P0_OFFLINE", "1");
++	const write = vi.fn(async () => ({ changed: true }));
++	const { client, close } = await connect([stubTool({ name: "unapproved_writer", readOnly: false, run: write })]);
++	try {
++		const response = await client.callTool({ name: "unapproved_writer", arguments: {} });
++		expect(response.isError).toBe(true);
++		expect(textOf(response)).toBe("P0_READ_ONLY");
++		expect(write).not.toHaveBeenCalled();
++	} finally {
++		await close();
++	}
++});
+diff --git a/upstream/elmo/apps/web/src/lib/mcp/server.ts b/upstream/elmo/apps/web/src/lib/mcp/server.ts
+index 6129f4a..1908615 100644
+--- a/upstream/elmo/apps/web/src/lib/mcp/server.ts
++++ b/upstream/elmo/apps/web/src/lib/mcp/server.ts
+@@ -2,8 +2,10 @@
+  * Stateless: a fresh server per POST, because the request that opens a session
+  * and the one that uses it need not land on the same instance.
+  */
++
+ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+ import { WebStandardStreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/webStandardStreamableHttp.js";
++import { isP0Offline } from "@workspace/lib/constants";
+ import { ApiError } from "@/lib/api/handler";
+ import type { Principal } from "@/lib/auth/api-auth";
+ import { type McpTool, toolsFor } from "./tools";
+@@ -63,6 +65,9 @@ export function createMcpServer(auth: Principal, tools: readonly McpTool[]): Mcp
+ 				},
+ 			},
+ 			async (args: Record<string, unknown>) => {
++				if (isP0Offline() && !tool.readOnly) {
++					return { content: [{ type: "text" as const, text: "P0_READ_ONLY" }], isError: true };
++				}
+ 				try {
+ 					const result = await tool.run(context, args);
+ 					// Text rather than `structuredContent`: an output schema per tool is a
+diff --git a/upstream/elmo/apps/web/src/server.ts b/upstream/elmo/apps/web/src/server.ts
+index 695ec49..7f6c846 100644
+--- a/upstream/elmo/apps/web/src/server.ts
++++ b/upstream/elmo/apps/web/src/server.ts
+@@ -1,12 +1,13 @@
+ import "../instrument.server.mjs";
+ import * as Sentry from "@sentry/tanstackstart-react";
+ import handler, { createServerEntry } from "@tanstack/react-start/server-entry";
++import { assertP0Runtime, isP0Offline } from "@workspace/lib/constants";
+ import { startCredentialRefresh } from "@workspace/lib/secrets";
+ import { AD_TAG_CSP } from "@workspace/ui/lib/ad-tags";
+ 
+ // Not awaited: the app has to serve sign-in and settings whether or not the
+ // credential store is reachable.
+-void startCredentialRefresh();
++if (!isP0Offline()) void startCredentialRefresh();
+ 
+ // HSTS asserts HTTPS-only for the host that served the response. Whitelabel
+ // deployments run on customer-controlled custom domains, where `includeSubDomains`
+@@ -56,6 +57,11 @@ export default createServerEntry(
+ 		// each other, so without its own scope the user set on it would stick to every later one.
+ 		fetch: (request: Request) =>
+ 			Sentry.withIsolationScope(async () => {
++				assertP0Runtime();
++				const path = new URL(request.url).pathname;
++				if (isP0Offline() && !["GET", "HEAD", "OPTIONS"].includes(request.method) && !/^\/api\/mcp\/?$/.test(path)) {
++					return Response.json({ code: "P0_READ_ONLY" }, { status: 403 });
++				}
+ 				const response = await handler.fetch(request);
+ 				return addSecurityHeaders(response);
+ 			}),
+diff --git a/upstream/elmo/apps/worker/package.json b/upstream/elmo/apps/worker/package.json
+index 649fbd6..8ee7575 100644
+--- a/upstream/elmo/apps/worker/package.json
++++ b/upstream/elmo/apps/worker/package.json
+@@ -4,8 +4,8 @@
+ 	"private": true,
+ 	"license": "MIT",
+ 	"scripts": {
+-		"dev": "tsx --env-file=../web/.env --import ./src/instrument.ts src/index.ts",
+-		"start": "tsx --import ./src/instrument.ts src/index.ts",
++		"dev": "node --import tsx --env-file=../web/.env --import ./src/instrument.ts src/index.ts",
++		"start": "node --import tsx --import ./src/instrument.ts src/index.ts",
+ 		"build": "tsc -p tsconfig.json",
+ 		"check-types": "tsc --noEmit",
+ 		"test": "vitest run --project=unit",
+diff --git a/upstream/elmo/apps/worker/src/boss.ts b/upstream/elmo/apps/worker/src/boss.ts
+index 8d44e5b..1509191 100644
+--- a/upstream/elmo/apps/worker/src/boss.ts
++++ b/upstream/elmo/apps/worker/src/boss.ts
+@@ -1,3 +1,4 @@
++import { isP0Offline } from "@workspace/lib/constants";
+ import { PgBoss } from "pg-boss";
+ 
+ let boss: PgBoss | undefined;
+@@ -7,6 +8,7 @@ export function getBoss(): PgBoss {
+ 	boss ??= new PgBoss({
+ 		connectionString: process.env.DATABASE_URL,
+ 		schema: "pgboss",
++		...(isP0Offline() ? { migrate: false, supervise: false, schedule: false } : {}),
+ 		maintenanceIntervalSeconds: 30,
+ 	});
+ 	return boss;
+diff --git a/upstream/elmo/apps/worker/src/handlers.ts b/upstream/elmo/apps/worker/src/handlers.ts
+index 4d3c771..a0704a9 100644
+--- a/upstream/elmo/apps/worker/src/handlers.ts
++++ b/upstream/elmo/apps/worker/src/handlers.ts
+@@ -23,6 +23,7 @@ import { MAINTENANCE_CRON, type ScheduleMaintenanceData, scheduleMaintenanceJob
+ import { type SuggestPromptsData, type SuggestPromptsResult, suggestPromptsJob } from "./jobs/suggest-prompts";
+ import { type SyncAuth0MembershipsData, syncAuth0MembershipsJob } from "./jobs/sync-auth0-memberships";
+ import { mentionAnalyzer } from "./mention-judge";
++import { assertP0Job } from "./p0-jobs";
+ import { JOB_SAMPLE_RATE_ATTRIBUTE, JOB_SPAN_OP, JOB_TRACE_RATE } from "./tracing";
+ 
+ interface JobTracing {
+@@ -57,6 +58,7 @@ function withSentry<T, R>(
+ 					},
+ 					async () => {
+ 						try {
++							for (const job of jobs) assertP0Job(queueName, job.data);
+ 							return await handler(jobs);
+ 						} catch (error) {
+ 							Sentry.captureException(error);
+@@ -86,6 +88,15 @@ const MAINTENANCE_MONITOR = {
+ } satisfies JobTracing["monitor"];
+ 
+ export async function registerHandlers(boss: PgBoss): Promise<void> {
++	if (isP0Offline()) {
++		await boss.work<RefreshRollupsData>(
++			REFRESH_ROLLUPS_QUEUE,
++			{ localConcurrency: 1 },
++			withSentry(REFRESH_ROLLUPS_QUEUE, refreshRollupsJob),
++		);
++		console.log("P0 offline handler registered: refresh-rollups");
++		return;
++	}
+ 	await boss.work<ProcessPromptData>(
+ 		PROCESS_PROMPT_QUEUE,
+ 		{ localConcurrency: isP0Offline() ? 1 : 10 },
+diff --git a/upstream/elmo/apps/worker/src/index.ts b/upstream/elmo/apps/worker/src/index.ts
+index 891a38d..34977c0 100644
+--- a/upstream/elmo/apps/worker/src/index.ts
++++ b/upstream/elmo/apps/worker/src/index.ts
+@@ -2,7 +2,7 @@ import * as Sentry from "@sentry/node";
+ import { assertRequiredEnv } from "@workspace/config/env";
+ import { parseScrapeTargets } from "@workspace/config/scrape-targets";
+ import { getDeploymentFeatures } from "@workspace/deployment";
+-import { isP0Offline } from "@workspace/lib/constants";
++import { assertP0Runtime, isP0Offline } from "@workspace/lib/constants";
+ import { db } from "@workspace/lib/db/db";
+ import { getProvider, validateScrapeTargets } from "@workspace/lib/providers";
+ import { PROCESS_PROMPT_QUEUE, PROMPT_JOB_OPTIONS } from "@workspace/lib/queues/prompt-jobs";
+@@ -22,6 +22,7 @@ import {
+ } from "./jobs/reprocess";
+ import { MAINTENANCE_CRON } from "./jobs/schedule-maintenance";
+ import { configureMentionAnalyzer, mentionAnalyzer } from "./mention-judge";
++import { quarantineP0Jobs } from "./p0-jobs";
+ import { initializePipeline } from "./rollups-startup";
+ import { shutdownTelemetry } from "./telemetry";
+ 
+@@ -36,6 +37,7 @@ async function createOrUpdateQueue(
+ }
+ 
+ async function main() {
++	assertP0Runtime();
+ 	console.log("Starting pg-boss worker...");
+ 	assertRequiredEnv();
+ 	const boss = getBoss();
+@@ -64,6 +66,13 @@ async function main() {
+ 	await boss.start();
+ 	console.log("pg-boss started");
+ 
++	if (isP0Offline()) {
++		await quarantineP0Jobs(boss);
++		await registerHandlers(boss);
++		console.log("All handlers registered, worker is ready");
++		return;
++	}
++
+ 	// Queue defaults too, so a job sent without them is never retried into a second fan-out.
+ 	await createOrUpdateQueue(boss, PROCESS_PROMPT_QUEUE, PROMPT_JOB_OPTIONS);
+ 	if (getDeploymentFeatures().reportGeneration) {
+@@ -122,22 +131,7 @@ async function main() {
+ 	});
+ 	console.log("Queues created");
+ 
+-	if (isP0Offline()) {
+-		for (const name of [
+-			"schedule-maintenance",
+-			REQUEST_REPROCESSES_QUEUE,
+-			REFRESH_ROLLUPS_QUEUE,
+-			ROLLUP_CATCH_UP_QUEUE,
+-		]) {
+-			await boss.unschedule(name);
+-			const queued = await boss.findJobs(name, { queued: true });
+-			if (queued.length > 0)
+-				await boss.cancel(
+-					name,
+-					queued.map((job) => job.id),
+-				);
+-		}
+-	} else {
++	{
+ 		await boss.schedule("schedule-maintenance", MAINTENANCE_CRON, { source: "scheduled" }, { tz: "UTC" });
+ 		console.log("Scheduled maintenance job (every 5 minutes)");
+ 
+diff --git a/upstream/elmo/apps/worker/src/jobs/analyze-brand.ts b/upstream/elmo/apps/worker/src/jobs/analyze-brand.ts
+index deec56c..c3ef315 100644
+--- a/upstream/elmo/apps/worker/src/jobs/analyze-brand.ts
++++ b/upstream/elmo/apps/worker/src/jobs/analyze-brand.ts
+@@ -1,3 +1,4 @@
++import { isP0Offline } from "@workspace/lib/constants";
+ import { analyzeBrand, type OnboardingSuggestion } from "@workspace/lib/onboarding";
+ import type { Job } from "pg-boss";
+ 
+@@ -21,6 +22,7 @@ export interface AnalyzeBrandData {
+  * one job and the returned suggestion becomes that job's output.
+  */
+ export async function analyzeBrandJob(jobs: Job<AnalyzeBrandData>[]): Promise<OnboardingSuggestion> {
++	if (isP0Offline()) throw new Error("P0 rejects unapproved generation jobs before side effects");
+ 	const [job] = jobs;
+ 	if (!job) {
+ 		throw new Error("analyze-brand handler received an empty batch");
+diff --git a/upstream/elmo/apps/worker/src/jobs/derive-runs.ts b/upstream/elmo/apps/worker/src/jobs/derive-runs.ts
+index 147151e..1082867 100644
+--- a/upstream/elmo/apps/worker/src/jobs/derive-runs.ts
++++ b/upstream/elmo/apps/worker/src/jobs/derive-runs.ts
+@@ -10,6 +10,7 @@ import {
+ 	EXTRACTION_KEY,
+ 	MENTIONS_KEY,
+ } from "@workspace/lib/analysis-versions";
++import { isP0Offline } from "@workspace/lib/constants";
+ import { db } from "@workspace/lib/db/db";
+ import type { DbConnection } from "@workspace/lib/db/db-connection";
+ import { loadRawOutputs, updateExtractions, updateMentions } from "@workspace/lib/db/runs";
+@@ -364,5 +365,6 @@ export async function requestUnjudgedRuns(
+ }
+ 
+ export async function deriveRunsJob(jobs: Job<DeriveRunsData>[]): Promise<void> {
++	if (isP0Offline()) throw new Error("P0 rejects unapproved generation jobs before side effects");
+ 	for (const job of jobs) await deriveRuns(job.data);
+ }
+diff --git a/upstream/elmo/apps/worker/src/jobs/generate-report.ts b/upstream/elmo/apps/worker/src/jobs/generate-report.ts
+index 74d6449..0fbc966 100644
+--- a/upstream/elmo/apps/worker/src/jobs/generate-report.ts
++++ b/upstream/elmo/apps/worker/src/jobs/generate-report.ts
+@@ -1,3 +1,4 @@
++import { isP0Offline } from "@workspace/lib/constants";
+ import { db } from "@workspace/lib/db/db";
+ import { reports } from "@workspace/lib/db/schema";
+ import { describeReportPhase, type ReportPhase, reportProgress } from "@workspace/lib/reports/lifecycle";
+@@ -8,6 +9,7 @@ import { processReportJob, type ReportJobData } from "../report-worker";
+ export interface GenerateReportData extends ReportJobData {}
+ 
+ export async function generateReportJob(jobs: Job<GenerateReportData>[]): Promise<void> {
++	if (isP0Offline()) throw new Error("P0 rejects unapproved generation jobs before side effects");
+ 	for (const job of jobs) {
+ 		const { reportId, brandName, brandAliases, brandWebsite, manualPrompts } = job.data;
+ 
+diff --git a/upstream/elmo/apps/worker/src/jobs/process-prompt.ts b/upstream/elmo/apps/worker/src/jobs/process-prompt.ts
+index 5006a8a..24dd1d6 100644
+--- a/upstream/elmo/apps/worker/src/jobs/process-prompt.ts
++++ b/upstream/elmo/apps/worker/src/jobs/process-prompt.ts
+@@ -401,6 +401,7 @@ async function processPrompt(
+ 
+ /** After a cycle it schedules the next run: on cadence when anything came back, on a backoff when nothing did. */
+ export async function processPromptJob(jobs: Job<ProcessPromptData>[]): Promise<void> {
++	if (isP0Offline()) throw new Error("P0 rejects unapproved generation jobs before side effects");
+ 	const scrapeConfigs = parseScrapeTargets(process.env.SCRAPE_TARGETS);
+ 
+ 	for (const job of jobs) {
+diff --git a/upstream/elmo/apps/worker/src/jobs/reprocess.ts b/upstream/elmo/apps/worker/src/jobs/reprocess.ts
+index a8c898d..af6eb67 100644
+--- a/upstream/elmo/apps/worker/src/jobs/reprocess.ts
++++ b/upstream/elmo/apps/worker/src/jobs/reprocess.ts
+@@ -7,6 +7,7 @@ import {
+ 	MENTIONS_KEY,
+ 	NAME_MATCHED_MENTIONS_STAMP,
+ } from "@workspace/lib/analysis-versions";
++import { isP0Offline } from "@workspace/lib/constants";
+ import { db } from "@workspace/lib/db/db";
+ import type { DbConnection } from "@workspace/lib/db/db-connection";
+ import {
+@@ -275,11 +276,13 @@ export async function adoptCurrentStamps(conn: DbConnection = db): Promise<numbe
+ }
+ 
+ export async function requestReprocessesJob(): Promise<void> {
++	if (isP0Offline()) throw new Error("P0 rejects unapproved generation jobs before side effects");
+ 	const requested = await requestStaleReprocesses();
+ 	if (requested > 0) console.log(`[reprocess] requested passes for ${requested} brands`);
+ }
+ 
+ export async function reprocessJob(jobs: Job<ReprocessData>[]): Promise<void> {
++	if (isP0Offline()) throw new Error("P0 rejects unapproved generation jobs before side effects");
+ 	for (const job of jobs) {
+ 		await runReprocess(job.data);
+ 	}
+diff --git a/upstream/elmo/apps/worker/src/jobs/suggest-prompts.ts b/upstream/elmo/apps/worker/src/jobs/suggest-prompts.ts
+index 17cf61b..95f5454 100644
+--- a/upstream/elmo/apps/worker/src/jobs/suggest-prompts.ts
++++ b/upstream/elmo/apps/worker/src/jobs/suggest-prompts.ts
+@@ -1,3 +1,4 @@
++import { isP0Offline } from "@workspace/lib/constants";
+ import { type OnboardingPrompt, type SuggestPromptsOptions, suggestPrompts } from "@workspace/lib/onboarding";
+ import type { Job } from "pg-boss";
+ 
+@@ -10,6 +11,7 @@ export interface SuggestPromptsResult {
+ }
+ 
+ export async function suggestPromptsJob(jobs: Job<SuggestPromptsData>[]): Promise<SuggestPromptsResult> {
++	if (isP0Offline()) throw new Error("P0 rejects unapproved generation jobs before side effects");
+ 	const [job] = jobs;
+ 	if (!job) {
+ 		throw new Error("suggest-prompts handler received an empty batch");
+diff --git a/upstream/elmo/apps/worker/src/p0-generation.test.ts b/upstream/elmo/apps/worker/src/p0-generation.test.ts
+new file mode 100644
+index 0000000..feeb6f8
+--- /dev/null
++++ b/upstream/elmo/apps/worker/src/p0-generation.test.ts
+@@ -0,0 +1,27 @@
++import { afterEach, expect, it, vi } from "vitest";
++import { analyzeBrandJob } from "./jobs/analyze-brand";
++import { deriveRunsJob } from "./jobs/derive-runs";
++import { generateReportJob } from "./jobs/generate-report";
++import { processPromptJob } from "./jobs/process-prompt";
++import { reprocessJob, requestReprocessesJob } from "./jobs/reprocess";
++import { suggestPromptsJob } from "./jobs/suggest-prompts";
++
++const writes = vi.hoisted(() => ({ insert: vi.fn(), update: vi.fn(), delete: vi.fn(), transaction: vi.fn() }));
++vi.mock("@workspace/lib/db/db", () => ({ db: writes }));
++afterEach(() => vi.unstubAllEnvs());
++
++it("rejects direct onboarding, prompt suggestion and report jobs before database writes", async () => {
++	vi.stubEnv("TUC_P0_OFFLINE", "1");
++	for (const run of [
++		analyzeBrandJob,
++		generateReportJob,
++		suggestPromptsJob,
++		processPromptJob,
++		deriveRunsJob,
++		reprocessJob,
++	]) {
++		await expect(run([])).rejects.toThrow("before side effects");
++	}
++	await expect(requestReprocessesJob()).rejects.toThrow("before side effects");
++	for (const write of Object.values(writes)) expect(write).not.toHaveBeenCalled();
++});
+diff --git a/upstream/elmo/apps/worker/src/p0-jobs.test.ts b/upstream/elmo/apps/worker/src/p0-jobs.test.ts
+new file mode 100644
+index 0000000..901d0d3
+--- /dev/null
++++ b/upstream/elmo/apps/worker/src/p0-jobs.test.ts
+@@ -0,0 +1,13 @@
++import { afterEach, expect, it, vi } from "vitest";
++import { assertP0Job } from "./p0-jobs";
++
++afterEach(() => vi.unstubAllEnvs());
++
++it("refuses legacy and model jobs, including jobs carrying the current batch identity", () => {
++	vi.stubEnv("TUC_P0_OFFLINE", "1");
++	vi.stubEnv("TUC_P0_BATCH_ID", "synthetic-batch");
++	expect(() => assertP0Job("process-prompt", { p0BatchId: "synthetic-batch" })).toThrow("outside");
++	expect(() => assertP0Job("refresh-rollups", {})).toThrow("outside");
++	expect(() => assertP0Job("refresh-rollups", { p0BatchId: "old-batch" })).toThrow("outside");
++	expect(() => assertP0Job("refresh-rollups", { p0BatchId: "synthetic-batch" })).not.toThrow();
++});
+diff --git a/upstream/elmo/apps/worker/src/p0-jobs.ts b/upstream/elmo/apps/worker/src/p0-jobs.ts
+new file mode 100644
+index 0000000..3f36c03
+--- /dev/null
++++ b/upstream/elmo/apps/worker/src/p0-jobs.ts
+@@ -0,0 +1,49 @@
++import { isP0Offline } from "@workspace/lib/constants";
++import { REFRESH_ROLLUPS_QUEUE } from "@workspace/lib/rollups/constants";
++import type { PgBoss } from "pg-boss";
++
++export function assertP0Job(name: string, data: unknown): void {
++	if (!isP0Offline()) return;
++	const batch = process.env.TUC_P0_BATCH_ID;
++	if (
++		!batch ||
++		name !== REFRESH_ROLLUPS_QUEUE ||
++		typeof data !== "object" ||
++		data === null ||
++		!("p0BatchId" in data) ||
++		data.p0BatchId !== batch
++	) {
++		throw new Error("P0 job is outside the approved finite batch");
++	}
++}
++
++export async function quarantineP0Jobs(boss: PgBoss): Promise<void> {
++	let afterQueue: string | undefined;
++	for (;;) {
++		const queues = await boss.getQueues(undefined, { limit: 100, after: afterQueue });
++		if (queues.length === 0) break;
++		for (const queue of queues) {
++			await quarantineQueue(boss, queue.name);
++		}
++		afterQueue = queues.at(-1)?.name;
++	}
++}
++
++async function quarantineQueue(boss: PgBoss, name: string): Promise<void> {
++	await boss.unschedule(name);
++	let afterJob: string | undefined;
++	for (;;) {
++		const jobs = await boss.findJobs(name, { limit: 100, after: afterJob });
++		if (jobs.length === 0) break;
++		for (const job of jobs) {
++			if (!["created", "retry", "active"].includes(job.state)) continue;
++			try {
++				assertP0Job(name, job.data);
++			} catch {
++				await boss.cancel(name, job.id);
++				console.log(JSON.stringify({ event: "P0_JOB_QUARANTINED", queue: name, id: job.id, state: job.state }));
++			}
++		}
++		afterJob = jobs.at(-1)?.id;
++	}
++}
+diff --git a/upstream/elmo/apps/www/scripts/check-sitemap.mjs b/upstream/elmo/apps/www/scripts/check-sitemap.mjs
+index c49c264..9a5b533 100644
+--- a/upstream/elmo/apps/www/scripts/check-sitemap.mjs
++++ b/upstream/elmo/apps/www/scripts/check-sitemap.mjs
+@@ -16,7 +16,7 @@ const EXEMPT = new Set(["/changelog"]);
+ 
+ function freePort() {
+ 	return new Promise((resolve, reject) => {
+-		const probe = createServer().listen(0, "127.0.0.1", () => {
++		const probe = createServer().listen(process.env.TUC_P0_STAGE === "quality" ? 17440 : 0, "127.0.0.1", () => {
+ 			const { port } = probe.address();
+ 			probe.close(() => resolve(port));
+ 		});
+@@ -46,8 +46,11 @@ if (!existsSync(SERVER)) {
+ 	process.exit(1);
+ }
+ 
+-const port = await freePort();
+-const server = spawn(process.execPath, [SERVER], { env: { ...process.env, PORT: String(port) }, stdio: "ignore" });
++const port = process.env.TUC_P0_STAGE === "quality" ? 17440 : await freePort();
++const server = spawn(process.execPath, [SERVER], {
++	env: { ...process.env, PORT: String(port), HOST: "127.0.0.1" },
++	stdio: "ignore",
++});
+ 
+ try {
+ 	const xml = await fetchSitemap(port, Date.now() + 30_000);
+diff --git a/upstream/elmo/package.json b/upstream/elmo/package.json
+index 2df24a0..f769c46 100644
+--- a/upstream/elmo/package.json
++++ b/upstream/elmo/package.json
+@@ -15,7 +15,7 @@
+     "test": "turbo test",
+     "format": "biome format --write --config-path=biome.json .",
+     "knip": "knip",
+-    "elmo": "tsx apps/cli/src/index.ts",
++    "elmo": "node --import tsx apps/cli/src/index.ts",
+     "cli:link": "npm unlink -g @elmohq/cli || true && pnpm -C apps/cli build && (cd apps/cli && npm link)",
+     "cli:unlink": "npm unlink -g @elmohq/cli",
+     "changeset": "changeset",
+diff --git a/upstream/elmo/packages/config/src/env-registry.ts b/upstream/elmo/packages/config/src/env-registry.ts
+index 27646fb..a59d9bc 100644
+--- a/upstream/elmo/packages/config/src/env-registry.ts
++++ b/upstream/elmo/packages/config/src/env-registry.ts
+@@ -406,6 +406,18 @@ export const ENV_REGISTRY: EnvVarSpec[] = [
+ 		requiredBy: "optional",
+ 		description: "Set to any value to disable telemetry.",
+ 	},
++	{
++		name: "TUC_P0_STAGE",
++		scope: "server",
++		requiredBy: "optional",
++		description: "Enforced P0 runtime or isolated quality stage.",
++	},
++	{
++		name: "TUC_P0_BATCH_ID",
++		scope: "server",
++		requiredBy: "optional",
++		description: "Current finite P0 batch identity.",
++	},
+ 	{
+ 		name: "TUC_P0_OFFLINE",
+ 		scope: "server",
+diff --git a/upstream/elmo/packages/lib/scripts/generate-auth-schema.sh b/upstream/elmo/packages/lib/scripts/generate-auth-schema.sh
+index f10ae56..8c65d4f 100644
+--- a/upstream/elmo/packages/lib/scripts/generate-auth-schema.sh
++++ b/upstream/elmo/packages/lib/scripts/generate-auth-schema.sh
+@@ -13,6 +13,19 @@ AUTH_CONFIG="$PKG_DIR/src/auth/_cli-helper.ts"
+ OUTPUT="$PKG_DIR/src/db/schema-auth.ts"
+ TMP_OUTPUT="/tmp/better-auth-schema-gen.ts"
+ 
++if [ "${TUC_P0_STAGE:-}" = "quality" ]; then
++  node --input-type=module -e '
++    import { readFileSync } from "node:fs";
++    import { createHash } from "node:crypto";
++    const actual = createHash("sha256").update(readFileSync(process.argv[1])).digest("hex");
++    if (!process.env.TUC_P0_SCHEMA_SHA256 || actual !== process.env.TUC_P0_SCHEMA_SHA256) {
++      throw new Error("Frozen schema snapshot differs");
++    }
++    console.log("Verified frozen auth schema without database initialization");
++  ' "$OUTPUT"
++  exit 0
++fi
++
+ # The CLI needs a file that default-exports or exports `auth`.
+ # Our real config exports a factory function, so we use a thin wrapper.
+ #
+diff --git a/upstream/elmo/packages/lib/src/constants.ts b/upstream/elmo/packages/lib/src/constants.ts
+index 1fd11a5..9d08366 100644
+--- a/upstream/elmo/packages/lib/src/constants.ts
++++ b/upstream/elmo/packages/lib/src/constants.ts
+@@ -1,5 +1,23 @@
+ export function isP0Offline(): boolean {
+-	return typeof process !== "undefined" && process.env.TUC_P0_OFFLINE === "1";
++	if (typeof process === "undefined") return true;
++	const policy = (globalThis as Record<symbol, { stage?: string } | undefined>)[Symbol.for("tuc.p0.policy-loaded")];
++	return process.env.TUC_P0_STAGE !== "quality" || policy?.stage !== "quality" || process.env.TUC_P0_OFFLINE !== "0";
++}
++
++export function assertP0Runtime(): void {
++	const policy = (globalThis as Record<symbol, unknown>)[Symbol.for("tuc.p0.policy-loaded")];
++	if (
++		!policy ||
++		process.env.RUNS_PER_PROMPT !== "1" ||
++		process.env.DEPLOYMENT_MODE !== "local" ||
++		process.env.TUC_P0_STAGE !== "runtime" ||
++		process.env.TUC_P0_OFFLINE !== "1" ||
++		process.env.SCRAPE_TARGETS !== "stub:stub" ||
++		process.env.ONBOARDING_LLM_TARGET !== "stub:stub" ||
++		process.env.TYPESAFE_API_KEY !== "stub"
++	) {
++		throw new Error("P0 runtime requires the enforced offline launcher and stub configuration");
++	}
+ }
+ 
+ export const RUNS_PER_PROMPT_FALLBACK = 5;
+diff --git a/upstream/elmo/packages/lib/src/mention-judge/jev.ts b/upstream/elmo/packages/lib/src/mention-judge/jev.ts
+index f86563a..0594744 100644
+--- a/upstream/elmo/packages/lib/src/mention-judge/jev.ts
++++ b/upstream/elmo/packages/lib/src/mention-judge/jev.ts
+@@ -1,6 +1,8 @@
+ /** Jev, from TypeSafe (https://typesafe.ai). Each question is answered independently against the same state. */
+ 
+ /** Pinned: a new Jev version changes judgements, so moving to one is a deliberate re-judge. */
++import { isP0Offline } from "../constants";
++
+ export const JEV_MODEL = "jev-1.13.0";
+ /**
+  * The same Jev release through OpenRouter, stamped as JEV_MODEL so switching gateway doesn't
+@@ -77,6 +79,7 @@ function systemOneTransport(
+ 	fetchImpl: typeof fetch,
+ ): JevTransport {
+ 	return async (request) => {
++		if (isP0Offline()) throw new Error("P0 offline policy blocks direct judge requests");
+ 		const response = await fetchImpl(endpoint, {
+ 			method: "POST",
+ 			headers: { "Content-Type": "application/json", Authorization: `Bearer ${apiKey()}` },
+diff --git a/upstream/elmo/packages/lib/src/p0-policy.test.ts b/upstream/elmo/packages/lib/src/p0-policy.test.ts
+index fda24c1..b869f08 100644
+--- a/upstream/elmo/packages/lib/src/p0-policy.test.ts
++++ b/upstream/elmo/packages/lib/src/p0-policy.test.ts
+@@ -1,10 +1,33 @@
+ import { afterEach, describe, expect, it, vi } from "vitest";
++import { z } from "zod";
++import { isP0Offline } from "./constants";
+ import { createMentionAnalyzer } from "./mention-judge/analyze";
++import { typesafeTransport } from "./mention-judge/jev";
+ import { getProvider } from "./providers";
++import { structuredResearch } from "./providers/registry/ai-sdk";
++import { openaiApi } from "./providers/registry/openai-api";
+ 
+ afterEach(() => vi.unstubAllEnvs());
+ 
+ describe("P0 offline request policy", () => {
++	it("defaults to offline and ignores an unapproved off flag outside quality checks", () => {
++		vi.stubEnv("TUC_P0_STAGE", undefined);
++		vi.stubEnv("TUC_P0_OFFLINE", undefined);
++		expect(isP0Offline()).toBe(true);
++		vi.stubEnv("TUC_P0_OFFLINE", "0");
++		expect(isP0Offline()).toBe(true);
++		expect(() => getProvider("openai-api")).toThrow("blocks non-stub");
++	});
++
++	it("blocks a directly imported adapter and judge before their transports run", async () => {
++		vi.stubEnv("TUC_P0_OFFLINE", "1");
++		const transport = vi.fn();
++		await expect(openaiApi.run("chatgpt", "synthetic prompt")).rejects.toThrow("direct provider");
++		await expect(
++			typesafeTransport("synthetic-account-a", transport)({ model: "fixture", state: {}, questions: {} }),
++		).rejects.toThrow("direct judge");
++		expect(transport).not.toHaveBeenCalled();
++	});
+ 	it("allows the upstream stub and rejects real provider selection", () => {
+ 		vi.stubEnv("TUC_P0_OFFLINE", "1");
+ 		expect(getProvider("stub").id).toBe("stub");
+@@ -19,9 +42,42 @@ describe("P0 offline request policy", () => {
+ 		expect(createMentionAnalyzer("stub", () => "synthetic-canary").judgeVersion).toBe("stub+request-1");
+ 	});
+ 
+-	it("preserves configured provider availability outside the isolated mode", () => {
+-		vi.stubEnv("TUC_P0_OFFLINE", "");
++	it("allows configured provider objects in the transport-isolated quality stage", () => {
++		vi.stubEnv("TUC_P0_OFFLINE", "0");
+ 		expect(getProvider("openai-api").id).toBe("openai-api");
+ 		expect(getProvider("openrouter").id).toBe("openrouter");
+ 	});
+ });
++
++describe("SDK retry policy", () => {
++	it("exposes default SDK retries with a fake transport and disables them explicitly", async () => {
++		const { default: Anthropic } = await import("@anthropic-ai/sdk");
++		const request = {
++			model: "synthetic-model",
++			max_tokens: 1,
++			messages: [{ role: "user" as const, content: "synthetic" }],
++		};
++		for (const maxRetries of [undefined, 0]) {
++			const fetch = vi.fn(async () =>
++				Response.json(
++					{ type: "error", error: { type: "rate_limit_error", message: "synthetic" } },
++					{ status: 429, headers: { "retry-after-ms": "1" } },
++				),
++			);
++			const client = new Anthropic({
++				apiKey: "synthetic-account-a",
++				fetch,
++				...(maxRetries === undefined ? {} : { maxRetries }),
++			});
++			await expect(client.messages.create(request)).rejects.toThrow();
++			expect(fetch).toHaveBeenCalledTimes(maxRetries === 0 ? 1 : 3);
++		}
++	});
++});
++
++it("rejects direct structured research before constructing a model request", async () => {
++	vi.stubEnv("TUC_P0_OFFLINE", "1");
++	await expect(structuredResearch("synthetic-model", { prompt: "synthetic", schema: z.object({}) })).rejects.toThrow(
++		"direct structured research",
++	);
++});
+diff --git a/upstream/elmo/packages/lib/src/providers/p0.ts b/upstream/elmo/packages/lib/src/providers/p0.ts
+new file mode 100644
+index 0000000..9541681
+--- /dev/null
++++ b/upstream/elmo/packages/lib/src/providers/p0.ts
+@@ -0,0 +1,20 @@
++import { isP0Offline } from "../constants";
++import type { Provider, StructuredResearchOptions, StructuredResearchResult } from "./types";
++
++export function guardProvider(provider: Provider): Provider {
++	const run = provider.run.bind(provider);
++	provider.run = async (...args) => {
++		if (isP0Offline()) throw new Error("P0 offline policy blocks direct provider requests");
++		return run(...args);
++	};
++	const research = provider.runStructuredResearch;
++	if (research) {
++		provider.runStructuredResearch = async <T>(
++			options: StructuredResearchOptions<T>,
++		): Promise<StructuredResearchResult<T>> => {
++			if (isP0Offline()) throw new Error("P0 offline policy blocks direct research requests");
++			return research<T>(options);
++		};
++	}
++	return provider;
++}
+diff --git a/upstream/elmo/packages/lib/src/providers/registry/ai-sdk.ts b/upstream/elmo/packages/lib/src/providers/registry/ai-sdk.ts
+index 7729ba8..0650b14 100644
+--- a/upstream/elmo/packages/lib/src/providers/registry/ai-sdk.ts
++++ b/upstream/elmo/packages/lib/src/providers/registry/ai-sdk.ts
+@@ -1,5 +1,6 @@
+ import { generateText, type LanguageModel, Output, type ToolSet } from "ai";
+ import { z } from "zod";
++import { isP0Offline } from "../../constants";
+ 
+ type GenerateTextArgs = Parameters<typeof generateText>[0];
+ 
+@@ -14,7 +15,9 @@ export async function structuredResearch<T>(
+ 	model: LanguageModel,
+ 	{ prompt, schema, tools, providerOptions }: StructuredResearchCall<T>,
+ ): Promise<T> {
++	if (isP0Offline()) throw new Error("P0 blocks direct structured research");
+ 	const result = await generateText({
++		maxRetries: 0,
+ 		model,
+ 		prompt,
+ 		output: Output.object({ schema }),
+diff --git a/upstream/elmo/packages/lib/src/providers/registry/anthropic-api.ts b/upstream/elmo/packages/lib/src/providers/registry/anthropic-api.ts
+index c7c4e78..c36257d 100644
+--- a/upstream/elmo/packages/lib/src/providers/registry/anthropic-api.ts
++++ b/upstream/elmo/packages/lib/src/providers/registry/anthropic-api.ts
+@@ -8,6 +8,7 @@ import {
+ 	RESEARCH_WEB_SEARCH_MAX_USES,
+ 	warnIfOutputCapped,
+ } from "../config";
++import { guardProvider } from "../p0";
+ import type {
+ 	Provider,
+ 	ProviderOptions,
+@@ -26,7 +27,7 @@ function getAnthropicLanguageModel(model: string) {
+ }
+ 
+ function getClient(): Anthropic {
+-	return new Anthropic({ apiKey: getCredential("ANTHROPIC_API_KEY")! });
++	return new Anthropic({ maxRetries: 0, apiKey: getCredential("ANTHROPIC_API_KEY")! });
+ }
+ 
+ async function runAnthropic(prompt: string, model: string, options?: ProviderOptions): Promise<ScrapeResult> {
+@@ -92,7 +93,7 @@ async function runAnthropic(prompt: string, model: string, options?: ProviderOpt
+ 	};
+ }
+ 
+-export const anthropicApi: Provider = {
++export const anthropicApi: Provider = guardProvider({
+ 	id: "anthropic-api",
+ 	name: "Anthropic API",
+ 	access: "api",
+@@ -119,4 +120,4 @@ export const anthropicApi: Provider = {
+ 		});
+ 		return { object, modelVersion: DEFAULT_RESEARCH_MODEL };
+ 	},
+-};
++});
+diff --git a/upstream/elmo/packages/lib/src/providers/registry/brightdata.ts b/upstream/elmo/packages/lib/src/providers/registry/brightdata.ts
+index 4d5754d..8c94b7c 100644
+--- a/upstream/elmo/packages/lib/src/providers/registry/brightdata.ts
++++ b/upstream/elmo/packages/lib/src/providers/registry/brightdata.ts
+@@ -2,6 +2,7 @@ import { bdclient } from "@brightdata/sdk";
+ import { getCredential } from "../../secrets";
+ import { extractCitationsFromBrightdata } from "../../text-extraction";
+ import { configuredWhen, reportedWebQueries } from "../config";
++import { guardProvider } from "../p0";
+ import type { ModelConfig, Provider, ProviderOptions, ScrapeResult } from "../types";
+ import { pollTask, type TaskState } from "./poll-task";
+ import { type Attempt, hasWebSearchToggle, nonEmptyStrings, retryTransient } from "./scrape-shared";
+@@ -122,7 +123,7 @@ export function extractWebQueries(record: Record<string, any>): string[] {
+ 	return nonEmptyStrings(smq?.queries ?? smq);
+ }
+ 
+-export const brightdata: Provider = {
++export const brightdata: Provider = guardProvider({
+ 	id: "brightdata",
+ 	name: "BrightData",
+ 	access: "scraped",
+@@ -196,7 +197,7 @@ export const brightdata: Provider = {
+ 			await client.close();
+ 		}
+ 	},
+-};
++});
+ 
+ async function triggerSnapshot(datasetId: string, model: string, prompt: string, webSearch: boolean): Promise<string> {
+ 	const response = await fetch(
+diff --git a/upstream/elmo/packages/lib/src/providers/registry/cloro.ts b/upstream/elmo/packages/lib/src/providers/registry/cloro.ts
+index 1f35674..18cfd21 100644
+--- a/upstream/elmo/packages/lib/src/providers/registry/cloro.ts
++++ b/upstream/elmo/packages/lib/src/providers/registry/cloro.ts
+@@ -1,6 +1,7 @@
+ import { getCredential } from "../../secrets";
+ import { type Citation, cloroAnswer, extractCitationsFromCloro } from "../../text-extraction";
+ import { configuredWhen, reportedWebQueries } from "../config";
++import { guardProvider } from "../p0";
+ import type { ModelConfig, Provider, ScrapeResult } from "../types";
+ import { pollTask, type TaskState } from "./poll-task";
+ import { failureDetails, isTransientStatus, queriesFromKeys, responseError } from "./scrape-shared";
+@@ -126,7 +127,7 @@ async function runAsyncTask(taskType: string, payload: Record<string, any>): Pro
+ 
+ const CLORO_QUERY_KEYS = ["searchQueries", "mapSearchQueries"] as const;
+ 
+-export const cloro: Provider = {
++export const cloro: Provider = guardProvider({
+ 	id: "cloro",
+ 	name: "Cloro",
+ 	access: "scraped",
+@@ -173,4 +174,4 @@ export const cloro: Provider = {
+ 			modelVersion: typeof answer.model === "string" ? answer.model : undefined,
+ 		};
+ 	},
+-};
++});
+diff --git a/upstream/elmo/packages/lib/src/providers/registry/dataforseo.ts b/upstream/elmo/packages/lib/src/providers/registry/dataforseo.ts
+index 7aae634..266614e 100644
+--- a/upstream/elmo/packages/lib/src/providers/registry/dataforseo.ts
++++ b/upstream/elmo/packages/lib/src/providers/registry/dataforseo.ts
+@@ -5,6 +5,7 @@ import {
+ 	extractCitationsFromGoogle,
+ } from "../../text-extraction";
+ import { reportedWebQueries } from "../config";
++import { guardProvider } from "../p0";
+ import type { ModelConfig, Provider, ProviderAccess, ProviderOptions, ScrapeResult } from "../types";
+ import {
+ 	assertPromptLength,
+@@ -236,7 +237,7 @@ async function runLlmScraper(model: keyof typeof SCRAPER_CALLS, prompt: string):
+ 	};
+ }
+ 
+-export const dataforseo: Provider = {
++export const dataforseo: Provider = guardProvider({
+ 	id: "dataforseo",
+ 	name: "DataForSEO",
+ 	access: "scraped",
+@@ -274,4 +275,4 @@ export const dataforseo: Provider = {
+ 		}
+ 		throw new Error(`DataForSEO: unsupported model "${model}". Supported: ${[...SUPPORTED_MODELS].join(", ")}`);
+ 	},
+-};
++});
+diff --git a/upstream/elmo/packages/lib/src/providers/registry/mistral-api.ts b/upstream/elmo/packages/lib/src/providers/registry/mistral-api.ts
+index c57e7e8..627c8ee 100644
+--- a/upstream/elmo/packages/lib/src/providers/registry/mistral-api.ts
++++ b/upstream/elmo/packages/lib/src/providers/registry/mistral-api.ts
+@@ -1,5 +1,6 @@
+ import { getCredential } from "../../secrets";
+ import { API_PROVIDER_MAX_OUTPUT_TOKENS, configuredWhen, warnIfOutputCapped } from "../config";
++import { guardProvider } from "../p0";
+ import type {
+ 	Provider,
+ 	ProviderOptions,
+@@ -68,7 +69,7 @@ function parseConversationsResponse(data: any): { textContent: string; webQuerie
+ 	return { textContent: conversationText(data), webQueries: conversationWebQueries(data) };
+ }
+ 
+-export const mistralApi: Provider = {
++export const mistralApi: Provider = guardProvider({
+ 	id: "mistral-api",
+ 	name: "Mistral API",
+ 	access: "api",
+@@ -134,4 +135,4 @@ export const mistralApi: Provider = {
+ 			modelVersion: data?.model ?? DEFAULT_RESEARCH_MODEL,
+ 		};
+ 	},
+-};
++});
+diff --git a/upstream/elmo/packages/lib/src/providers/registry/olostep.ts b/upstream/elmo/packages/lib/src/providers/registry/olostep.ts
+index 9544844..cdb6aaf 100644
+--- a/upstream/elmo/packages/lib/src/providers/registry/olostep.ts
++++ b/upstream/elmo/packages/lib/src/providers/registry/olostep.ts
+@@ -2,6 +2,7 @@ import Olostep from "olostep";
+ import { getCredential } from "../../secrets";
+ import { type Citation, normalizeCitationTitle } from "../../text-extraction";
+ import { configuredWhen, reportedWebQueries } from "../config";
++import { guardProvider } from "../p0";
+ import type { ModelConfig, Provider, ProviderOptions, ScrapeResult } from "../types";
+ import { nonEmptyStrings } from "./scrape-shared";
+ 
+@@ -76,7 +77,7 @@ function extractWebQueries(data: any): string[] {
+ 	);
+ }
+ 
+-export const olostep: Provider = {
++export const olostep: Provider = guardProvider({
+ 	id: "olostep",
+ 	name: "Olostep",
+ 	access: "scraped",
+@@ -132,4 +133,4 @@ export const olostep: Provider = {
+ 			modelVersion: parsed?.model ?? undefined,
+ 		};
+ 	},
+-};
++});
+diff --git a/upstream/elmo/packages/lib/src/providers/registry/openai-api.ts b/upstream/elmo/packages/lib/src/providers/registry/openai-api.ts
+index 8114f06..68b8994 100644
+--- a/upstream/elmo/packages/lib/src/providers/registry/openai-api.ts
++++ b/upstream/elmo/packages/lib/src/providers/registry/openai-api.ts
+@@ -11,6 +11,7 @@ import {
+ 	reportedWebQueries,
+ 	warnIfOutputCapped,
+ } from "../config";
++import { guardProvider } from "../p0";
+ import type {
+ 	Provider,
+ 	ProviderOptions,
+@@ -59,6 +60,7 @@ async function runOpenAI(prompt: string, model: string, options?: ProviderOption
+ 	const webSearch = options?.webSearch === true;
+ 
+ 	const result = await generateText({
++		maxRetries: 0,
+ 		// Routed through getOpenAIResponsesModel (not the bare `openai` global,
+ 		// which reads process.env internally) so overlay credentials apply here.
+ 		model: getOpenAIResponsesModel(model),
+@@ -91,7 +93,7 @@ async function runOpenAI(prompt: string, model: string, options?: ProviderOption
+ 	};
+ }
+ 
+-export const openaiApi: Provider = {
++export const openaiApi: Provider = guardProvider({
+ 	id: "openai-api",
+ 	name: "OpenAI API",
+ 	access: "api",
+@@ -123,4 +125,4 @@ export const openaiApi: Provider = {
+ 		});
+ 		return { object, modelVersion: DEFAULT_RESEARCH_MODEL };
+ 	},
+-};
++});
+diff --git a/upstream/elmo/packages/lib/src/providers/registry/openrouter.ts b/upstream/elmo/packages/lib/src/providers/registry/openrouter.ts
+index d4051a3..7f61b56 100644
+--- a/upstream/elmo/packages/lib/src/providers/registry/openrouter.ts
++++ b/upstream/elmo/packages/lib/src/providers/registry/openrouter.ts
+@@ -1,6 +1,7 @@
+ import { getCredential } from "../../secrets";
+ import { type Citation, normalizeCitationTitle } from "../../text-extraction";
+ import { API_PROVIDER_MAX_OUTPUT_TOKENS, configuredWhen, reportedWebQueries, warnIfOutputCapped } from "../config";
++import { guardProvider } from "../p0";
+ import type {
+ 	Provider,
+ 	ProviderOptions,
+@@ -53,7 +54,7 @@ function extractCitationsFromOpenRouterResponse(data: any): Citation[] {
+ 	return citations;
+ }
+ 
+-export const openrouter: Provider = {
++export const openrouter: Provider = guardProvider({
+ 	id: "openrouter",
+ 	name: "OpenRouter",
+ 	access: "api",
+@@ -146,4 +147,4 @@ export const openrouter: Provider = {
+ 			modelVersion: data?.model ?? modelSlug,
+ 		};
+ 	},
+-};
++});
+diff --git a/upstream/elmo/packages/lib/src/providers/registry/oxylabs.ts b/upstream/elmo/packages/lib/src/providers/registry/oxylabs.ts
+index 874b3c1..599b4da 100644
+--- a/upstream/elmo/packages/lib/src/providers/registry/oxylabs.ts
++++ b/upstream/elmo/packages/lib/src/providers/registry/oxylabs.ts
+@@ -1,6 +1,7 @@
+ import { getCredential } from "../../secrets";
+ import { type Citation, extractCitationsFromOxylabs } from "../../text-extraction";
+ import { configuredWhen, reportedWebQueries } from "../config";
++import { guardProvider } from "../p0";
+ import type { ModelConfig, Provider, ProviderOptions, ScrapeResult } from "../types";
+ import { pollTask, type TaskState } from "./poll-task";
+ import {
+@@ -133,7 +134,7 @@ async function runAsyncQuery(body: Record<string, any>): Promise<OxylabsPayload>
+ // Oxylabs exposes search queries under different keys depending on the source.
+ const OXYLABS_QUERY_KEYS = ["search_queries", "web_search_queries"] as const;
+ 
+-export const oxylabs: Provider = {
++export const oxylabs: Provider = guardProvider({
+ 	id: "oxylabs",
+ 	name: "Oxylabs",
+ 	access: "scraped",
+@@ -187,4 +188,4 @@ export const oxylabs: Provider = {
+ 						: undefined,
+ 		};
+ 	},
+-};
++});
+diff --git a/upstream/elmo/packages/lib/src/providers/registry/searchapi.ts b/upstream/elmo/packages/lib/src/providers/registry/searchapi.ts
+index 117fdc3..e09a3c2 100644
+--- a/upstream/elmo/packages/lib/src/providers/registry/searchapi.ts
++++ b/upstream/elmo/packages/lib/src/providers/registry/searchapi.ts
+@@ -1,6 +1,7 @@
+ import { getCredential } from "../../secrets";
+ import { type Citation, extractCitationsFromSearchapi, searchapiText } from "../../text-extraction";
+ import { configuredWhen, reportedWebQueries } from "../config";
++import { guardProvider } from "../p0";
+ import type { ModelConfig, Provider, ProviderOptions, ScrapeResult } from "../types";
+ import {
+ 	type Attempt,
+@@ -117,7 +118,7 @@ function storedOutput(payload: Record<string, any>, target: SearchapiTarget): Re
+ 	};
+ }
+ 
+-export const searchapi: Provider = {
++export const searchapi: Provider = guardProvider({
+ 	id: "searchapi",
+ 	name: "SearchApi",
+ 	access: "scraped",
+@@ -162,4 +163,4 @@ export const searchapi: Provider = {
+ 			modelVersion: typeof answer.response_metadata?.model === "string" ? answer.response_metadata.model : undefined,
+ 		};
+ 	},
+-};
++});
+diff --git a/upstream/elmo/packages/lib/src/secrets/store.test.ts b/upstream/elmo/packages/lib/src/secrets/store.test.ts
+index 2a2b1c4..9cf3c7b 100644
+--- a/upstream/elmo/packages/lib/src/secrets/store.test.ts
++++ b/upstream/elmo/packages/lib/src/secrets/store.test.ts
+@@ -46,6 +46,24 @@ afterEach(() => {
+ });
+ 
+ describe("getCredential", () => {
++	it("fails closed for an unreadable stored credential instead of selecting the environment account", async () => {
++		vi.stubEnv("TUC_P0_OFFLINE", "1");
++		vi.stubEnv("ELMO_ENCRYPTION_KEY", KEY_B64);
++		vi.stubEnv("OPENAI_API_KEY", "synthetic-account-b");
++		dbState.rows = [await encryptedRow("OPENAI_API_KEY", "synthetic-account-a", Buffer.alloc(32, 9))];
++		await refreshCredentialOverlay();
++		expect(() => getCredential("OPENAI_API_KEY")).toThrow("unreadable");
++		expect(withStoredCredentials().OPENAI_API_KEY).toBeUndefined();
++	});
++
++	it("fails closed on a credential-store failure in the isolated runtime", async () => {
++		vi.stubEnv("TUC_P0_OFFLINE", "1");
++		vi.stubEnv("ELMO_ENCRYPTION_KEY", KEY_B64);
++		vi.stubEnv("OPENAI_API_KEY", "synthetic-account-b");
++		dbState.error = new Error("synthetic store failure");
++		await expect(refreshCredentialOverlay()).rejects.toThrow("synthetic store failure");
++		expect(() => getCredential("OPENAI_API_KEY")).toThrow("unreadable");
++	});
+ 	it("falls back to process.env when the overlay is empty", () => {
+ 		vi.stubEnv("OPENAI_API_KEY", "env-value");
+ 		expect(getCredential("OPENAI_API_KEY")).toBe("env-value");
+diff --git a/upstream/elmo/packages/lib/src/secrets/store.ts b/upstream/elmo/packages/lib/src/secrets/store.ts
+index 02fec17..451f522 100644
+--- a/upstream/elmo/packages/lib/src/secrets/store.ts
++++ b/upstream/elmo/packages/lib/src/secrets/store.ts
+@@ -1,4 +1,5 @@
+ import { CREDENTIAL_ENV_NAMES } from "@workspace/config/env-registry";
++import { isP0Offline } from "../constants";
+ import { db } from "../db/db";
+ import { secrets } from "../db/schema";
+ import {
+@@ -16,9 +17,11 @@ import {
+ // one exists, otherwise process.env. The overlay of stored overrides is rebuilt
+ // on an interval by refreshCredentialOverlay (see ./refresh).
+ const overlay = new Map<string, string>();
++const unreadable = new Set<string>();
+ 
+ /** Stored override if present, else process.env. Sync so `isConfigured()` stays sync. */
+ export function getCredential(name: string): string | undefined {
++	if (isP0Offline() && unreadable.has(name)) throw new Error("P0 stored credential is unreadable");
+ 	return overlay.get(name) ?? process.env[name];
+ }
+ 
+@@ -27,11 +30,16 @@ export function getCredential(name: string): string | undefined {
+ export function withStoredCredentials(
+ 	env: Record<string, string | undefined> = process.env,
+ ): Record<string, string | undefined> {
+-	return { ...env, ...Object.fromEntries(overlay) };
++	const result = { ...env, ...Object.fromEntries(overlay) };
++	if (isP0Offline()) {
++		for (const name of unreadable) result[name] = undefined;
++	}
++	return result;
+ }
+ 
+ export function clearCredentialOverlay(): void {
+ 	overlay.clear();
++	unreadable.clear();
+ }
+ 
+ /** AAD binds each ciphertext to the env var it stands in for, so a payload can't
+@@ -40,10 +48,16 @@ function aadForName(name: string): string {
+ 	return `secret:${name}`;
+ }
+ 
+-/** Rebuild the overlay from the secrets table. A row whose name is not a known
+- *  credential, or that will not decrypt, contributes nothing rather than
+- *  throwing, so one bad row can't take out the others. The overlay is swapped
+- *  only after every row has been read, so a failed load leaves it untouched. */
++function maskCredentialFallback(): void {
++	overlay.clear();
++	for (const name of CREDENTIAL_ENV_NAMES) unreadable.add(name);
++}
++
++function credentialReadFailed(error: unknown): never {
++	if (isP0Offline()) maskCredentialFallback();
++	throw error;
++}
++
+ export async function refreshCredentialOverlay(): Promise<void> {
+ 	let keyring: Keyring | null = null;
+ 	try {
+@@ -54,18 +68,24 @@ export async function refreshCredentialOverlay(): Promise<void> {
+ 	}
+ 	// No key means nothing can be stored, so there is no query to make.
+ 	if (!keyring) {
+-		overlay.clear();
++		unreadable.clear();
++		maskCredentialFallback();
+ 		return;
+ 	}
+ 
+-	const rows = await db.select({ name: secrets.name, encryptedValue: secrets.encryptedValue }).from(secrets);
++	const rows = await db
++		.select({ name: secrets.name, encryptedValue: secrets.encryptedValue })
++		.from(secrets)
++		.catch(credentialReadFailed);
+ 
+ 	const next = new Map<string, string>();
++	const nextUnreadable = new Set<string>();
+ 	for (const row of rows) {
+ 		if (!CREDENTIAL_ENV_NAMES.has(row.name)) continue;
+ 		try {
+ 			next.set(row.name, await decryptSecret(row.encryptedValue, { keyring, aad: aadForName(row.name) }));
+ 		} catch (e) {
++			nextUnreadable.add(row.name);
+ 			console.error(
+ 				e instanceof UnknownKeyError
+ 					? `[secrets] stored secret "${row.name}" is ${e.message} — restore that key there to finish the rotation`
+@@ -75,6 +95,8 @@ export async function refreshCredentialOverlay(): Promise<void> {
+ 	}
+ 
+ 	overlay.clear();
++	unreadable.clear();
++	for (const name of nextUnreadable) unreadable.add(name);
+ 	for (const [name, value] of next) overlay.set(name, value);
+ }
+ 
+diff --git a/upstream/elmo/turbo.json b/upstream/elmo/turbo.json
+index fd22781..6caaab7 100644
+--- a/upstream/elmo/turbo.json
++++ b/upstream/elmo/turbo.json
+@@ -68,9 +68,12 @@
+     "RESEND_FROM_EMAIL",
+     "TURNSTILE_SECRET_KEY",
+     "VITE_TURNSTILE_SITE_KEY",
++    "TUC_P0_STAGE",
++    "TUC_P0_BATCH_ID",
+     "TUC_P0_OFFLINE",
+     "VITE_TUC_P0_MODE"
+   ],
++  "globalPassThroughEnv": ["NODE_OPTIONS", "TUC_P0_EGRESS_LOG", "TUC_P0_POLICY_SHA256", "TUC_P0_LEDGER", "TUC_P0_SCHEMA_SHA256"],
+   "tasks": {
+     "//#format": {
+       "cache": false

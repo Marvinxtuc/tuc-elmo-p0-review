@@ -1,0 +1,10 @@
+{
+  "original_A0_evidence_unchanged": true,
+  "original_A0_evidence_diff_exit": 0,
+  "baseline_review_commit": "b287610a2576531a52fe6fe90bccf0fa70d80648",
+  "lockfile_sha256": "743919e30a100aa0b8386b3b60b9ac8bf0a64de702c0cc6b4ffa9180d66c5151",
+  "website_check_status": "PARTIAL",
+  "website_blocked_file": "docs/CODEX_MASTER_PROMPT_V2.md",
+  "website_file_read": "OS read stalled in two attempts, audit processes terminated",
+  "website_and_production_modifications_performed": false
+}

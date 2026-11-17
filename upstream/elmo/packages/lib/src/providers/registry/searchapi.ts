@@ -1,6 +1,7 @@
 import { getCredential } from "../../secrets";
 import { type Citation, extractCitationsFromSearchapi, searchapiText } from "../../text-extraction";
 import { configuredWhen, reportedWebQueries } from "../config";
+import { guardProvider } from "../p0";
 import type { ModelConfig, Provider, ProviderOptions, ScrapeResult } from "../types";
 import {
 	type Attempt,
@@ -117,7 +118,7 @@ function storedOutput(payload: Record<string, any>, target: SearchapiTarget): Re
 	};
 }
 
-export const searchapi: Provider = {
+export const searchapi: Provider = guardProvider({
 	id: "searchapi",
 	name: "SearchApi",
 	access: "scraped",
@@ -162,4 +163,4 @@ export const searchapi: Provider = {
 			modelVersion: typeof answer.response_metadata?.model === "string" ? answer.response_metadata.model : undefined,
 		};
 	},
-};
+});
