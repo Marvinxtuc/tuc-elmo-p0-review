@@ -1,0 +1,21 @@
+{
+  "id": "49acacb6-1a2f-4a74-9826-a366161a0e73",
+  "promptId": "dfe5b8a4-cd88-411c-9751-a8b60be0138a",
+  "brandId": "tuc-p0-internal",
+  "model": "stub",
+  "provider": "stub",
+  "webSearchEnabled": false,
+  "brandMentioned": false,
+  "competitorsMentioned": [],
+  "assessments": {
+    "brand": null,
+    "competitors": {}
+  },
+  "webQueries": [],
+  "citationCount": 0,
+  "createdAt": "2026-11-17T01:55:41.179Z",
+  "answer": {
+    "text": "How should a small enterprise evaluate an external AI integration partner?"
+  },
+  "citations": []
+}

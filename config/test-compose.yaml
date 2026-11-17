@@ -1,0 +1,25 @@
+name: tuc-elmo-p0
+services:
+  postgres:
+    image: postgres@sha256:b6972e1115a4ff8eba5d7f7d19184926d1e16d7d1136ae1e1a7ebf286da0f015
+    container_name: tuc-elmo-p0-postgres
+    env_file: ../secrets/postgres.env
+    ports:
+      - "127.0.0.1:17332:5432"
+    networks:
+      - internal
+    volumes:
+      - test-data:/var/lib/postgresql
+    mem_limit: 512m
+    cpus: 1
+    restart: "no"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U tuc_p0 -d tuc_elmo_p0_test"]
+      interval: 2s
+      timeout: 3s
+      retries: 20
+networks:
+  internal:
+    internal: true
+volumes:
+  test-data:

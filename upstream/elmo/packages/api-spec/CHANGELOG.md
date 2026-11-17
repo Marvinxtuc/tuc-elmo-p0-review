@@ -1,0 +1,181 @@
+# @workspace/api-spec
+
+## 0.7.12
+
+No changes in this release.
+
+## 0.7.11
+
+No changes in this release.
+
+## 0.7.10
+
+No changes in this release.
+
+## 0.7.9
+
+No changes in this release.
+
+## 0.7.8
+
+### Patch Changes
+
+- c82f25f: A rate-limited API request's `Retry-After` header now gives the wait in seconds instead of milliseconds, and the API reference lists it as the only header a `429` carries.
+
+## 0.7.7
+
+### Patch Changes
+
+- e139254: The API's cited URLs, cited domains and query fan-out lists are paginated and searchable, so large brands no longer get responses too big to return.
+
+## 0.7.6
+
+No changes in this release.
+
+## 0.7.5
+
+No changes in this release.
+
+## 0.7.4
+
+No changes in this release.
+
+## 0.7.3
+
+No changes in this release.
+
+## 0.7.2
+
+No changes in this release.
+
+## 0.7.1
+
+No changes in this release.
+
+## 0.7.0
+
+No changes in this release.
+
+## 0.6.2
+
+### Patch Changes
+
+- 54cdb8d: Sentiment is now a 0–100 score where neutral answers count as 50 rather than against your brand, and the API returns it as `score` in place of `positiveShare` and `negativeShare`.
+
+## 0.6.1
+
+No changes in this release.
+
+## 0.6.0
+
+### Patch Changes
+
+- caf6bfb: The API and MCP tools return each answer's mention assessments with sentiment and position, and sentiment and average position for the brand, each competitor, model and prompt, with daily series (experimental).
+
+## 0.5.2
+
+No changes in this release.
+
+## 0.5.1
+
+No changes in this release.
+
+## 0.5.0
+
+### Minor Changes
+
+- f1daf53: All stats in the UI and API are significantly faster. This is a large migration and there may be a delay for stats to appear initially as the worker backfills.
+
+## 0.4.6
+
+No changes in this release.
+
+## 0.4.5
+
+No changes in this release.
+
+## 0.4.4
+
+### Patch Changes
+
+- 76ec134: Reports accept other names a brand goes by, and count a mention of any of them as a brand mention.
+
+## 0.4.3
+
+No changes in this release.
+
+## 0.4.2
+
+No changes in this release.
+
+## 0.4.1
+
+No changes in this release.
+
+## 0.4.0
+
+### Minor Changes
+
+- c9142f7: Elmo now serves a full external API and an MCP server. `/api/v1` covers brands, prompts, competitors, reports, analytics, models, tags, and opportunities. `/api/mcp` connects Claude Code, Codex, Cursor, OpenCode, and VS Code, either by signing in from the client or with an API key. Keys belong to an organization and are issued read-only or read-write from Settings, which now also has API and MCP pages describing your own deployment.
+
+### Patch Changes
+
+- 8c953b1: Every `/api/v1` list response now includes a `data` array. The `brands`, `prompts`, `competitors`, and `reports` keys still carry the same array and will be removed in a future release.
+
+## 0.3.0
+
+## 0.2.19
+
+## 0.2.18
+
+## 0.2.17
+
+## 0.2.16
+
+## 0.2.15
+
+## 0.2.14
+
+## 0.2.13
+
+### Patch Changes
+
+- c4505ba: Breaking: `/api/v1` DELETE endpoints now return the deleted resource directly instead of a `{ message, data }` wrapper (the deleted prompt includes a `deletedRunsCount` field), PATCH endpoints reject an empty body with a 400, an unparseable `website` on `/tools/analyze` is now a 400 instead of a 500, and 500 responses no longer echo internal error messages.
+
+## 0.2.12
+
+## 0.2.11
+
+## 0.2.10
+
+## 0.2.9
+
+## 0.2.8
+
+## 0.2.7
+
+## 0.2.6
+
+### Patch Changes
+
+- 1a1005a: Admin `/api/v1/brands` endpoints (POST, GET, PATCH) now accept and return a single `domains` list instead of `website` + `additionalDomains`. This future-proofs against a future db model change.
+
+## 0.2.5
+
+### Patch Changes
+
+- 7cba46d: License Elmo under the MIT License. Add Code of Conduct, Contributing guide, Security policy, and a lightweight CLA process.
+
+## 0.2.4
+
+## 0.2.3
+
+## 0.2.2
+
+## 0.2.1
+
+## 0.2.0
+
+### Minor Changes
+
+- 95b71db: Replace visibility % with Share of Voice metric across reports, add reports API, and redesign report for print

@@ -1,0 +1,10 @@
+{
+  "at_utc": "2026-11-17T02:24:15.826701+00:00",
+  "head": "aa697643422270b8ba478e6a3a39fd15bd3547d6",
+  "branch": "feat/enterprise-dual-track",
+  "status": "M AGENTS.md\n M docs/codex/AGENTS.md",
+  "tracked_file_count": 311,
+  "differences": [],
+  "production_sha": null,
+  "production_changes_performed": false
+}

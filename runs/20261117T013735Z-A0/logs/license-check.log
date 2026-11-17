@@ -1,0 +1,6 @@
+$ node scripts/check-licenses.mjs
+Running pnpm licenses list --json ...
+
+Scanned 66 packages.
+
+All dependency licenses are compliant.

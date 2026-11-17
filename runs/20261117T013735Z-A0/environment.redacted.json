@@ -1,0 +1,57 @@
+{
+  "at_utc": "2026-11-17T02:24:16.019782+00:00",
+  "app_environment": {
+    "DATABASE_URL": "[PRIVATE_TEST_VALUE]",
+    "DEPLOYMENT_MODE": "local",
+    "BETTER_AUTH_SECRET": "[PRIVATE_TEST_VALUE]",
+    "ELMO_ENCRYPTION_KEY": "[PRIVATE_TEST_VALUE]",
+    "APP_URL": "http://127.0.0.1:17300",
+    "VITE_APP_URL": "http://127.0.0.1:17300",
+    "DISABLE_TELEMETRY": "1",
+    "SCRAPE_TARGETS": "stub:stub",
+    "ONBOARDING_LLM_TARGET": "stub:stub",
+    "TYPESAFE_API_KEY": "[PRIVATE_TEST_VALUE]",
+    "RUNS_PER_PROMPT": "1",
+    "NODE_ENV": "production",
+    "ADMIN_API_KEYS": "[PRIVATE_TEST_VALUE]",
+    "HOST": "127.0.0.1",
+    "PORT": "17300",
+    "TUC_P0_OFFLINE": "1",
+    "VITE_TUC_P0_MODE": "UPSTREAM_STUB"
+  },
+  "env_copies_equal": true,
+  "secret_file_permissions": {
+    "secrets/canary.json": "0o600",
+    "secrets/owner.json": "0o600",
+    "secrets/postgres.env": "0o600",
+    "secrets/app.env": "0o600"
+  },
+  "command_home": "<AUDIT_ROOT>/runtime/home",
+  "container": {
+    "name": "/tuc-elmo-p0-postgres",
+    "image_id": "sha256:b6972e1115a4ff8eba5d7f7d19184926d1e16d7d1136ae1e1a7ebf286da0f015",
+    "memory_bytes": 536870912,
+    "nano_cpus": 1000000000,
+    "ports": {
+      "5432/tcp": [
+        {
+          "HostIp": "127.0.0.1",
+          "HostPort": "17332"
+        }
+      ]
+    },
+    "network_mode": "tuc-elmo-p0_internal",
+    "mount_destinations": [
+      "/var/lib/postgresql"
+    ]
+  },
+  "database": {
+    "role": "tuc_p0",
+    "version": "PostgreSQL 18.7 on aarch64-unknown-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit",
+    "database": "tuc_elmo_p0_test",
+    "migration_count": 34,
+    "last_migration_created_at": 1794269454270
+  },
+  "global_node": "v22.23.1",
+  "global_pnpm": "9.15.9"
+}

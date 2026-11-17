@@ -1,0 +1,40 @@
+{
+  "review_date_beijing": "2026-11-17",
+  "method": "Read-only public documentation through the connected web search service. No account access or model endpoint requests.",
+  "sources": [
+    {
+      "url": "https://ai.google.dev/gemini-api/docs/openai",
+      "resolved_url": "https://aistudio.google.com/docs/openai",
+      "finding": "The documented compatibility example uses Chat Completions and a Gemini key with a Google base URL. Elmo Responses compatibility has not been tested."
+    },
+    {
+      "url": "https://ai.google.dev/gemini-api/docs/billing",
+      "resolved_url": "https://aistudio.google.com/docs/billing",
+      "finding": "A Free tier exists for certain models and limits. The user's actual project tier and eligibility were not accessed."
+    },
+    {
+      "url": "https://www.alibabacloud.com/help/en/model-studio/compatibility-of-openai-with-dashscope",
+      "finding": "The page documents OpenAI-compatible Chat requests with workspace-specific hosts and regional key matching. Its Beijing table entry differs from its migration paragraph. No endpoint was selected for a live batch."
+    },
+    {
+      "url": "https://www.alibabacloud.com/help/en/model-studio/new-free-quota",
+      "finding": "The documented quota has region, deployment-scope and expiry conditions. Exhaustion can lead to pay-as-you-go billing. Free Quota Only is described as an explicit control. User-specific quota and control state remain unknown."
+    },
+    {
+      "url": "https://help.openai.com/en/articles/9039756-managing-billing-for-chatgpt-and-the-api-platform",
+      "finding": "ChatGPT and API billing are separate. No user API organization or billing records were accessed."
+    },
+    {
+      "url": "https://help.openai.com/en/articles/20001626-api-credits-benefit-for-eligible-chatgpt-subscriptions",
+      "finding": "Eligible subscriptions may claim credits for a linked API organization. Activation and actual receipt must be verified. No benefit was activated in G0."
+    },
+    {
+      "url": "https://typesafe.ai/",
+      "finding": "The public landing page was read. No account quota or enforceable free-usage entitlement was established. Jev protocol and version findings in the reports come from the frozen Elmo source."
+    }
+  ],
+  "provider_account_access": false,
+  "provider_model_requests": 0,
+  "billing_verified": false,
+  "external_cash_charge_usd": null
+}

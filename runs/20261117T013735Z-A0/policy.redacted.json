@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "mode": "UPSTREAM_STUB",
+  "live_requests_enabled": false,
+  "cash_budget_usd": 0,
+  "max_concurrency": 1,
+  "live_auto_retries": 0,
+  "scheduled_runs_enabled": false,
+  "historical_rejudge_enabled": false,
+  "onboarding_research_enabled": false,
+  "opportunities_enabled": false,
+  "search_tools_enabled": false,
+  "provider_allowlist": [],
+  "web_fetch_allowlist": [],
+  "approved_roles": [],
+  "approved_request_cap": 0,
+  "A1": null,
+  "enforcement_status": "OFFLINE_DENY_ALL",
+  "enforcement_refs": [
+    "config/runtime.sb",
+    "harness/run-command.py",
+    "upstream/elmo/packages/lib/src/providers/index.ts",
+    "upstream/elmo/packages/lib/src/mention-judge/analyze.ts"
+  ],
+  "general_live_budget_guard": "NOT_IMPLEMENTED",
+  "policy_file_is_executable": false
+}

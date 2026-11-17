@@ -1,0 +1,20 @@
+Starting pg-boss worker...
+SCRAPE_TARGETS validated
+[mention-judge] TYPESAFE_API_KEY=stub: judging from cue words, not Jev. For tests and development only.
+Judging mentions with stub+request-1
+pg-boss started
+Queues created
+Registered handler: process-prompt
+Registered handler: generate-report
+Registered handler: analyze-brand
+Registered handler: suggest-prompts
+Registered handler: schedule-maintenance
+Registered handler: derive-runs
+Registered handler: reprocess
+Registered handler: request-reprocesses
+Registered handler: refresh-rollups
+Registered handler: rollup-catch-up
+All handlers registered, worker is ready
+[refresh-rollups] source=p0-manual-batch-finish marksTaken=1 ranges=1 failed=0 elapsedMs=39
+Received SIGTERM, shutting down gracefully...
+Worker stopped

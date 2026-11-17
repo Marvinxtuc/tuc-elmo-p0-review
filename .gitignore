@@ -1,0 +1,7 @@
+secrets/
+runtime/
+node_modules/
+.env
+*.dump
+*.sql
+__pycache__/

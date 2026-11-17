@@ -1,0 +1,41 @@
+{
+  "checked_at_utc": "2026-11-17T01:34:42.209268+00:00",
+  "method": "Documentation references, JSON parsing and file hashing only",
+  "required_files": {
+    "M0_READINESS.md": true,
+    "SOURCE_LOCK.json": true,
+    "DEPENDENCY_REGISTER.md": true,
+    "PROVIDER_MATRIX.md": true,
+    "CONFLICTS.md": true,
+    "G1_G5_EXECUTION_CHECKLIST.md": true
+  },
+  "broken_document_links": [],
+  "source_files_checked": 1714,
+  "source_content_changes": [],
+  "upstream_status": "",
+  "test_case_count": 64,
+  "test_status_counts": {
+    "NOT_RUN": 64,
+    "PASS": 0,
+    "FAIL": 0,
+    "BLOCKED": 0,
+    "NOT_APPLICABLE": 0
+  },
+  "test_ids_unique": true,
+  "app_test_commands_executed": false,
+  "website_after": "evidence/website-after.json",
+  "website_local_comparison": {
+    "captured_at_utc": "2026-11-17T01:33:50.561672+00:00",
+    "head": "aa697643422270b8ba478e6a3a39fd15bd3547d6",
+    "status": " M AGENTS.md\n M docs/codex/AGENTS.md\n",
+    "same_head": true,
+    "same_status": true,
+    "initial_key_files_unchanged": true,
+    "tracked_file_count": 311,
+    "tracked_file_content_changes": [],
+    "scope": "Local repository comparison only. Current production deployment SHA is unknown."
+  },
+  "input_sha256_match": true,
+  "all_local_links_exist": true,
+  "public_document_review": "evidence/public-document-review.json"
+}

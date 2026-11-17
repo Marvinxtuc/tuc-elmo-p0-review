@@ -1,0 +1,8 @@
+{
+  "at_utc": "2026-11-17T01:40:49.361415+00:00",
+  "finding": "Colima ignored the intended COLIMA_HOME directory and created this task profile under the legacy default home.",
+  "affected_path": "<USER_HOME>/.colima/tuc-p0",
+  "correction": "Stopped only the new tuc-p0 profile and moved its newly created files into the approved runtime directory. Existing default profile was not edited.",
+  "preserved_path": "<AUDIT_ROOT>/runtime/colima-profile-initial",
+  "follow_up": "Use supported profile path before restarting."
+}

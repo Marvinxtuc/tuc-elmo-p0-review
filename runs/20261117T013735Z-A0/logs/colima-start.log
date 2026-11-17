@@ -1,0 +1,58 @@
+time="2026-11-17T09:38:13+08:00" level=warning msg="found ~/.colima, ignoring $XDG_CONFIG_HOME..."
+time="2026-11-17T09:38:13+08:00" level=warning msg="delete ~/.colima to use $XDG_CONFIG_HOME as config directory"
+time="2026-11-17T09:38:13+08:00" level=warning msg="or run `mv ~/.colima \"<AUDIT_ROOT>/runtime/xdg-config/colima\"`"
+time="2026-11-17T09:38:13+08:00" level=info msg="starting colima [profile=tuc-p0]"
+time="2026-11-17T09:38:13+08:00" level=info msg="runtime: docker"
+time="2026-11-17T09:38:14+08:00" level=info msg="creating and starting ..." context=vm
+time="2026-11-17T09:38:14+08:00" level=warning msg="found ~/.colima, ignoring $XDG_CONFIG_HOME..."
+time="2026-11-17T09:38:14+08:00" level=warning msg="delete ~/.colima to use $XDG_CONFIG_HOME as config directory"
+time="2026-11-17T09:38:14+08:00" level=warning msg="or run `mv ~/.colima \"<AUDIT_ROOT>/runtime/xdg-config/colima\"`"
+time="2026-11-17T09:38:14+08:00" level=info msg="downloading disk image ..." context=vm
+time="2026-11-17T09:38:51+08:00" level=info msg="Terminal is not available, proceeding without opening an editor"
+time="2026-11-17T09:38:51+08:00" level=warning msg="local username \"<LOCAL_USER>\" is not a valid Linux username (must match \"^[a-z_][a-z0-9_-]*$\"); using \"lima\" instead"
+time="2026-11-17T09:38:52+08:00" level=info msg="Starting the instance \"colima-tuc-p0\" with internal VM driver \"vz\""
+time="2026-11-17T09:38:52+08:00" level=info msg="Attempting to download the image" arch=aarch64 digest= location=<AUDIT_ROOT>/runtime/xdg-cache/colima/caches/11855796d01d1b76fbeb13f9bfabc0488c9cb66d8887d3e4ee7df48f05303ef0
+time="2026-11-17T09:38:52+08:00" level=info msg="Downloaded the image from \"<AUDIT_ROOT>/runtime/xdg-cache/colima/caches/11855796d01d1b76fbeb13f9bfabc0488c9cb66d8887d3e4ee7df48f05303ef0\""
+time="2026-11-17T09:38:52+08:00" level=info msg="Converting \"<AUDIT_ROOT>/runtime/lima/colima-tuc-p0/image\" (qcow2) to a raw disk \"<AUDIT_ROOT>/runtime/lima/colima-tuc-p0/disk\""
+time="2026-11-17T09:38:53+08:00" level=info msg="Expanding to 4GiB"
+time="2026-11-17T09:38:56+08:00" level=info msg="[hostagent] hostagent socket created at <AUDIT_ROOT>/runtime/lima/colima-tuc-p0/ha.sock"
+time="2026-11-17T09:38:56+08:00" level=info msg="[hostagent] Starting VZ (hint: to watch the boot progress, see \"<AUDIT_ROOT>/runtime/lima/colima-tuc-p0/serial*.log\")"
+time="2026-11-17T09:38:56+08:00" level=info msg="[hostagent] Mounting disk \"colima-tuc-p0\" on \"/mnt/lima-colima-tuc-p0\""
+time="2026-11-17T09:38:56+08:00" level=info msg="[hostagent] Converting \"<AUDIT_ROOT>/runtime/lima/_disks/colima-tuc-p0/datadisk\" (raw) to a raw disk \"<AUDIT_ROOT>/runtime/lima/_disks/colima-tuc-p0/datadisk\""
+time="2026-11-17T09:38:56+08:00" level=info msg="[hostagent] [VZ] - vm state change: running"
+time="2026-11-17T09:39:02+08:00" level=info msg="[hostagent] SSH server does not seem to be running on vsock port, using usernet forwarder"
+time="2026-11-17T09:39:02+08:00" level=info msg="SSH Local Port: 54741"
+time="2026-11-17T09:39:02+08:00" level=info msg="[hostagent] Waiting for the essential requirement 1 of 3: \"ssh\""
+time="2026-11-17T09:39:03+08:00" level=info msg="[hostagent] The essential requirement 1 of 3 is satisfied"
+time="2026-11-17T09:39:03+08:00" level=info msg="[hostagent] Waiting for the essential requirement 2 of 3: \"user session is ready for ssh\""
+time="2026-11-17T09:39:03+08:00" level=info msg="[hostagent] The essential requirement 2 of 3 is satisfied"
+time="2026-11-17T09:39:03+08:00" level=info msg="[hostagent] Waiting for the essential requirement 3 of 3: \"Explicitly start ssh ControlMaster\""
+time="2026-11-17T09:39:03+08:00" level=info msg="[hostagent] The essential requirement 3 of 3 is satisfied"
+time="2026-11-17T09:39:03+08:00" level=info msg="[hostagent] Waiting for the guest agent to be running"
+time="2026-11-17T09:39:03+08:00" level=info msg="[hostagent] Forwarding \"/var/run/docker.sock\" (guest) to \"<USER_HOME>/.colima/tuc-p0/docker.sock\" (host)"
+time="2026-11-17T09:39:03+08:00" level=info msg="[hostagent] Forwarding \"/var/run/containerd/containerd.sock\" (guest) to \"<USER_HOME>/.colima/tuc-p0/containerd.sock\" (host)"
+time="2026-11-17T09:39:03+08:00" level=info msg="[hostagent] Guest agent is running"
+time="2026-11-17T09:39:03+08:00" level=info msg="[hostagent] Waiting for the final requirement 1 of 1: \"boot scripts must have finished\""
+time="2026-11-17T09:39:03+08:00" level=info msg="[hostagent] Time sync: guest agent is alive, starting time synchronization"
+time="2026-11-17T09:39:03+08:00" level=info msg="[hostagent] Not forwarding TCP 0.0.0.0:22"
+time="2026-11-17T09:39:03+08:00" level=info msg="[hostagent] Not forwarding TCP [::]:22"
+time="2026-11-17T09:39:06+08:00" level=info msg="[hostagent] The final requirement 1 of 1 is satisfied"
+time="2026-11-17T09:39:06+08:00" level=info msg="READY. Run `limactl shell colima-tuc-p0` to open the shell."
+installing: 386 OK
+installing: amd64 OK
+{
+  "supported": [
+    "linux/arm64",
+    "linux/386"
+  ],
+  "emulators": [
+    "python3.12",
+    "qemu-i386",
+    "qemu-x86_64"
+  ]
+}
+time="2026-11-17T09:39:07+08:00" level=info msg="provisioning ..." context=docker
+colima-tuc-p0
+Successfully created context "colima-tuc-p0"
+time="2026-11-17T09:39:08+08:00" level=info msg="starting ..." context=docker
+time="2026-11-17T09:39:09+08:00" level=info msg=done

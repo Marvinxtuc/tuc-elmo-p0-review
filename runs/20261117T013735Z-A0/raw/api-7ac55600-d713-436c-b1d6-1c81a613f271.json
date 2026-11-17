@@ -1,0 +1,21 @@
+{
+  "id": "7ac55600-d713-436c-b1d6-1c81a613f271",
+  "promptId": "28b7f36e-5bad-47fb-8e5e-0a9515dc7b77",
+  "brandId": "tuc-p0-internal",
+  "model": "stub",
+  "provider": "stub",
+  "webSearchEnabled": false,
+  "brandMentioned": false,
+  "competitorsMentioned": [],
+  "assessments": {
+    "brand": null,
+    "competitors": {}
+  },
+  "webQueries": [],
+  "citationCount": 0,
+  "createdAt": "2026-11-17T01:55:37.193Z",
+  "answer": {
+    "text": "Which providers help B2B software companies integrate AI into existing production workflows?"
+  },
+  "citations": []
+}

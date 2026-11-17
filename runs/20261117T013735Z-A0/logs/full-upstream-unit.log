@@ -1,0 +1,91 @@
+$ turbo test
+
+   • Packages in scope: @elmohq/cli, @workspace/api-spec, @workspace/config, @workspace/deployment, @workspace/docs, @workspace/lib, @workspace/og, @workspace/site-audit, @workspace/ui, @workspace/web, @workspace/worker, @workspace/www, e2e
+   • Running test in 13 packages
+   • Remote caching disabled
+
+@workspace/lib:codegen: cache miss, executing 07a1314b574891a6
+@workspace/site-audit:check-types: cache miss, executing 3f6bef566e4c82e5
+@workspace/config:check-types: cache miss, executing 79a8c0651039b0e8
+@workspace/ui:check-types: cache miss, executing 4e599971459ddee7
+@workspace/site-audit:test: cache miss, executing a62f4f2d27778e87
+@workspace/config:test: cache miss, executing 69c4b7af8906e9f5
+@workspace/site-audit:check-types: $ tsc --noEmit
+@workspace/site-audit:test: $ vitest run
+@workspace/lib:codegen: $ pnpm run generate:auth-schema
+@workspace/config:check-types: $ tsc --noEmit
+@workspace/config:test: $ vitest run
+@workspace/ui:check-types: $ tsc --noEmit
+@workspace/lib:codegen: $ bash scripts/generate-auth-schema.sh
+@workspace/lib:codegen: [generate-auth-schema] Running better-auth CLI...
+@workspace/og:check-types: cache miss, executing 115a7fc1bac154ce
+@workspace/lib:test: cache miss, executing b53484882b901d96
+@workspace/lib:test: $ vitest run --project=unit
+@workspace/og:check-types: $ tsc --noEmit
+@workspace/config:test: 
+@workspace/config:test: [1m[30m[46m RUN [49m[39m[22m [36mv5.1.0 [39m[90m<AUDIT_ROOT>/upstream/elmo/packages/config[39m
+@workspace/config:test: 
+@workspace/www:test: cache miss, executing b18d45a5ebb76c5c
+@workspace/www:test: $ vitest run
+@workspace/config:test:  [32m✓[39m src/roles.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+@workspace/config:test:  [32m✓[39m src/referrals.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+@workspace/config:test:  [32m✓[39m src/scrape-targets.test.ts [2m([22m[2m22 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+@workspace/config:test:  [32m✓[39m src/env.test.ts [2m([22m[2m18 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+@workspace/config:test:  [31m❯[39m src/env-registry.test.ts [2m([22m[2m6 tests[22m[2m | [22m[31m1 failed[39m[2m)[22m[32m 11[2mms[22m[39m
+@workspace/config:test:    [31m❯[39m ENV_REGISTRY [2m(6)[22m
+@workspace/config:test:      [32m✓[39m has no duplicate names[32m 2[2mms[22m[39m
+@workspace/config:test:      [32m✓[39m uses the VITE_ prefix exactly for client vars[32m 0[2mms[22m[39m
+@workspace/config:test:      [32m✓[39m never requires www-only vars in the product[32m 0[2mms[22m[39m
+@workspace/config:test:      [32m✓[39m declares a provider id exactly on dynamic-scrape-targets entries[32m 0[2mms[22m[39m
+@workspace/config:test: [31m     [31m×[31m matches turbo.json globalEnv[39m[32m 5[2mms[22m[39m
+@workspace/config:test:      [32m✓[39m is fully declared in apps/web/src/env.d.ts[32m 2[2mms[22m[39m
+@workspace/config:test:  [32m✓[39m src/ai-referral.test.ts [2m([22m[2m25 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+@workspace/config:test:  [32m✓[39m src/plans.test.ts [2m([22m[2m33 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+@workspace/config:test:  [32m✓[39m src/entitlements.test.ts [2m([22m[2m31 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+@workspace/config:test:  [32m✓[39m src/fanout-support.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 21[2mms[22m[39m
+@workspace/config:test:  [32m✓[39m src/models.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 2[2mms[22m[39m
+@workspace/lib:test: 
+@workspace/lib:test: [1m[30m[46m RUN [49m[39m[22m [36mv5.1.0 [39m[90m<AUDIT_ROOT>/upstream/elmo/packages/lib[39m
+@workspace/lib:test: 
+@workspace/config:test:  [32m✓[39m src/legal.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+@workspace/config:test: 
+@workspace/config:test: [31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 1 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+@workspace/config:test: 
+@workspace/config:test: [41m[1m FAIL [22m[49m src/env-registry.test.ts[2m > [22mENV_REGISTRY[2m > [22mmatches turbo.json globalEnv
+@workspace/config:test: [31m[1mAssertionError[22m: add these vars to packages/config/src/env-registry.ts: expected [ Array(2) ] to deeply equal [][39m
+@workspace/config:test: 
+@workspace/config:test: [32m- Expected[39m
+@workspace/config:test: [31m+ Received[39m
+@workspace/config:test: 
+@workspace/config:test: [32m- [][39m
+@workspace/config:test: [31m+ [[39m
+@workspace/config:test: [31m+   "TUC_P0_OFFLINE",[39m
+@workspace/config:test: [31m+   "VITE_TUC_P0_MODE",[39m
+@workspace/config:test: [31m+ ][39m
+@workspace/config:test: 
+@workspace/config:test: [36m [2m❯[22m src/env-registry.test.ts:[2m47:88[22m[39m
+@workspace/config:test:     [90m 45|[39m
+@workspace/config:test:     [90m 46|[39m   expect(missingFromTurbo, "add these vars to turbo.json globalEnv").t…
+@workspace/config:test:     [90m 47|[39m   expect(missingFromRegistry, "add these vars to packages/config/src/e…
+@workspace/config:test:     [90m   |[39m                                                                                        [31m^[39m
+@workspace/config:test:     [90m 48|[39m  })[33m;[39m
+@workspace/config:test:     [90m 49|[39m
+@workspace/config:test: 
+@workspace/config:test: [31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m
+@workspace/config:test: 
+@workspace/config:test: 
+@workspace/config:test: [2m Test Files [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m10 passed[39m[22m[90m (11)[39m
+@workspace/config:test: [2m      Tests [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m156 passed[39m[22m[90m (157)[39m
+@workspace/config:test: [2m   Start at [22m 10:12:03
+@workspace/config:test: [2m   Duration [22m 243ms[2m (transform 37%, import 37%, tests 17%, worker 8%)[22m
+@workspace/config:test: 
+@workspace/config:test: [ELIFECYCLE] Test failed. See above for more details.
+@workspace/config#test:  ERROR  command (<AUDIT_ROOT>/upstream/elmo/packages/config) <AUDIT_ROOT>/runtime/pnpm-native/package/pnpm run test exited (1)
+
+ Tasks:    4 successful, 9 total
+Cached:    0 cached, 9 total
+  Time:    899ms 
+Failed:    @workspace/config#test
+
+ ERROR  run failed: command  exited (1)
+[ELIFECYCLE] Test failed. See above for more details.

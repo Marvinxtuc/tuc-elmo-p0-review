@@ -1,0 +1,178 @@
+{
+  "started_at_utc": "2026-11-17T02:05:03.196804+00:00",
+  "restore_seconds": 0.175,
+  "source_database": "tuc_elmo_p0_test",
+  "restore_database": "tuc_elmo_p0_restore",
+  "target_empty_before_restore": true,
+  "public_table_hashes_match": true,
+  "tables": {
+    "account": {
+      "count": 1,
+      "sha256": "5788fd341d750483d2d241b2205ddf739956814ad04586bda08c743aaf48c8e7"
+    },
+    "apikey": {
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "background_migrations": {
+      "count": 2,
+      "sha256": "2b3bd0f2a176146646b65a0087aef5a55a72921aa20a7449e939040ee69741b5"
+    },
+    "brand_opportunities": {
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "brands": {
+      "count": 1,
+      "sha256": "241bc369e82910524dd42bc880c733de21e2f29e2ca59c14634fe50f6ed4df3a"
+    },
+    "citations": {
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "cited_pages": {
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "competitors": {
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "invitation": {
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "jwks": {
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "member": {
+      "count": 1,
+      "sha256": "310b27cb7a294d48a30589e744f286efad47c20b92dcaf9323b2b5a069991de8"
+    },
+    "oauth_access_token": {
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "oauth_client": {
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "oauth_client_assertion": {
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "oauth_client_resource": {
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "oauth_consent": {
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "oauth_refresh_token": {
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "oauth_resource": {
+      "count": 1,
+      "sha256": "2126bb9963b03784575c8725b9b294de8110ba76ae9491d767915686e9a3f7c7"
+    },
+    "organization": {
+      "count": 1,
+      "sha256": "c90812a2ef7994512069db4c7a9d52a276d7fdcf208d3763bbfab6362195fefc"
+    },
+    "organization_settings": {
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "pipeline_state": {
+      "count": 1,
+      "sha256": "2889a9150c12b641a90363c0e9d1c688b8def184d830ae8b0afda6973136567c"
+    },
+    "prompt_runs": {
+      "count": 10,
+      "sha256": "a3f15e677892a8fe48bd5e73f161f8c4d1a41f9304412fc8a19f965ef386749d"
+    },
+    "prompts": {
+      "count": 10,
+      "sha256": "ee9f63d40772d5477e31366d8baa4a1b4a3f166e612465a1c410c160031ae5e1"
+    },
+    "rate_limit": {
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "reports": {
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "rollup_citation_pages": {
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "rollup_citation_urls": {
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "rollup_competitor_mentions": {
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "rollup_dirty": {
+      "count": 1,
+      "sha256": "68058bed6180265aff8fe1eb12c3c24324c329b1885bfe00583b07174662a462"
+    },
+    "rollup_prompt_runs": {
+      "count": 8,
+      "sha256": "52dab1ea63fb06230e2e327afef9293acefc3af572dda602540c4b0018b832c5"
+    },
+    "rollup_sentiment_quotes": {
+      "count": 1,
+      "sha256": "1091fa7c1087b804e48e4cf2e3e8b05ed75d7b9d13b9d040c1aff109746d7821"
+    },
+    "rollup_web_queries": {
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "run_extractions": {
+      "count": 10,
+      "sha256": "7f695d0c424060e138dda81d37e5660f289e0f22876a4647752658a22fc7c735"
+    },
+    "run_mentions": {
+      "count": 10,
+      "sha256": "893a98c3576a10c19504f51d980405be93e067a2e2bec1b9287b1c16d9b46075"
+    },
+    "secrets": {
+      "count": 1,
+      "sha256": "9fb779ed58e2fe08820aa5a6cac188485f5bfda0f900fe33b57e1d8a8f2edbe5"
+    },
+    "session": {
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "sso_provider": {
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "subscription": {
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "usage_events": {
+      "count": 10,
+      "sha256": "b31cb1f19d28d6740ba39285f8bebf330b5fcf38433f0c9d91388f546752a140"
+    },
+    "user": {
+      "count": 1,
+      "sha256": "7bae231573e3996dbd285f6ecbf42e2d87955abee6167152ce519fd54e489d22"
+    },
+    "verification": {
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    }
+  },
+  "backup_file": "test-database.dump",
+  "backup_sha256": "6924989490a314ee57e7e908d40dd4ce78edc6b9ded6350c48d98804572c23c3",
+  "secret_material_location": "Project-private secrets directory, excluded from ordinary evidence manifests",
+  "production_rpo_rto_claimed": false
+}

@@ -1,0 +1,1 @@
+{"assertions": "PASS", "outcomes": [{"port": 17331, "error": "EPERM"}, {"port": 17332, "status": 200}], "fixture_requests": {"17331": 0, "17332": 1}}

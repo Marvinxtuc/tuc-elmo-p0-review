@@ -1,0 +1,14 @@
+{
+  "at_utc": "2026-11-17T01:59:21.313096+00:00",
+  "observation_count": 10,
+  "non_brand": 8,
+  "brand_control": 2,
+  "observation_mode": "UPSTREAM_STUB",
+  "judge_mode": "UPSTREAM_STUB",
+  "unauthenticated_api_status": 401,
+  "observations_sha256": "8194b560ecae270bd9d3921c80687497462ddc069a9d1bf51688ba8674478d21",
+  "limitations": [
+    "API output is normalized. Full upstream payloads are exported separately from the new test database.",
+    "Judge mode is stub. Semantic quality and live-provider behavior remain NOT_RUN."
+  ]
+}

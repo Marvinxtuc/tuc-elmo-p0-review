@@ -1,0 +1,15 @@
+$ node .output/server/index.mjs
+➜ Listening on: http://127.0.0.1:17300/
+2026-11-17T02:06:13.892Z WARN [Better Auth]: Rate limiting could not determine a client IP and is falling back to a single shared per-path bucket. Ensure your runtime forwards a trusted client IP header, then set `advanced.ipAddress.ipAddressHeaders` or `advanced.ipAddress.trustedProxies` so the address can be resolved.
+2026-11-17T02:16:58.367Z ERROR [Better Auth]: Failed to validate API key: [APIError: Invalid API key.] {
+  status: 'UNAUTHORIZED',
+  body: { message: 'Invalid API key.', code: 'INVALID_API_KEY' },
+  headers: {},
+  statusCode: 401
+}
+2026-11-17T02:17:02.295Z ERROR [Better Auth]: Failed to validate API key: [APIError: Invalid API key.] {
+  status: 'UNAUTHORIZED',
+  body: { message: 'Invalid API key.', code: 'INVALID_API_KEY' },
+  headers: {},
+  statusCode: 401
+}

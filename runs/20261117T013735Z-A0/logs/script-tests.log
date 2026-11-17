@@ -1,0 +1,22 @@
+$ node --test 'scripts/*.test.mjs'
+✔ passes a bundle that resolves everything at build time (24.6375ms)
+✔ passes requires of node builtins (25.502375ms)
+✔ fails a require of a package the bundle does not ship (24.965666ms)
+✔ passes a require of a traced dependency, which does ship (23.390041ms)
+✔ ignores the traced dependencies' own sources (23.351709ms)
+✔ passes a require of a package that is only probed optionally (22.67ms)
+✔ checks the vercel preset's function directories (24.963ms)
+✔ passes a clean vercel preset build (22.895916ms)
+✔ fails when there is no server bundle to check at all (23.943166ms)
+✔ announces what shipped, linking the release and the changelog (26.64875ms)
+✔ keeps both links and stays under the limit when the notes overflow (24.662375ms)
+✔ still announces the release when the notes are unreadable (23.098792ms)
+✔ does not let the notes ping the channel or borrow the changelog label (24.232792ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 13
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 250.326833

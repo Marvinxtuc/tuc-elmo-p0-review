@@ -1,0 +1,23 @@
+apps/web/src/server/opportunities.ts:26:29 lint/correctness/noUnusedImports  FIXABLE  ━━━━━━━━━━━━━━
+
+  ! Several of these imports are unused.
+  
+    24 │ } from "@/lib/rollup-read";
+    25 │ import { resolveLookbackRange, resolveTimezone } from "@/lib/timezone-utils";
+  > 26 │ import { computeVolatility, type DailyDomainCount, stabilityScore } from "@/lib/visibility-stats";
+       │                             ^^^^^^^^^^^^^^^^^^^^^
+    27 │ import { resolveFilteredPrompts } from "@/server/prompt-resolution";
+    28 │ 
+  
+  i Unused imports might be the result of an incomplete refactoring.
+  
+  i Unsafe fix: Remove the unused imports.
+  
+    26 │ import·{·computeVolatility,·type·DailyDomainCount,·stabilityScore·}·from·"@/lib/visibility-stats";
+       │                             -----------------------                                               
+
+Skipped 2 suggested fixes.
+If you wish to apply the suggested (unsafe) fixes, use the command biome check --write --unsafe
+
+Checked 2 files in 70ms. Fixed 2 files.
+Found 1 warning.

@@ -1,0 +1,24 @@
+$ node .output/server/index.mjs
+➜ Listening on: http://127.0.0.1:17300/
+Error in renderToReadableStream: TypeError: (0 , import_jsx_dev_runtime.jsxDEV) is not a function
+    at RootComponent (file://<AUDIT_ROOT>/upstream/elmo/apps/web/.output/server/_ssr/router-8jG4UIUF.mjs:3451:135)
+    at renderWithHooks (file://<AUDIT_ROOT>/upstream/elmo/apps/web/.output/server/_libs/@tanstack/react-router+%5B...%5D.mjs:12658:18)
+    at renderElement (file://<AUDIT_ROOT>/upstream/elmo/apps/web/.output/server/_libs/@tanstack/react-router+%5B...%5D.mjs:12735:16)
+    at retryNode (file://<AUDIT_ROOT>/upstream/elmo/apps/web/.output/server/_libs/@tanstack/react-router+%5B...%5D.mjs:13175:12)
+    at renderNodeDestructive (file://<AUDIT_ROOT>/upstream/elmo/apps/web/.output/server/_libs/@tanstack/react-router+%5B...%5D.mjs:13071:235)
+    at finishFunctionComponent (file://<AUDIT_ROOT>/upstream/elmo/apps/web/.output/server/_libs/@tanstack/react-router+%5B...%5D.mjs:12674:232)
+    at renderElement (file://<AUDIT_ROOT>/upstream/elmo/apps/web/.output/server/_libs/@tanstack/react-router+%5B...%5D.mjs:12737:4)
+    at renderElement (file://<AUDIT_ROOT>/upstream/elmo/apps/web/.output/server/_libs/@tanstack/react-router+%5B...%5D.mjs:13021:6)
+    at retryNode (file://<AUDIT_ROOT>/upstream/elmo/apps/web/.output/server/_libs/@tanstack/react-router+%5B...%5D.mjs:13175:12)
+    at renderNodeDestructive (file://<AUDIT_ROOT>/upstream/elmo/apps/web/.output/server/_libs/@tanstack/react-router+%5B...%5D.mjs:13071:235) { componentStack: [Getter] }
+TypeError: (0 , import_jsx_dev_runtime.jsxDEV) is not a function
+    at RootComponent (file://<AUDIT_ROOT>/upstream/elmo/apps/web/.output/server/_ssr/router-8jG4UIUF.mjs:3451:135)
+    at renderWithHooks (file://<AUDIT_ROOT>/upstream/elmo/apps/web/.output/server/_libs/@tanstack/react-router+%5B...%5D.mjs:12658:18)
+    at renderElement (file://<AUDIT_ROOT>/upstream/elmo/apps/web/.output/server/_libs/@tanstack/react-router+%5B...%5D.mjs:12735:16)
+    at retryNode (file://<AUDIT_ROOT>/upstream/elmo/apps/web/.output/server/_libs/@tanstack/react-router+%5B...%5D.mjs:13175:12)
+    at renderNodeDestructive (file://<AUDIT_ROOT>/upstream/elmo/apps/web/.output/server/_libs/@tanstack/react-router+%5B...%5D.mjs:13071:235)
+    at finishFunctionComponent (file://<AUDIT_ROOT>/upstream/elmo/apps/web/.output/server/_libs/@tanstack/react-router+%5B...%5D.mjs:12674:232)
+    at renderElement (file://<AUDIT_ROOT>/upstream/elmo/apps/web/.output/server/_libs/@tanstack/react-router+%5B...%5D.mjs:12737:4)
+    at renderElement (file://<AUDIT_ROOT>/upstream/elmo/apps/web/.output/server/_libs/@tanstack/react-router+%5B...%5D.mjs:13021:6)
+    at retryNode (file://<AUDIT_ROOT>/upstream/elmo/apps/web/.output/server/_libs/@tanstack/react-router+%5B...%5D.mjs:13175:12)
+    at renderNodeDestructive (file://<AUDIT_ROOT>/upstream/elmo/apps/web/.output/server/_libs/@tanstack/react-router+%5B...%5D.mjs:13071:235)

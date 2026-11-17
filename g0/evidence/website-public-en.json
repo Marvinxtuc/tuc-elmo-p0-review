@@ -1,0 +1,16 @@
+{
+  "requested_url": "https://www.techunityconnect.com/en",
+  "final_url": "https://www.techunityconnect.com/en",
+  "status": 200,
+  "captured_at_utc": "2026-11-17T01:24:36.520668+00:00",
+  "headers": {
+    "Cache-Control": "private,no-cache,no-store,max-age=0,must-revalidate",
+    "Content-Type": "text/html; charset=utf-8",
+    "Date": "Tue, 17 Nov 2026 01:24:36 GMT",
+    "Server": "Netlify",
+    "X-Nf-Request-Id": "01M7KHP2Z5CGHNGSXXCH8D0XXJ"
+  },
+  "body_sha256": "8711f2ec2933f33a8ee48d128a9844437aa12767c91ea88800ca29a279533911",
+  "bytes": 21856,
+  "production_commit": null
+}

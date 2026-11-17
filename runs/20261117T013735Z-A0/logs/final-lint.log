@@ -1,0 +1,26 @@
+$ biome check --diagnostic-level=error --config-path=biome.json .
+apps/worker/src/index.ts format ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Formatter would have printed the following content:
+  
+    124 124 │   
+    125 125 │     if (isP0Offline()) {
+    126     │ - → → for·(const·name·of·["schedule-maintenance",·REQUEST_REPROCESSES_QUEUE,·REFRESH_ROLLUPS_QUEUE,·ROLLUP_CATCH_UP_QUEUE])·{
+        126 │ + → → for·(const·name·of·[
+        127 │ + → → → "schedule-maintenance",
+        128 │ + → → → REQUEST_REPROCESSES_QUEUE,
+        129 │ + → → → REFRESH_ROLLUPS_QUEUE,
+        130 │ + → → → ROLLUP_CATCH_UP_QUEUE,
+        131 │ + → → ])·{
+    127 132 │         await boss.unschedule(name);
+    128 133 │         const queued = await boss.findJobs(name, { queued: true });
+  
+
+Checked 1073 files in 305ms. No fixes applied.
+Found 1 error.
+check ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Some errors were emitted while running checks.
+  
+
+[ELIFECYCLE] Command failed with exit code 1.

@@ -1,0 +1,18 @@
+{
+  "files": {
+    "fixtures/judge-candidates.sha256": {
+      "bytes": 88,
+      "sha256": "295af95ae7c7f063e343612f06a5a17f7bf81d39280f79d62472924ea874bdf6"
+    },
+    "fixtures/prompt-set.json": {
+      "bytes": 1789,
+      "sha256": "32bbd691bf72808271228bc58b4bc927e60cbed4ff902e5b0655d9b1a1b3e6ab"
+    },
+    "fixtures/judge-candidates.json": {
+      "bytes": 30355,
+      "sha256": "968553f667cdbf573bc17aefca7b1f21c17a94c68e6dec9c017f189a5827f605"
+    }
+  },
+  "candidate_labels": "LABEL_REVIEW_PENDING",
+  "holdout_executed": false
+}

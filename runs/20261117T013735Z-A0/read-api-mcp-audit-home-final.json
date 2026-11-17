@@ -1,0 +1,1107 @@
+{
+  "at_utc": "2026-11-17T02:19:46.919488+00:00",
+  "before": {
+    "runs": 10,
+    "at_utc": "2026-11-17T02:19:25.067088+00:00",
+    "queued": [],
+    "prompts": 10,
+    "schedules": 0,
+    "opportunities": 0
+  },
+  "after": {
+    "runs": 10,
+    "at_utc": "2026-11-17T02:19:46.91096+00:00",
+    "queued": [],
+    "prompts": 10,
+    "schedules": 0,
+    "opportunities": 0
+  },
+  "results": {
+    "/api/v1/brands token=None": {
+      "status": 401,
+      "body": {
+        "error": "Unauthorized",
+        "message": "Valid API key required as Bearer token in Authorization header",
+        "code": "unauthorized"
+      }
+    },
+    "/api/v1/brands token=invalid": {
+      "status": 401,
+      "body": {
+        "error": "Unauthorized",
+        "message": "Invalid API key",
+        "code": "unauthorized"
+      }
+    },
+    "/api/v1/brands/tuc-p0-internal/opportunities token=None": {
+      "status": 401,
+      "body": {
+        "error": "Unauthorized",
+        "message": "Valid API key required as Bearer token in Authorization header",
+        "code": "unauthorized"
+      }
+    },
+    "/api/v1/brands/tuc-p0-internal/opportunities token=invalid": {
+      "status": 401,
+      "body": {
+        "error": "Unauthorized",
+        "message": "Invalid API key",
+        "code": "unauthorized"
+      }
+    },
+    "opportunities": {
+      "status": 200,
+      "body": {
+        "brandId": "tuc-p0-internal",
+        "status": "insufficient-data",
+        "generatedAt": null,
+        "model": null,
+        "summary": [],
+        "opportunities": [],
+        "risks": []
+      }
+    },
+    "prompt_pages": [
+      {
+        "status": 200,
+        "body": {
+          "data": [
+            {
+              "id": "28b7f36e-5bad-47fb-8e5e-0a9515dc7b77",
+              "brandId": "tuc-p0-internal",
+              "value": "Which providers help B2B software companies integrate AI into existing production workflows?",
+              "enabled": true,
+              "tags": [
+                "q01",
+                "non_brand"
+              ],
+              "systemTags": [
+                "unbranded"
+              ],
+              "premiumModels": [],
+              "createdAt": "2026-11-17T01:55:34.636Z",
+              "updatedAt": "2026-11-17T01:55:34.636Z"
+            },
+            {
+              "id": "dfe5b8a4-cd88-411c-9751-a8b60be0138a",
+              "brandId": "tuc-p0-internal",
+              "value": "How should a small enterprise evaluate an external AI integration partner?",
+              "enabled": true,
+              "tags": [
+                "q02",
+                "non_brand"
+              ],
+              "systemTags": [
+                "unbranded"
+              ],
+              "premiumModels": [],
+              "createdAt": "2026-11-17T01:55:34.636Z",
+              "updatedAt": "2026-11-17T01:55:34.636Z"
+            },
+            {
+              "id": "13bef519-6ed7-4852-a56e-869d62b7a12f",
+              "brandId": "tuc-p0-internal",
+              "value": "Which engineering partners can help a company move an AI proof of concept into production?",
+              "enabled": true,
+              "tags": [
+                "q03",
+                "non_brand"
+              ],
+              "systemTags": [
+                "unbranded"
+              ],
+              "premiumModels": [],
+              "createdAt": "2026-11-17T01:55:34.636Z",
+              "updatedAt": "2026-11-17T01:55:34.636Z"
+            },
+            {
+              "id": "73425cbf-4d26-4987-9581-1f50af73b0bd",
+              "brandId": "tuc-p0-internal",
+              "value": "What should a company look for when choosing an AI integration consultancy for a security-sensitive workflow?",
+              "enabled": true,
+              "tags": [
+                "q04",
+                "non_brand"
+              ],
+              "systemTags": [
+                "unbranded"
+              ],
+              "premiumModels": [],
+              "createdAt": "2026-11-17T01:55:34.636Z",
+              "updatedAt": "2026-11-17T01:55:34.636Z"
+            },
+            {
+              "id": "dccd10d9-350f-43a6-8435-5b45c6fcd22d",
+              "brandId": "tuc-p0-internal",
+              "value": "Which service providers offer forward-deployed engineering support for enterprise AI projects?",
+              "enabled": true,
+              "tags": [
+                "q05",
+                "non_brand"
+              ],
+              "systemTags": [
+                "unbranded"
+              ],
+              "premiumModels": [],
+              "createdAt": "2026-11-17T01:55:34.636Z",
+              "updatedAt": "2026-11-17T01:55:34.636Z"
+            },
+            {
+              "id": "fb47279d-2a8f-4953-99dd-7fdf90ad69a3",
+              "brandId": "tuc-p0-internal",
+              "value": "How can a B2B company compare vendors for AI workflow integration and ongoing reliability?",
+              "enabled": true,
+              "tags": [
+                "q06",
+                "non_brand"
+              ],
+              "systemTags": [
+                "unbranded"
+              ],
+              "premiumModels": [],
+              "createdAt": "2026-11-17T01:55:34.636Z",
+              "updatedAt": "2026-11-17T01:55:34.636Z"
+            }
+          ],
+          "prompts": [
+            {
+              "id": "28b7f36e-5bad-47fb-8e5e-0a9515dc7b77",
+              "brandId": "tuc-p0-internal",
+              "value": "Which providers help B2B software companies integrate AI into existing production workflows?",
+              "enabled": true,
+              "tags": [
+                "q01",
+                "non_brand"
+              ],
+              "systemTags": [
+                "unbranded"
+              ],
+              "premiumModels": [],
+              "createdAt": "2026-11-17T01:55:34.636Z",
+              "updatedAt": "2026-11-17T01:55:34.636Z"
+            },
+            {
+              "id": "dfe5b8a4-cd88-411c-9751-a8b60be0138a",
+              "brandId": "tuc-p0-internal",
+              "value": "How should a small enterprise evaluate an external AI integration partner?",
+              "enabled": true,
+              "tags": [
+                "q02",
+                "non_brand"
+              ],
+              "systemTags": [
+                "unbranded"
+              ],
+              "premiumModels": [],
+              "createdAt": "2026-11-17T01:55:34.636Z",
+              "updatedAt": "2026-11-17T01:55:34.636Z"
+            },
+            {
+              "id": "13bef519-6ed7-4852-a56e-869d62b7a12f",
+              "brandId": "tuc-p0-internal",
+              "value": "Which engineering partners can help a company move an AI proof of concept into production?",
+              "enabled": true,
+              "tags": [
+                "q03",
+                "non_brand"
+              ],
+              "systemTags": [
+                "unbranded"
+              ],
+              "premiumModels": [],
+              "createdAt": "2026-11-17T01:55:34.636Z",
+              "updatedAt": "2026-11-17T01:55:34.636Z"
+            },
+            {
+              "id": "73425cbf-4d26-4987-9581-1f50af73b0bd",
+              "brandId": "tuc-p0-internal",
+              "value": "What should a company look for when choosing an AI integration consultancy for a security-sensitive workflow?",
+              "enabled": true,
+              "tags": [
+                "q04",
+                "non_brand"
+              ],
+              "systemTags": [
+                "unbranded"
+              ],
+              "premiumModels": [],
+              "createdAt": "2026-11-17T01:55:34.636Z",
+              "updatedAt": "2026-11-17T01:55:34.636Z"
+            },
+            {
+              "id": "dccd10d9-350f-43a6-8435-5b45c6fcd22d",
+              "brandId": "tuc-p0-internal",
+              "value": "Which service providers offer forward-deployed engineering support for enterprise AI projects?",
+              "enabled": true,
+              "tags": [
+                "q05",
+                "non_brand"
+              ],
+              "systemTags": [
+                "unbranded"
+              ],
+              "premiumModels": [],
+              "createdAt": "2026-11-17T01:55:34.636Z",
+              "updatedAt": "2026-11-17T01:55:34.636Z"
+            },
+            {
+              "id": "fb47279d-2a8f-4953-99dd-7fdf90ad69a3",
+              "brandId": "tuc-p0-internal",
+              "value": "How can a B2B company compare vendors for AI workflow integration and ongoing reliability?",
+              "enabled": true,
+              "tags": [
+                "q06",
+                "non_brand"
+              ],
+              "systemTags": [
+                "unbranded"
+              ],
+              "premiumModels": [],
+              "createdAt": "2026-11-17T01:55:34.636Z",
+              "updatedAt": "2026-11-17T01:55:34.636Z"
+            }
+          ],
+          "pagination": {
+            "page": 1,
+            "limit": 6,
+            "total": 10,
+            "totalPages": 2
+          }
+        }
+      },
+      {
+        "status": 200,
+        "body": {
+          "data": [
+            {
+              "id": "dd8402af-96c9-4849-ae66-b155cc07fad0",
+              "brandId": "tuc-p0-internal",
+              "value": "What evidence should a buyer request from a provider that builds enterprise AI applications?",
+              "enabled": true,
+              "tags": [
+                "q07",
+                "non_brand"
+              ],
+              "systemTags": [
+                "unbranded"
+              ],
+              "premiumModels": [],
+              "createdAt": "2026-11-17T01:55:34.636Z",
+              "updatedAt": "2026-11-17T01:55:34.636Z"
+            },
+            {
+              "id": "611a5e40-392b-47d1-9bd5-ce308abc54b1",
+              "brandId": "tuc-p0-internal",
+              "value": "Which providers can support API integration, evaluation and observability for enterprise AI workflows?",
+              "enabled": true,
+              "tags": [
+                "q08",
+                "non_brand"
+              ],
+              "systemTags": [
+                "unbranded"
+              ],
+              "premiumModels": [],
+              "createdAt": "2026-11-17T01:55:34.636Z",
+              "updatedAt": "2026-11-17T01:55:34.636Z"
+            },
+            {
+              "id": "fa434e1c-a443-4575-afdf-a78af0f5bbc7",
+              "brandId": "tuc-p0-internal",
+              "value": "What can you verify about TechUnity Connect and the services described on its official website?",
+              "enabled": true,
+              "tags": [
+                "q09",
+                "brand_control"
+              ],
+              "systemTags": [
+                "branded"
+              ],
+              "premiumModels": [],
+              "createdAt": "2026-11-17T01:55:34.636Z",
+              "updatedAt": "2026-11-17T01:55:34.636Z"
+            },
+            {
+              "id": "8cd62bce-a275-4e1f-9ed9-0299aad2da8a",
+              "brandId": "tuc-p0-internal",
+              "value": "What information is available about TechUnity Connect, and what remains uncertain?",
+              "enabled": true,
+              "tags": [
+                "q10",
+                "brand_control"
+              ],
+              "systemTags": [
+                "branded"
+              ],
+              "premiumModels": [],
+              "createdAt": "2026-11-17T01:55:34.636Z",
+              "updatedAt": "2026-11-17T01:55:34.636Z"
+            }
+          ],
+          "prompts": [
+            {
+              "id": "dd8402af-96c9-4849-ae66-b155cc07fad0",
+              "brandId": "tuc-p0-internal",
+              "value": "What evidence should a buyer request from a provider that builds enterprise AI applications?",
+              "enabled": true,
+              "tags": [
+                "q07",
+                "non_brand"
+              ],
+              "systemTags": [
+                "unbranded"
+              ],
+              "premiumModels": [],
+              "createdAt": "2026-11-17T01:55:34.636Z",
+              "updatedAt": "2026-11-17T01:55:34.636Z"
+            },
+            {
+              "id": "611a5e40-392b-47d1-9bd5-ce308abc54b1",
+              "brandId": "tuc-p0-internal",
+              "value": "Which providers can support API integration, evaluation and observability for enterprise AI workflows?",
+              "enabled": true,
+              "tags": [
+                "q08",
+                "non_brand"
+              ],
+              "systemTags": [
+                "unbranded"
+              ],
+              "premiumModels": [],
+              "createdAt": "2026-11-17T01:55:34.636Z",
+              "updatedAt": "2026-11-17T01:55:34.636Z"
+            },
+            {
+              "id": "fa434e1c-a443-4575-afdf-a78af0f5bbc7",
+              "brandId": "tuc-p0-internal",
+              "value": "What can you verify about TechUnity Connect and the services described on its official website?",
+              "enabled": true,
+              "tags": [
+                "q09",
+                "brand_control"
+              ],
+              "systemTags": [
+                "branded"
+              ],
+              "premiumModels": [],
+              "createdAt": "2026-11-17T01:55:34.636Z",
+              "updatedAt": "2026-11-17T01:55:34.636Z"
+            },
+            {
+              "id": "8cd62bce-a275-4e1f-9ed9-0299aad2da8a",
+              "brandId": "tuc-p0-internal",
+              "value": "What information is available about TechUnity Connect, and what remains uncertain?",
+              "enabled": true,
+              "tags": [
+                "q10",
+                "brand_control"
+              ],
+              "systemTags": [
+                "branded"
+              ],
+              "premiumModels": [],
+              "createdAt": "2026-11-17T01:55:34.636Z",
+              "updatedAt": "2026-11-17T01:55:34.636Z"
+            }
+          ],
+          "pagination": {
+            "page": 2,
+            "limit": 6,
+            "total": 10,
+            "totalPages": 2
+          }
+        }
+      }
+    ],
+    "mcp_initialize": {
+      "status": 200,
+      "body": {
+        "result": {
+          "protocolVersion": "2025-03-26",
+          "capabilities": {
+            "tools": {
+              "listChanged": true
+            }
+          },
+          "serverInfo": {
+            "name": "elmo",
+            "title": "Elmo AI visibility",
+            "version": "0.7.12"
+          },
+          "instructions": "Elmo tracks how AI models \u2014 ChatGPT, Claude, Perplexity, Gemini, Google AI Overviews \u2014 mention and cite brands.\n\nStart with list_brands to find a brand id; every other brand tool takes one.\nget_analytics answers 'how is this brand doing'; get_citations and get_query_fanout answer 'why', and are where an\noptimization plan comes from \u2014 the pages the models actually read and the searches they actually ran.\n\nAnalytics tools need a window: start and end as ISO 8601 timestamps, half-open, e.g. 2026-01-01T00:00:00Z.\nRates and shares are fractions of 1, not percentages.\n\nOnly the tools this connection is permitted appear in tools/list. Call whoami to see what it is and what it holds."
+        },
+        "jsonrpc": "2.0",
+        "id": 1
+      }
+    },
+    "mcp_tools": {
+      "status": 200,
+      "body": {
+        "result": {
+          "tools": [
+            {
+              "name": "whoami",
+              "title": "Identify this connection",
+              "description": "What this MCP connection is: who it acts as, which organizations it reaches, and which tools it may call. Needs no permission, so it is always safe to call first when a request fails and it is not clear why.",
+              "inputSchema": {
+                "$schema": "http://json-schema.org/draft-07/schema#",
+                "type": "object",
+                "properties": {}
+              },
+              "annotations": {
+                "title": "Identify this connection",
+                "readOnlyHint": true,
+                "destructiveHint": false,
+                "idempotentHint": true,
+                "openWorldHint": false
+              },
+              "execution": {
+                "taskSupport": "forbidden"
+              }
+            },
+            {
+              "name": "list_models",
+              "title": "List models",
+              "description": "The models this deployment knows about, and which of them it is actually tracking. Use the returned ids for the `model` filter on any analytics tool.",
+              "inputSchema": {
+                "$schema": "http://json-schema.org/draft-07/schema#",
+                "type": "object",
+                "properties": {}
+              },
+              "annotations": {
+                "title": "List models",
+                "readOnlyHint": true,
+                "destructiveHint": false,
+                "idempotentHint": true,
+                "openWorldHint": false
+              },
+              "execution": {
+                "taskSupport": "forbidden"
+              }
+            },
+            {
+              "name": "list_brands",
+              "title": "List brands",
+              "description": "Every brand this connection tracks. Start here: the other brand tools take an id from this list.",
+              "inputSchema": {
+                "$schema": "http://json-schema.org/draft-07/schema#",
+                "type": "object",
+                "properties": {}
+              },
+              "annotations": {
+                "title": "List brands",
+                "readOnlyHint": true,
+                "destructiveHint": false,
+                "idempotentHint": true,
+                "openWorldHint": false
+              },
+              "execution": {
+                "taskSupport": "forbidden"
+              }
+            },
+            {
+              "name": "get_brand",
+              "title": "Get one brand",
+              "description": "One brand's configuration: its domains, aliases, tracked models, and cadence.",
+              "inputSchema": {
+                "$schema": "http://json-schema.org/draft-07/schema#",
+                "type": "object",
+                "properties": {
+                  "brandId": {
+                    "type": "string",
+                    "description": "Brand id, from list_brands."
+                  }
+                },
+                "required": [
+                  "brandId"
+                ]
+              },
+              "annotations": {
+                "title": "Get one brand",
+                "readOnlyHint": true,
+                "destructiveHint": false,
+                "idempotentHint": true,
+                "openWorldHint": false
+              },
+              "execution": {
+                "taskSupport": "forbidden"
+              }
+            },
+            {
+              "name": "list_competitors",
+              "title": "List competitors",
+              "description": "The competitors tracked against a brand, with the domains and aliases a mention is matched on. These are what share of voice is measured against.",
+              "inputSchema": {
+                "$schema": "http://json-schema.org/draft-07/schema#",
+                "type": "object",
+                "properties": {
+                  "brandId": {
+                    "type": "string",
+                    "description": "Brand id, from list_brands."
+                  }
+                },
+                "required": [
+                  "brandId"
+                ]
+              },
+              "annotations": {
+                "title": "List competitors",
+                "readOnlyHint": true,
+                "destructiveHint": false,
+                "idempotentHint": true,
+                "openWorldHint": false
+              },
+              "execution": {
+                "taskSupport": "forbidden"
+              }
+            },
+            {
+              "name": "get_billing",
+              "title": "Get plan and usage",
+              "description": "A workspace's plan, its limits, and how much of each is used. Read-only \u2014 there is no tool that changes a subscription.",
+              "inputSchema": {
+                "$schema": "http://json-schema.org/draft-07/schema#",
+                "type": "object",
+                "properties": {
+                  "organizationId": {
+                    "type": "string",
+                    "description": "Organization id, from the organizationIds whoami reports."
+                  }
+                },
+                "required": [
+                  "organizationId"
+                ]
+              },
+              "annotations": {
+                "title": "Get plan and usage",
+                "readOnlyHint": true,
+                "destructiveHint": false,
+                "idempotentHint": true,
+                "openWorldHint": false
+              },
+              "execution": {
+                "taskSupport": "forbidden"
+              }
+            },
+            {
+              "name": "list_prompts",
+              "title": "List prompts",
+              "description": "The prompts asked of the models on a brand's behalf. `enabled` is what decides whether a prompt is still being sampled. This is the one list that can get long, so it pages.",
+              "inputSchema": {
+                "$schema": "http://json-schema.org/draft-07/schema#",
+                "type": "object",
+                "properties": {
+                  "brandId": {
+                    "description": "Restrict to one brand. Omit for every brand in reach.",
+                    "type": "string"
+                  },
+                  "enabled": {
+                    "description": "Restrict to prompts that are or aren't being sampled.",
+                    "type": "boolean"
+                  },
+                  "tags": {
+                    "description": "Comma-separated tags; a prompt carrying any of them matches.",
+                    "type": "string"
+                  },
+                  "q": {
+                    "description": "Substring match on the prompt text.",
+                    "type": "string"
+                  },
+                  "page": {
+                    "description": "1-based page number. Defaults to 1.",
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 9007199254740991
+                  },
+                  "limit": {
+                    "description": "Prompts per page. Defaults to 100.",
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 1000
+                  }
+                }
+              },
+              "annotations": {
+                "title": "List prompts",
+                "readOnlyHint": true,
+                "destructiveHint": false,
+                "idempotentHint": true,
+                "openWorldHint": false
+              },
+              "execution": {
+                "taskSupport": "forbidden"
+              }
+            },
+            {
+              "name": "list_prompt_tags",
+              "title": "List prompt tags",
+              "description": "The tags in use on a brand's prompts, with how many carry each. Tags are derived: one exists exactly as long as some prompt carries it.",
+              "inputSchema": {
+                "$schema": "http://json-schema.org/draft-07/schema#",
+                "type": "object",
+                "properties": {
+                  "brandId": {
+                    "type": "string",
+                    "description": "Brand id, from list_brands."
+                  }
+                },
+                "required": [
+                  "brandId"
+                ]
+              },
+              "annotations": {
+                "title": "List prompt tags",
+                "readOnlyHint": true,
+                "destructiveHint": false,
+                "idempotentHint": true,
+                "openWorldHint": false
+              },
+              "execution": {
+                "taskSupport": "forbidden"
+              }
+            },
+            {
+              "name": "get_analytics",
+              "title": "Get a brand's analytics",
+              "description": "Everything a brand's window says in one call: visibility and its daily trend, share of voice against tracked competitors, the per-model breakdown, and citation totals. Also, experimentally: the sentiment of answers toward the brand and each competitor (positive, neutral, negative, mixed) and where each comes among the tracked companies an answer names (position 1 = named first), overall and per model, and per day for the brand. These count every answer in the window, while visibility and share of voice count each prompt's latest answers. The first thing to read when asked how a brand is doing. Rates are fractions of 1, not percentages.",
+              "inputSchema": {
+                "$schema": "http://json-schema.org/draft-07/schema#",
+                "type": "object",
+                "properties": {
+                  "brandId": {
+                    "type": "string",
+                    "description": "Brand id, from list_brands."
+                  },
+                  "start": {
+                    "type": "string",
+                    "description": "Start of the window, an ISO 8601 timestamp with an offset, e.g. 2026-01-01T00:00:00Z. Inclusive, and aligned down to the quarter hour."
+                  },
+                  "end": {
+                    "type": "string",
+                    "description": "End of the window, an ISO 8601 timestamp with an offset. Exclusive, and aligned down to the quarter hour."
+                  },
+                  "model": {
+                    "description": "Restrict to one model, by id from list_models.",
+                    "type": "string"
+                  },
+                  "tags": {
+                    "description": "Comma-separated prompt tags; only prompts carrying one are counted.",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "brandId",
+                  "start",
+                  "end"
+                ]
+              },
+              "annotations": {
+                "title": "Get a brand's analytics",
+                "readOnlyHint": true,
+                "destructiveHint": false,
+                "idempotentHint": true,
+                "openWorldHint": false
+              },
+              "execution": {
+                "taskSupport": "forbidden"
+              }
+            },
+            {
+              "name": "get_prompt_performance",
+              "title": "Get per-prompt performance",
+              "description": "How each prompt performed over the window \u2014 which questions surface the brand and which don't, and (experimentally) how its answers describe the brand and where they place it among the tracked companies they name. Enabled prompts only; a disabled one isn't sampled, so it has nothing to report.",
+              "inputSchema": {
+                "$schema": "http://json-schema.org/draft-07/schema#",
+                "type": "object",
+                "properties": {
+                  "brandId": {
+                    "type": "string",
+                    "description": "Brand id, from list_brands."
+                  },
+                  "start": {
+                    "type": "string",
+                    "description": "Start of the window, an ISO 8601 timestamp with an offset, e.g. 2026-01-01T00:00:00Z. Inclusive, and aligned down to the quarter hour."
+                  },
+                  "end": {
+                    "type": "string",
+                    "description": "End of the window, an ISO 8601 timestamp with an offset. Exclusive, and aligned down to the quarter hour."
+                  },
+                  "model": {
+                    "description": "Restrict to one model, by id from list_models.",
+                    "type": "string"
+                  },
+                  "tags": {
+                    "description": "Comma-separated prompt tags; only prompts carrying one are counted.",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "brandId",
+                  "start",
+                  "end"
+                ]
+              },
+              "annotations": {
+                "title": "Get per-prompt performance",
+                "readOnlyHint": true,
+                "destructiveHint": false,
+                "idempotentHint": true,
+                "openWorldHint": false
+              },
+              "execution": {
+                "taskSupport": "forbidden"
+              }
+            },
+            {
+              "name": "get_citations",
+              "title": "Get cited sources",
+              "description": "The pages the models cited while answering about this brand, by domain and by URL, each categorized as the brand's own, a competitor's, or editorial. The core of an AEO content plan: the editorial pages here are where the models are getting their answers. Returns the most cited domains and URLs; pass `search` to find a specific one anywhere in the window.",
+              "inputSchema": {
+                "$schema": "http://json-schema.org/draft-07/schema#",
+                "type": "object",
+                "properties": {
+                  "brandId": {
+                    "type": "string",
+                    "description": "Brand id, from list_brands."
+                  },
+                  "start": {
+                    "type": "string",
+                    "description": "Start of the window, an ISO 8601 timestamp with an offset, e.g. 2026-01-01T00:00:00Z. Inclusive, and aligned down to the quarter hour."
+                  },
+                  "end": {
+                    "type": "string",
+                    "description": "End of the window, an ISO 8601 timestamp with an offset. Exclusive, and aligned down to the quarter hour."
+                  },
+                  "model": {
+                    "description": "Restrict to one model, by id from list_models.",
+                    "type": "string"
+                  },
+                  "tags": {
+                    "description": "Comma-separated prompt tags; only prompts carrying one are counted.",
+                    "type": "string"
+                  },
+                  "search": {
+                    "description": "Only rows containing this text, matched case-insensitively.",
+                    "type": "string"
+                  },
+                  "limit": {
+                    "description": "Rows to return, most frequent first. Defaults to 50; the totals always cover every row.",
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 200
+                  }
+                },
+                "required": [
+                  "brandId",
+                  "start",
+                  "end"
+                ]
+              },
+              "annotations": {
+                "title": "Get cited sources",
+                "readOnlyHint": true,
+                "destructiveHint": false,
+                "idempotentHint": true,
+                "openWorldHint": false
+              },
+              "execution": {
+                "taskSupport": "forbidden"
+              }
+            },
+            {
+              "name": "get_query_fanout",
+              "title": "Get the searches the models ran",
+              "description": "The web searches the models actually ran while answering, and how often. These are the phrasings to optimize for \u2014 they are frequently not the prompt's own wording. Returns the most run searches; pass `search` to find others.",
+              "inputSchema": {
+                "$schema": "http://json-schema.org/draft-07/schema#",
+                "type": "object",
+                "properties": {
+                  "brandId": {
+                    "type": "string",
+                    "description": "Brand id, from list_brands."
+                  },
+                  "start": {
+                    "type": "string",
+                    "description": "Start of the window, an ISO 8601 timestamp with an offset, e.g. 2026-01-01T00:00:00Z. Inclusive, and aligned down to the quarter hour."
+                  },
+                  "end": {
+                    "type": "string",
+                    "description": "End of the window, an ISO 8601 timestamp with an offset. Exclusive, and aligned down to the quarter hour."
+                  },
+                  "model": {
+                    "description": "Restrict to one model, by id from list_models.",
+                    "type": "string"
+                  },
+                  "tags": {
+                    "description": "Comma-separated prompt tags; only prompts carrying one are counted.",
+                    "type": "string"
+                  },
+                  "search": {
+                    "description": "Only rows containing this text, matched case-insensitively.",
+                    "type": "string"
+                  },
+                  "limit": {
+                    "description": "Rows to return, most frequent first. Defaults to 100; the totals always cover every row.",
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 500
+                  }
+                },
+                "required": [
+                  "brandId",
+                  "start",
+                  "end"
+                ]
+              },
+              "annotations": {
+                "title": "Get the searches the models ran",
+                "readOnlyHint": true,
+                "destructiveHint": false,
+                "idempotentHint": true,
+                "openWorldHint": false
+              },
+              "execution": {
+                "taskSupport": "forbidden"
+              }
+            },
+            {
+              "name": "get_opportunities",
+              "title": "Get the latest opportunities report",
+              "description": "The most recent stored opportunities report for a brand: what to write, what to fix, and the risks Elmo found. `status` says whether there was enough data to write one.",
+              "inputSchema": {
+                "$schema": "http://json-schema.org/draft-07/schema#",
+                "type": "object",
+                "properties": {
+                  "brandId": {
+                    "type": "string",
+                    "description": "Brand id, from list_brands."
+                  }
+                },
+                "required": [
+                  "brandId"
+                ]
+              },
+              "annotations": {
+                "title": "Get the latest opportunities report",
+                "readOnlyHint": true,
+                "destructiveHint": false,
+                "idempotentHint": true,
+                "openWorldHint": false
+              },
+              "execution": {
+                "taskSupport": "forbidden"
+              }
+            },
+            {
+              "name": "list_runs",
+              "title": "List answers recorded for a prompt",
+              "description": "Metadata for the answers recorded for one prompt, newest first, including the mention judge's assessment, sentiment and position (experimental) for the brand and each competitor named. The answer text lives on get_run, which keeps this list small enough to page through.",
+              "inputSchema": {
+                "$schema": "http://json-schema.org/draft-07/schema#",
+                "type": "object",
+                "properties": {
+                  "promptId": {
+                    "type": "string",
+                    "description": "Prompt id, from list_prompts."
+                  },
+                  "start": {
+                    "type": "string",
+                    "description": "Start of the window, an ISO 8601 timestamp with an offset, e.g. 2026-01-01T00:00:00Z. Inclusive, and aligned down to the quarter hour."
+                  },
+                  "end": {
+                    "type": "string",
+                    "description": "End of the window, an ISO 8601 timestamp with an offset. Exclusive, and aligned down to the quarter hour."
+                  },
+                  "model": {
+                    "description": "Restrict to one model, by id from list_models.",
+                    "type": "string"
+                  },
+                  "page": {
+                    "description": "1-based page number. Defaults to 1.",
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 9007199254740991
+                  },
+                  "limit": {
+                    "description": "Runs per page. Defaults to 20.",
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 100
+                  }
+                },
+                "required": [
+                  "promptId",
+                  "start",
+                  "end"
+                ]
+              },
+              "annotations": {
+                "title": "List answers recorded for a prompt",
+                "readOnlyHint": true,
+                "destructiveHint": false,
+                "idempotentHint": true,
+                "openWorldHint": false
+              },
+              "execution": {
+                "taskSupport": "forbidden"
+              }
+            },
+            {
+              "name": "get_run",
+              "title": "Get one answer in full",
+              "description": "One recorded answer: the model's reply as text, every page it cited, and for the brand and each competitor named, whether it counts as a mention, the sentiment toward it, and its position among the tracked companies named (experimental). Read this when you need to know *how* a model described the brand, not just whether it did.",
+              "inputSchema": {
+                "$schema": "http://json-schema.org/draft-07/schema#",
+                "type": "object",
+                "properties": {
+                  "promptId": {
+                    "type": "string",
+                    "description": "Prompt id, from list_prompts."
+                  },
+                  "runId": {
+                    "type": "string",
+                    "description": "Run id, from list_runs."
+                  }
+                },
+                "required": [
+                  "promptId",
+                  "runId"
+                ]
+              },
+              "annotations": {
+                "title": "Get one answer in full",
+                "readOnlyHint": true,
+                "destructiveHint": false,
+                "idempotentHint": true,
+                "openWorldHint": false
+              },
+              "execution": {
+                "taskSupport": "forbidden"
+              }
+            }
+          ]
+        },
+        "jsonrpc": "2.0",
+        "id": 1
+      }
+    },
+    "list_brands": {
+      "status": 200,
+      "body": {
+        "result": {
+          "content": [
+            {
+              "type": "text",
+              "text": "{\n  \"data\": [\n    {\n      \"id\": \"tuc-p0-internal\",\n      \"name\": \"TechUnity Connect\",\n      \"organizationId\": \"tuc-p0-internal\",\n      \"domains\": [\n        \"techunityconnect.com\"\n      ],\n      \"aliases\": [\n        \"TechUnityConnect\"\n      ],\n      \"enabled\": true,\n      \"onboarded\": true,\n      \"enabledModels\": null,\n      \"delayOverrideHours\": null,\n      \"createdAt\": \"2026-11-17T01:55:34.636Z\",\n      \"updatedAt\": \"2026-11-17T01:55:34.636Z\"\n    }\n  ]\n}"
+            }
+          ]
+        },
+        "jsonrpc": "2.0",
+        "id": 1
+      }
+    },
+    "get_opportunities": {
+      "status": 200,
+      "body": {
+        "result": {
+          "content": [
+            {
+              "type": "text",
+              "text": "{\n  \"brandId\": \"tuc-p0-internal\",\n  \"status\": \"insufficient-data\",\n  \"generatedAt\": null,\n  \"model\": null,\n  \"summary\": [],\n  \"opportunities\": [],\n  \"risks\": []\n}"
+            }
+          ]
+        },
+        "jsonrpc": "2.0",
+        "id": 1
+      }
+    },
+    "create_prompts": {
+      "status": 200,
+      "body": {
+        "result": {
+          "content": [
+            {
+              "type": "text",
+              "text": "MCP error -32602: Tool create_prompts not found"
+            }
+          ],
+          "isError": true
+        },
+        "jsonrpc": "2.0",
+        "id": 1
+      }
+    },
+    "update_prompt": {
+      "status": 200,
+      "body": {
+        "result": {
+          "content": [
+            {
+              "type": "text",
+              "text": "MCP error -32602: Tool update_prompt not found"
+            }
+          ],
+          "isError": true
+        },
+        "jsonrpc": "2.0",
+        "id": 1
+      }
+    },
+    "delete_brand": {
+      "status": 200,
+      "body": {
+        "result": {
+          "content": [
+            {
+              "type": "text",
+              "text": "MCP error -32602: Tool delete_brand not found"
+            }
+          ],
+          "isError": true
+        },
+        "jsonrpc": "2.0",
+        "id": 1
+      }
+    },
+    "run_prompt": {
+      "status": 200,
+      "body": {
+        "result": {
+          "content": [
+            {
+              "type": "text",
+              "text": "MCP error -32602: Tool run_prompt not found"
+            }
+          ],
+          "isError": true
+        },
+        "jsonrpc": "2.0",
+        "id": 1
+      }
+    },
+    "mcp_auth_None": {
+      "status": 401,
+      "body": {
+        "jsonrpc": "2.0",
+        "id": null,
+        "error": {
+          "code": -32001,
+          "message": "Access token or API key required"
+        }
+      }
+    },
+    "mcp_auth_invalid": {
+      "status": 401,
+      "body": {
+        "jsonrpc": "2.0",
+        "id": null,
+        "error": {
+          "code": -32001,
+          "message": "Invalid or expired access token"
+        }
+      }
+    }
+  },
+  "status": "PASS",
+  "scope": "Local admin reads and disabled MCP write tools. Expired session and lower-role object access remain NOT_RUN."
+}

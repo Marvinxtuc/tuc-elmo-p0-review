@@ -1,0 +1,80 @@
+$ biome check --diagnostic-level=error --config-path=biome.json .
+apps/web/src/server/opportunities.ts:7:1 assist/source/organizeImports  FIXABLE  ━━━━━━━━━━━━━━━━━━━
+
+  × Sort these imports.
+  
+     5 │  */
+     6 │ 
+   > 7 │ import { type CitationCategory, extractDomain } from "@workspace/lib/citations/domain-categories";
+       │ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   > 8 │ import { categorizeDomain } from "@workspace/lib/citations/domain-lists";
+   > 9 │ import { db } from "@workspace/lib/db/db";
+  > 10 │ import { brandOpportunities, brands, competitors } from "@workspace/lib/db/schema";
+  > 11 │ import { isP0Offline } from "@workspace/lib/constants";
+       │ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    12 │ import { runStructuredCompletionPrompt } from "@workspace/lib/onboarding";
+    13 │ import { desc, eq } from "drizzle-orm";
+  
+  i Safe fix: Organize imports and exports (Biome)
+  
+      7   7 │   import { type CitationCategory, extractDomain } from "@workspace/lib/citations/domain-categories";
+      8   8 │   import { categorizeDomain } from "@workspace/lib/citations/domain-lists";
+      9     │ - import·{·db·}·from·"@workspace/lib/db/db";
+     10     │ - import·{·brandOpportunities,·brands,·competitors·}·from·"@workspace/lib/db/schema";
+     11     │ - import·{·isP0Offline·}·from·"@workspace/lib/constants";
+          9 │ + import·{·isP0Offline·}·from·"@workspace/lib/constants";
+         10 │ + import·{·db·}·from·"@workspace/lib/db/db";
+         11 │ + import·{·brandOpportunities,·brands,·competitors·}·from·"@workspace/lib/db/schema";
+     12  12 │   import { runStructuredCompletionPrompt } from "@workspace/lib/onboarding";
+     13  13 │   import { desc, eq } from "drizzle-orm";
+  
+
+apps/worker/src/index.ts format ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Formatter would have printed the following content:
+  
+    130 130 │       await boss.schedule("schedule-maintenance", MAINTENANCE_CRON, { source: "scheduled" }, { tz: "UTC" });
+    131 131 │       console.log("Scheduled maintenance job (every 5 minutes)");
+    132     │ - → 
+        132 │ + 
+    133 133 │       if (process.env.DEPLOYMENT_MODE === "whitelabel") {
+    134 134 │         await boss.schedule("sync-auth0-memberships", "*/15 * * * *", { source: "scheduled" }, { tz: "UTC" });
+    135 135 │         console.log("Scheduled Auth0 membership sync (every 15 minutes)");
+    136 136 │       }
+    137     │ - → 
+        137 │ + 
+    138 138 │       // Before any handler runs, so the stale pass never mistakes a brand that
+    139 139 │       // predates stamping for one whose whole history needs replaying.
+    140 140 │       const adopted = await adoptCurrentStamps();
+    141 141 │       if (adopted > 0) console.log(`Adopted current analysis stamps for ${adopted} brands`);
+    142     │ - → 
+        142 │ + 
+    143 143 │       await boss.schedule(
+    144 144 │         REQUEST_REPROCESSES_QUEUE,
+    ······· │ 
+    148 148 │       );
+    149 149 │       console.log("Scheduled request-reprocesses job (every minute)");
+    150     │ - → 
+        150 │ + 
+    151 151 │       await boss.schedule(
+    152 152 │         REFRESH_ROLLUPS_QUEUE,
+    ······· │ 
+    171 171 │         Sentry.captureException(error),
+    172 172 │       );
+    173     │ - → 
+        173 │ + 
+    174 174 │       await startBackfills();
+    175 175 │     }
+    176     │ - 
+    177 176 │   }
+    178 177 │   
+  
+
+Checked 1073 files in 273ms. No fixes applied.
+Found 2 errors.
+check ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Some errors were emitted while running checks.
+  
+
+[ELIFECYCLE] Command failed with exit code 1.

@@ -1,0 +1,21 @@
+{
+  "id": "3ec71cf2-1948-41ac-9086-0fc907ed180f",
+  "promptId": "611a5e40-392b-47d1-9bd5-ce308abc54b1",
+  "brandId": "tuc-p0-internal",
+  "model": "stub",
+  "provider": "stub",
+  "webSearchEnabled": false,
+  "brandMentioned": false,
+  "competitorsMentioned": [],
+  "assessments": {
+    "brand": null,
+    "competitors": {}
+  },
+  "webQueries": [],
+  "citationCount": 0,
+  "createdAt": "2026-11-17T01:55:51.163Z",
+  "answer": {
+    "text": "Which providers can support API integration, evaluation and observability for enterprise AI workflows?"
+  },
+  "citations": []
+}

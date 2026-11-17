@@ -1,0 +1,34 @@
+{
+  "id": "b094bd25-2060-4db2-93da-4a530a8e3d7c",
+  "promptId": "8cd62bce-a275-4e1f-9ed9-0299aad2da8a",
+  "brandId": "tuc-p0-internal",
+  "model": "stub",
+  "provider": "stub",
+  "webSearchEnabled": false,
+  "brandMentioned": true,
+  "competitorsMentioned": [],
+  "assessments": {
+    "brand": {
+      "mentioned": true,
+      "probability": 0.95,
+      "reason": null,
+      "sentiment": "neutral",
+      "sentimentProbabilities": {
+        "mixed": 0.017543859649122803,
+        "neutral": 0.9473684210526316,
+        "negative": 0.017543859649122803,
+        "positive": 0.017543859649122803
+      },
+      "position": 1,
+      "mentionCount": 1
+    },
+    "competitors": {}
+  },
+  "webQueries": [],
+  "citationCount": 0,
+  "createdAt": "2026-11-17T01:55:49.166Z",
+  "answer": {
+    "text": "What information is available about TechUnity Connect, and what remains uncertain?"
+  },
+  "citations": []
+}

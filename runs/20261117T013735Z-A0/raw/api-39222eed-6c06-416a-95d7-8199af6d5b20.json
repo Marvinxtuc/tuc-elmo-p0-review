@@ -1,0 +1,21 @@
+{
+  "id": "39222eed-6c06-416a-95d7-8199af6d5b20",
+  "promptId": "fb47279d-2a8f-4953-99dd-7fdf90ad69a3",
+  "brandId": "tuc-p0-internal",
+  "model": "stub",
+  "provider": "stub",
+  "webSearchEnabled": false,
+  "brandMentioned": false,
+  "competitorsMentioned": [],
+  "assessments": {
+    "brand": null,
+    "competitors": {}
+  },
+  "webQueries": [],
+  "citationCount": 0,
+  "createdAt": "2026-11-17T01:55:47.168Z",
+  "answer": {
+    "text": "How can a B2B company compare vendors for AI workflow integration and ongoing reliability?"
+  },
+  "citations": []
+}

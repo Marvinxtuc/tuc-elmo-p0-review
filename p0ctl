@@ -1,0 +1,74 @@
+#!/usr/bin/env python3
+import argparse
+import hashlib
+import json
+import os
+from pathlib import Path
+import subprocess
+import sys
+
+root = Path(__file__).resolve().parent
+parser = argparse.ArgumentParser(description="Local P0 evidence and shutdown commands")
+parser.add_argument("command", choices=["verify", "report", "stop", "status"])
+parser.add_argument("--manifest", default="evidence-manifest.json")
+args = parser.parse_args()
+run = Path(json.loads((root / "config/active-run.json").read_text())["path"])
+if not run.resolve().is_relative_to(root / "runs"):
+    raise SystemExit("Run path escapes the approved project")
+
+if args.command == "verify":
+    manifest_path = root / args.manifest
+    if not manifest_path.resolve().is_relative_to(root) or manifest_path.is_symlink():
+        raise SystemExit("Manifest path escapes the approved project")
+    entries = json.loads(manifest_path.read_text())["files"]
+    failures = []
+    for item in entries:
+        relative = Path(item["path"])
+        target = root / relative
+        if relative.is_absolute() or ".." in relative.parts or target.is_symlink() or not target.resolve().is_relative_to(root):
+            failures.append({"path": item["path"], "error": "UNSAFE_PATH"})
+            continue
+        if not target.is_file():
+            failures.append({"path": item["path"], "error": "MISSING"})
+            continue
+        data = target.read_bytes()
+        if len(data) != item["bytes"] or hashlib.sha256(data).hexdigest() != item["sha256"]:
+            failures.append({"path": item["path"], "error": "CONTENT_CHANGED"})
+    print(json.dumps({"checked": len(entries), "failures": failures, "status": "FAIL" if failures else "PASS"}, indent=2))
+    raise SystemExit(1 if failures else 0)
+
+if args.command == "report":
+    raise SystemExit(subprocess.call([
+        "/usr/bin/sandbox-exec", "-f", str(root / "config/runtime.sb"),
+        sys.executable, str(root / "harness/render-report.py"),
+    ]))
+
+if args.command == "status":
+    processes = json.loads((run / "processes.json").read_text())
+    result = []
+    for process in processes:
+        found = subprocess.run(["ps", "-p", str(process["pid"]), "-o", "command="], capture_output=True, text=True)
+        result.append({"name": process["name"], "pid": process["pid"], "pid_exists": found.returncode == 0})
+    print(json.dumps({"processes": result, "A1": "NOT_GRANTED", "live_requests_enabled": False}, indent=2))
+    raise SystemExit(0)
+
+approval = json.loads((root / "approvals/A0.json").read_text())
+if approval["runtime_root"] != str(root) or approval["approval_id"] != "A0-user-20261117":
+    raise SystemExit("The shutdown target has no matching A0")
+subprocess.run([sys.executable, str(root / "harness/stop-processes.py")], check=True)
+environment = {name: value for name, value in os.environ.items() if name in {"USER", "LOGNAME", "TMPDIR", "LANG"}}
+environment.update({
+    "HOME": str(root / "runtime/home"),
+    "PATH": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "COLIMA_HOME": str(root / "runtime/colima"),
+    "LIMA_HOME": str(root / "runtime/lima"),
+    "DOCKER_CONFIG": str(root / "runtime/docker-client"),
+    "DOCKER_HOST": f"unix://{root}/runtime/colima/tuc-p0/docker.sock",
+})
+state = subprocess.run(["colima", "status", "--profile", "tuc-p0"], env=environment, capture_output=True, text=True)
+if state.returncode == 0:
+    subprocess.run(["docker", "compose", "-f", str(root / "config/test-compose.yaml"), "stop"], env=environment, check=True)
+    subprocess.run(["colima", "stop", "--profile", "tuc-p0"], env=environment, check=True)
+else:
+    print("Project VM is already stopped or unavailable. No volume cleanup performed.")
+print("Stopped this P0 run. Evidence and volumes retained.")

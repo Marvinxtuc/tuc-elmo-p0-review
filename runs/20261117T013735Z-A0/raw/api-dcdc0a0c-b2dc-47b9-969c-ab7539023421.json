@@ -1,0 +1,21 @@
+{
+  "id": "dcdc0a0c-b2dc-47b9-969c-ab7539023421",
+  "promptId": "dd8402af-96c9-4849-ae66-b155cc07fad0",
+  "brandId": "tuc-p0-internal",
+  "model": "stub",
+  "provider": "stub",
+  "webSearchEnabled": false,
+  "brandMentioned": false,
+  "competitorsMentioned": [],
+  "assessments": {
+    "brand": null,
+    "competitors": {}
+  },
+  "webQueries": [],
+  "citationCount": 0,
+  "createdAt": "2026-11-17T01:55:43.178Z",
+  "answer": {
+    "text": "What evidence should a buyer request from a provider that builds enterprise AI applications?"
+  },
+  "citations": []
+}

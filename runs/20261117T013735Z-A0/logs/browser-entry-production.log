@@ -1,0 +1,23 @@
+{
+  "url": "http://127.0.0.1:17300/auth/register",
+  "text": "Internal Test · UPSTREAM_STUB · Synthetic Observations\nelmo\nCreate your admin account\n\nThis is the owner account for your self-hosted instance.\n\nName\nEmail\nPassword\nCreate account\n\nDocs\nPricing\nGitHub\n\nSelf-host your AEO.\nTrack your AI visibility on any model\nUnlimited prompts, brands, and seats\nBring your own model and scraper keys\nPlease star us on GitHub!\n“Simple and much more cost effective than Profound.”\nNolan\nat\n\nTRACKING\n\nChatGPT\nGoogle AI Mode\nGoogle AI Overview\nBing AI Mode\nGemini\nQwen\nDeepSeek\nMistral\nClaude\nKimi\nDon't want to self-host?\nTry Elmo Cloud",
+  "inputs": [
+    {
+      "name": "",
+      "type": "text",
+      "placeholder": "Your name"
+    },
+    {
+      "name": "",
+      "type": "email",
+      "placeholder": "you@example.com"
+    },
+    {
+      "name": "",
+      "type": "password",
+      "placeholder": "Create a password"
+    }
+  ],
+  "pageErrors": [],
+  "blocked": []
+}

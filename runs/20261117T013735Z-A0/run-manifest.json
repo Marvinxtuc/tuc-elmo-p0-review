@@ -1,0 +1,46 @@
+{
+  "run_id": "20261117T013735Z-A0",
+  "stage": "A0_EXECUTION",
+  "started_at_utc": "2026-11-17T01:37:35.835391+00:00",
+  "upstream_commit": "15c2d5f1b56682ce98e6c6ed76e254eec124e15e",
+  "approval_refs": [
+    "../../approvals/A0.json"
+  ],
+  "live_request_count": 0,
+  "billing_verified": false,
+  "external_cash_charge_usd": null,
+  "decision": "CONDITIONAL_GO_OFFLINE",
+  "schema_version": "1.0",
+  "plan_id": "TUC-GEO-ELMO-P0-001",
+  "plan_sha256": "d31a54c561a2d218e16c68dbbba7fb49333f5150aaf9f8ec7e9dc93d2a1fbc73",
+  "completed_at_utc": "2026-11-17T02:31:41.943878+00:00",
+  "owner_A2": "PENDING",
+  "full_p0_passed": false,
+  "stage_status": {
+    "G1": "OFFLINE_BASELINE",
+    "G2": "PARTIAL",
+    "G3": "PARTIAL",
+    "G4": "BLOCKED",
+    "G5": "PARTIAL"
+  },
+  "test_counts": {
+    "PASS": 22,
+    "FAIL": 0,
+    "BLOCKED": 0,
+    "NOT_RUN": 42,
+    "NOT_APPLICABLE": 0
+  },
+  "billing_verification": "NOT_APPLICABLE_OFFLINE",
+  "patch_sha256": "4397e29fed79878d5887fafef56dd557f08992dba5ef7c7a45426acbdf534ce3",
+  "lockfile_sha256": "743919e30a100aa0b8386b3b60b9ac8bf0a64de702c0cc6b4ffa9180d66c5151",
+  "limitations": [
+    "42 acceptance cases remain NOT_RUN",
+    "No A1 or live provider calls",
+    "No qualified non-stub judge or human-reviewed labels",
+    "General live budget and revocation guard incomplete",
+    "Seven dependency advisories remain under review",
+    "Fresh second-environment reproduction not run",
+    "One local read timeout retained, explicit proxyless rerun passed, original cause unproven"
+  ],
+  "shutdown_evidence": "shutdown-verification.json"
+}

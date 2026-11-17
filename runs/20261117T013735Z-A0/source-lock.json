@@ -1,0 +1,41 @@
+{
+  "schema_version": "p0-A0-1",
+  "upstream_origin": "<G0_AUDIT_ROOT>/upstream/elmo",
+  "upstream_commit": "15c2d5f1b56682ce98e6c6ed76e254eec124e15e",
+  "upstream_tree": "697c5fa4fe61e408ca0337a7ed0905d65e3a7bf8",
+  "lockfile_sha256": "743919e30a100aa0b8386b3b60b9ac8bf0a64de702c0cc6b4ffa9180d66c5151",
+  "supply_chain_policy_sha256": "9ea60f73a530e8e759bc2c4a73ec27403d0db512f953480bca59cbe3bde71c48",
+  "instructions_sha256": "a43b814a9923b0d26dd4765781b118a979640818c8f3733650ef5d3e5b0c93cf",
+  "patch": "patches/p0-offline.patch",
+  "patch_sha256": "4397e29fed79878d5887fafef56dd557f08992dba5ef7c7a45426acbdf534ce3",
+  "patch_file_count": 15,
+  "node": "24.22.3",
+  "pnpm": "12.18.0",
+  "postgres": "18.7",
+  "postgres_image": "postgres@sha256:b6972e1115a4ff8eba5d7f7d19184926d1e16d7d1136ae1e1a7ebf286da0f015",
+  "database_schema": {
+    "role": "tuc_p0",
+    "version": "PostgreSQL 18.7 on aarch64-unknown-linux-musl, compiled by gcc (Alpine 15.2.0) 15.2.0, 64-bit",
+    "database": "tuc_elmo_p0_test",
+    "migration_count": 34,
+    "last_migration_created_at": 1794269454270
+  },
+  "config_hashes": {
+    "config/active-run.json": "6e48654dfb9ab220a44dd28a2e50f6354e616bbef7f4b688fa2646a8dab22ef3",
+    "config/browser.sb": "0e50c559fe8a054a0f02351576f95a568a773f013980bf2a68a730b527448852",
+    "config/package-manager-empty.npmrc": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "config/policy.stub.json": "6fedd136341646e3bc104354c753e966c4cf58a792b4e88d82f8a7befb4e7400",
+    "config/quality.sb": "f4b89331ead5df5d2d2420f4ca657f92df54ed5d5b4088bff2897ed9d34d6b82",
+    "config/runtime.sb": "cbc8bda6e55a0102494180dd5fd86137d362b4717cd8cb895dd8e448d997fded",
+    "config/test-compose.yaml": "aa1618f005f83b18569071592d11eb117c796d587c335913c0091aa70d58b854",
+    "config/toolchain-lock.json": "1d91d4bc09bc68820d887bd7d88d1d4e03c4b696c008afc75adefdc36565d9f8"
+  },
+  "fixture_hashes": {
+    "fixtures/judge-candidates.json": "968553f667cdbf573bc17aefca7b1f21c17a94c68e6dec9c017f189a5827f605",
+    "fixtures/judge-candidates.sha256": "295af95ae7c7f063e343612f06a5a17f7bf81d39280f79d62472924ea874bdf6",
+    "fixtures/prompt-set.json": "32bbd691bf72808271228bc58b4bc927e60cbed4ff902e5b0655d9b1a1b3e6ab"
+  },
+  "website_head": "aa697643422270b8ba478e6a3a39fd15bd3547d6",
+  "website_files_unchanged": 311,
+  "plan_sha256": "d31a54c561a2d218e16c68dbbba7fb49333f5150aaf9f8ec7e9dc93d2a1fbc73"
+}

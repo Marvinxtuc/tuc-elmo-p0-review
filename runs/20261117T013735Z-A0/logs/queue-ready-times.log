@@ -1,0 +1,3 @@
+ERROR:  syntax error at or near "\"
+LINE 1: ...,start_after,data FROM pgboss.job WHERE state IN (\u0027crea...
+                                                             ^

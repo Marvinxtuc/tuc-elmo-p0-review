@@ -1,0 +1,21 @@
+{
+  "id": "daf07328-83dd-46a7-b43e-ded16dd43cfe",
+  "promptId": "73425cbf-4d26-4987-9581-1f50af73b0bd",
+  "brandId": "tuc-p0-internal",
+  "model": "stub",
+  "provider": "stub",
+  "webSearchEnabled": false,
+  "brandMentioned": false,
+  "competitorsMentioned": [],
+  "assessments": {
+    "brand": null,
+    "competitors": {}
+  },
+  "webQueries": [],
+  "citationCount": 0,
+  "createdAt": "2026-11-17T01:55:35.167Z",
+  "answer": {
+    "text": "What should a company look for when choosing an AI integration consultancy for a security-sensitive workflow?"
+  },
+  "citations": []
+}

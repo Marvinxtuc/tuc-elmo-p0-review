@@ -1,0 +1,62 @@
+Starting pg-boss worker...
+SCRAPE_TARGETS validated
+[mention-judge] TYPESAFE_API_KEY=stub: judging from cue words, not Jev. For tests and development only.
+Judging mentions with stub+request-1
+pg-boss started
+Queues created
+Registered handler: process-prompt
+Registered handler: generate-report
+Registered handler: analyze-brand
+Registered handler: suggest-prompts
+Registered handler: schedule-maintenance
+Registered handler: derive-runs
+Registered handler: reprocess
+Registered handler: request-reprocesses
+Registered handler: refresh-rollups
+Registered handler: rollup-catch-up
+All handlers registered, worker is ready
+Processing prompt 73425cbf-4d26-4987-9581-1f50af73b0bd
+Prompt 73425cbf-4d26-4987-9581-1f50af73b0bd: running 1 due target(s)
+[stub_1] Saved prompt run daf07328-83dd-46a7-b43e-ded16dd43cfe
+Completed prompt 73425cbf-4d26-4987-9581-1f50af73b0bd: 1/1 successful runs
+Processing prompt 28b7f36e-5bad-47fb-8e5e-0a9515dc7b77
+Prompt 28b7f36e-5bad-47fb-8e5e-0a9515dc7b77: running 1 due target(s)
+[stub_1] Saved prompt run 7ac55600-d713-436c-b1d6-1c81a613f271
+Completed prompt 28b7f36e-5bad-47fb-8e5e-0a9515dc7b77: 1/1 successful runs
+Processing prompt 13bef519-6ed7-4852-a56e-869d62b7a12f
+Prompt 13bef519-6ed7-4852-a56e-869d62b7a12f: running 1 due target(s)
+[stub_1] Saved prompt run bc70d260-2f55-44fd-a5ed-2ce65cfaa3f1
+Completed prompt 13bef519-6ed7-4852-a56e-869d62b7a12f: 1/1 successful runs
+[refresh-rollups] source=derive marksTaken=1 ranges=1 failed=0 elapsedMs=39
+Processing prompt dfe5b8a4-cd88-411c-9751-a8b60be0138a
+Prompt dfe5b8a4-cd88-411c-9751-a8b60be0138a: running 1 due target(s)
+[stub_1] Saved prompt run 49acacb6-1a2f-4a74-9826-a366161a0e73
+Completed prompt dfe5b8a4-cd88-411c-9751-a8b60be0138a: 1/1 successful runs
+Processing prompt dd8402af-96c9-4849-ae66-b155cc07fad0
+Prompt dd8402af-96c9-4849-ae66-b155cc07fad0: running 1 due target(s)
+[stub_1] Saved prompt run dcdc0a0c-b2dc-47b9-969c-ab7539023421
+Completed prompt dd8402af-96c9-4849-ae66-b155cc07fad0: 1/1 successful runs
+[refresh-rollups] source=derive marksTaken=1 ranges=1 failed=0 elapsedMs=29
+Processing prompt dccd10d9-350f-43a6-8435-5b45c6fcd22d
+Prompt dccd10d9-350f-43a6-8435-5b45c6fcd22d: running 1 due target(s)
+[stub_1] Saved prompt run f48da105-d95b-4b62-96e2-68b46f44d7bc
+Completed prompt dccd10d9-350f-43a6-8435-5b45c6fcd22d: 1/1 successful runs
+Processing prompt fb47279d-2a8f-4953-99dd-7fdf90ad69a3
+Prompt fb47279d-2a8f-4953-99dd-7fdf90ad69a3: running 1 due target(s)
+[stub_1] Saved prompt run 39222eed-6c06-416a-95d7-8199af6d5b20
+Completed prompt fb47279d-2a8f-4953-99dd-7fdf90ad69a3: 1/1 successful runs
+Processing prompt 8cd62bce-a275-4e1f-9ed9-0299aad2da8a
+Prompt 8cd62bce-a275-4e1f-9ed9-0299aad2da8a: running 1 due target(s)
+[stub_1] Saved prompt run b094bd25-2060-4db2-93da-4a530a8e3d7c
+Completed prompt 8cd62bce-a275-4e1f-9ed9-0299aad2da8a: 1/1 successful runs
+Processing prompt 611a5e40-392b-47d1-9bd5-ce308abc54b1
+Prompt 611a5e40-392b-47d1-9bd5-ce308abc54b1: running 1 due target(s)
+[stub_1] Saved prompt run 3ec71cf2-1948-41ac-9086-0fc907ed180f
+Completed prompt 611a5e40-392b-47d1-9bd5-ce308abc54b1: 1/1 successful runs
+Processing prompt fa434e1c-a443-4575-afdf-a78af0f5bbc7
+Prompt fa434e1c-a443-4575-afdf-a78af0f5bbc7: running 1 due target(s)
+[stub_1] Saved prompt run 7458826b-bab3-4876-afd1-f0904e6b2d17
+Completed prompt fa434e1c-a443-4575-afdf-a78af0f5bbc7: 1/1 successful runs
+[refresh-rollups] source=derive marksTaken=1 ranges=1 failed=0 elapsedMs=18
+Received SIGTERM, shutting down gracefully...
+Worker stopped

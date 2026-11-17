@@ -1,0 +1,203 @@
+{
+  "schema_version": "1.0",
+  "stage": "G0_STATIC_REVIEW",
+  "verified_at_utc": "2026-11-17T01:27:53.526278+00:00",
+  "input_plan": {
+    "path": "evidence/TUC_GEO_Elmo_P0_Test_Audit_Plan.md",
+    "sha256": "d31a54c561a2d218e16c68dbbba7fb49333f5150aaf9f8ec7e9dc93d2a1fbc73",
+    "sidecar_match": true
+  },
+  "upstream": {
+    "path": "<G0_AUDIT_ROOT>/upstream/elmo",
+    "origin": "https://github.com/elmohq/elmo.git",
+    "requested_commit": "15c2d5f1b56682ce98e6c6ed76e254eec124e15e",
+    "actual_commit": "15c2d5f1b56682ce98e6c6ed76e254eec124e15e",
+    "tree": "697c5fa4fe61e408ca0337a7ed0905d65e3a7bf8",
+    "commit_date_utc": "2026-11-16T09:25:25-08:00",
+    "shallow": false,
+    "detached_head": true,
+    "worktree_status": "",
+    "tracked_files": 1714,
+    "source_manifest": "evidence/source-file-hashes.json",
+    "source_manifest_sha256": "b465e6e3726f0c7871f94c4bfb623dcbc059435af9551713a733baec2b2ddf74",
+    "required_node": "24.x",
+    "required_package_manager": "pnpm@12.18.0",
+    "root_license": "MIT",
+    "root_env_example_present": false,
+    "instruction_files": [
+      "AGENTS.md"
+    ],
+    "verified_files": {
+      "AGENTS.md": {
+        "bytes": 7731,
+        "sha256": "a43b814a9923b0d26dd4765781b118a979640818c8f3733650ef5d3e5b0c93cf"
+      },
+      "LICENSE.md": {
+        "bytes": 1081,
+        "sha256": "be45cfe055e9ec284837e42e6c2aa6cc67112ad0615fe6d77cb6d0e8792d20ee"
+      },
+      "package.json": {
+        "bytes": 1667,
+        "sha256": "63df0d0259f41db5f9b9f379052d2f1330736a59a9f06ed00e942b8d576ca0bb"
+      },
+      "pnpm-lock.yaml": {
+        "bytes": 739463,
+        "sha256": "743919e30a100aa0b8386b3b60b9ac8bf0a64de702c0cc6b4ffa9180d66c5151"
+      },
+      "pnpm-workspace.yaml": {
+        "bytes": 3925,
+        "sha256": "9ea60f73a530e8e759bc2c4a73ec27403d0db512f953480bca59cbe3bde71c48"
+      },
+      "docker/Dockerfile": {
+        "bytes": 3267,
+        "sha256": "0847e549ed269e429368c67d77d308ce86ef21890e3ec1ba29b136778e197a89"
+      },
+      "docker/entrypoint.sh": {
+        "bytes": 116,
+        "sha256": "444472bcf68e9f255ff180714b260ace3ed7cad0e9b9946aca28f7e3696eaa66"
+      },
+      "apps/cli/src/compose.ts": {
+        "bytes": 5814,
+        "sha256": "83c5137f96a6e7dfec7424b6d3d5b41d9e00a59002d817177aaa2817c7a14ee6"
+      },
+      "packages/config/src/env-registry.ts": {
+        "bytes": 13675,
+        "sha256": "3ef11693e44aa4af452aa72c6c5ef16e213c3efb2eb0e6debf9ae20c31a3c7c6"
+      },
+      "packages/config/src/env.ts": {
+        "bytes": 6469,
+        "sha256": "908d1f301bc30806354c18ce2d645d179266237fd4846815beefb682d802c1cf"
+      },
+      "packages/config/src/scrape-targets.ts": {
+        "bytes": 7257,
+        "sha256": "3497d0b2c032612f2439cefee29fa5171c17bd348b61ed44897b96b89adf57ef"
+      },
+      "packages/lib/src/providers/index.ts": {
+        "bytes": 3069,
+        "sha256": "1d04d3978141ea6f43c1eb18fa3f5cd4b84c96eb66f6870e5a6375c57ce7d401"
+      },
+      "packages/lib/src/providers/registry/openai-api.ts": {
+        "bytes": 4386,
+        "sha256": "b622f19deac53dbd0fbf3c02cab18b87ee9d0b8427f79e8072e529a5169377fc"
+      },
+      "packages/lib/src/providers/registry/openrouter.ts": {
+        "bytes": 5210,
+        "sha256": "0c7004385ca0829de06118881f6c9932e6c2002f31ad5fe0daf213664fc2e8e9"
+      },
+      "packages/lib/src/providers/registry/ai-sdk.ts": {
+        "bytes": 1086,
+        "sha256": "5c407eca52f51a349de5d10957031eecda59cbbfaa2b90eb0adce7d784d3616f"
+      },
+      "packages/lib/src/providers/types.ts": {
+        "bytes": 1903,
+        "sha256": "846cd9a3679f6dc5438697d3cc8f668cff1c4329cafa3495c01d173b6ea6d11d"
+      },
+      "packages/lib/src/mention-judge/analyze.ts": {
+        "bytes": 11599,
+        "sha256": "d27a0189e9743cf1552f5eabdf5831bf19ba2861b8a206cfcf09140f371ea32f"
+      },
+      "packages/lib/src/mention-judge/jev.ts": {
+        "bytes": 8356,
+        "sha256": "0a68bbaef1226b15506c9e6471c66c55c5758ca982e52b9aadeea30f4a717537"
+      },
+      "packages/lib/src/secrets/store.ts": {
+        "bytes": 3514,
+        "sha256": "ede8ffd0ff8d449ccc0f7082d219a09e85ede7460d3ff8199c763fcbe829e13b"
+      },
+      "packages/lib/src/secrets/refresh.ts": {
+        "bytes": 1527,
+        "sha256": "c58f4031b62489741e16730e96a892d4e8de1cbdb585c52215f6a8273b46be32"
+      },
+      "packages/lib/src/constants.ts": {
+        "bytes": 1279,
+        "sha256": "b2bd68ded14060accb75df2c2b438c29f53f0f05bf76271c9738ff6fd8f80dcc"
+      },
+      "packages/lib/src/onboarding/llm.ts": {
+        "bytes": 2906,
+        "sha256": "ff7cf7a0dade367e83f1f8feb86c3c106d97a5df31a3253fe9a3ac7bb37406a5"
+      },
+      "packages/lib/src/website-excerpt.ts": {
+        "bytes": 3493,
+        "sha256": "d83817aa7fd32f0ceb714bd578e00c6d4c009fd3f2934d09b84d12f2c29f7785"
+      },
+      "apps/worker/src/index.ts": {
+        "bytes": 6507,
+        "sha256": "e235c3fe5674a48468dd0a5fbd3801365ac87a4517902779f40b4f5ccdd7359c"
+      },
+      "apps/worker/src/mention-judge/index.ts": {
+        "bytes": 643,
+        "sha256": "89e68439120f077b1a47ede739aaeae64c1dfafd3863bfe8ab84e5f48ecb11f7"
+      },
+      "apps/web/src/server/opportunities.ts": {
+        "bytes": 26982,
+        "sha256": "f95018a52a9ab8cad70e58e31f4c31f6513085544d5931bf8f28b4575db5038b"
+      },
+      "apps/web/src/server/opportunities-core.ts": {
+        "bytes": 1293,
+        "sha256": "d1af29c587e45842061914024f9c20230eadd3541beaafa99d4e752724b64569"
+      },
+      "apps/web/src/lib/mcp/tools/analytics.ts": {
+        "bytes": 6117,
+        "sha256": "daa05db26706f749f2c2deae0537c98945342950c11a464c243962e2af123cf6"
+      },
+      "packages/deployment/src/deployment.ts": {
+        "bytes": 4951,
+        "sha256": "1dd262d788ad75ef2870fa74dfd67e5f23d01d494b4ea872c0a4c0c5820972f6"
+      },
+      "packages/lib/src/db/migrations/meta/_journal.json": {
+        "bytes": 5055,
+        "sha256": "53392b6e575ac104824cd1a3d9b454155b5b69e83fb2017386b1d0eedad63fb5"
+      }
+    }
+  },
+  "website": {
+    "path": "<USER_HOME>/Desktop/TechUnityConnect",
+    "origin": "https://github.com/Marvinxtuc/TechUnityConnect.git",
+    "head": "aa697643422270b8ba478e6a3a39fd15bd3547d6",
+    "branch": "feat/enterprise-dual-track",
+    "initial_status": "M AGENTS.md\n M docs/codex/AGENTS.md",
+    "current_agents_sha256": "8edfff9593a3ba1766719d5a286f23a0ddf614e71082b81ea359a54aa8c6529e",
+    "head_agents_blob_sha": "826f1ddd4e85f5e70074d4baf69e0bd48c3271a0",
+    "working_agents_git_blob_sha": "37f5a0ac1ce58f0952a7a4102b9ea3aa5125c7bf",
+    "plan_s10_claimed_blob_sha": "826f1ddd4e85f5e70074d4baf69e0bd48c3271a0",
+    "plan_s10_remote_blob_verified": false,
+    "production_commit": null,
+    "production_commit_status": "UNKNOWN_CURRENT_DEPLOYMENT",
+    "historical_release_record_commit": "8a20f357fd08c8a901a37bee5f80c9fac6a77624"
+  },
+  "runtime": {
+    "dependencies_installed": false,
+    "services_started": false,
+    "database_migrations_applied": false,
+    "images_pulled": false,
+    "built_application_sha256": null,
+    "runtime_config_sha256": null,
+    "container_digests": [],
+    "database_runtime_version": null,
+    "applied_migration_version": null,
+    "migration_journal_last_entry": {
+      "idx": 33,
+      "version": "7",
+      "when": 1794269454270,
+      "tag": "0033_copilot_picks_to_bing_ai_mode",
+      "breakpoints": true
+    },
+    "patch_sha256": null,
+    "model_weight_license": null
+  },
+  "test_execution": {
+    "total": 64,
+    "NOT_RUN": 64,
+    "PASS": 0,
+    "FAIL": 0,
+    "BLOCKED": 0,
+    "NOT_APPLICABLE": 0,
+    "results": "evidence/test-results.jsonl"
+  },
+  "approval_state": {
+    "A0": "NOT_GRANTED",
+    "A1": "NOT_GRANTED",
+    "A2": "NOT_REQUESTED",
+    "approved_new_cash_spend_usd": 0
+  }
+}

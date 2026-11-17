@@ -1,0 +1,34 @@
+{
+  "id": "7458826b-bab3-4876-afd1-f0904e6b2d17",
+  "promptId": "fa434e1c-a443-4575-afdf-a78af0f5bbc7",
+  "brandId": "tuc-p0-internal",
+  "model": "stub",
+  "provider": "stub",
+  "webSearchEnabled": false,
+  "brandMentioned": true,
+  "competitorsMentioned": [],
+  "assessments": {
+    "brand": {
+      "mentioned": true,
+      "probability": 0.95,
+      "reason": null,
+      "sentiment": "neutral",
+      "sentimentProbabilities": {
+        "mixed": 0.017543859649122803,
+        "neutral": 0.9473684210526316,
+        "negative": 0.017543859649122803,
+        "positive": 0.017543859649122803
+      },
+      "position": 1,
+      "mentionCount": 1
+    },
+    "competitors": {}
+  },
+  "webQueries": [],
+  "citationCount": 0,
+  "createdAt": "2026-11-17T01:55:53.166Z",
+  "answer": {
+    "text": "What can you verify about TechUnity Connect and the services described on its official website?"
+  },
+  "citations": []
+}

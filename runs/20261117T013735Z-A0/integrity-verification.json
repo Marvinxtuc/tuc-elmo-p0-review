@@ -1,0 +1,38 @@
+{
+  "valid": {
+    "exit_code": 0,
+    "result": {
+      "checked": 1,
+      "failures": [],
+      "status": "PASS"
+    }
+  },
+  "one_character_changed": {
+    "exit_code": 1,
+    "result": {
+      "checked": 1,
+      "failures": [
+        {
+          "path": "runs/20261117T013735Z-A0/integrity-probe/synthetic.txt",
+          "error": "CONTENT_CHANGED"
+        }
+      ],
+      "status": "FAIL"
+    }
+  },
+  "path_escape": {
+    "exit_code": 1,
+    "result": {
+      "checked": 1,
+      "failures": [
+        {
+          "path": "../outside",
+          "error": "UNSAFE_PATH"
+        }
+      ],
+      "status": "FAIL"
+    }
+  },
+  "status": "PASS",
+  "scope": "Disposable synthetic evidence copy. Original observations and reports retained."
+}

@@ -1,0 +1,12 @@
+$ node .output/server/index.mjs
+➜ Listening on: http://127.0.0.1:17300/
+Created job for prompt 73425cbf-4d26-4987-9581-1f50af73b0bd
+Created job for prompt 28b7f36e-5bad-47fb-8e5e-0a9515dc7b77
+Created job for prompt 13bef519-6ed7-4852-a56e-869d62b7a12f
+Created job for prompt dfe5b8a4-cd88-411c-9751-a8b60be0138a
+Created job for prompt dd8402af-96c9-4849-ae66-b155cc07fad0
+Created job for prompt dccd10d9-350f-43a6-8435-5b45c6fcd22d
+Created job for prompt fb47279d-2a8f-4953-99dd-7fdf90ad69a3
+Created job for prompt 8cd62bce-a275-4e1f-9ed9-0299aad2da8a
+Created job for prompt fa434e1c-a443-4575-afdf-a78af0f5bbc7
+Created job for prompt 611a5e40-392b-47d1-9bd5-ce308abc54b1

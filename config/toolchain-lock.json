@@ -1,0 +1,11 @@
+{
+  "downloaded_at_utc": "2026-11-17T01:38:18.285202+00:00",
+  "node_archive": "node-v24.22.3-darwin-arm64.tar.gz",
+  "node_sha256": "ff6e17d4874b76d272212b908cc020d6e815fba5a6c7eaaa06add725840307fd",
+  "pnpm_version": "12.18.0",
+  "pnpm_sha256": "29d1d7d99bf6ec6d0a3dbb0ec5656f0d16e997e8be676ca45c581d11cb71f753",
+  "pnpm_integrity_verified": true,
+  "node_checksum_verified": true,
+  "detached_publisher_signature_verified": false,
+  "installation_scope": "<AUDIT_ROOT>/runtime"
+}

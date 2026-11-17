@@ -1,0 +1,22 @@
+[{"name": "database-tunnel", "stop_status": "ALREADY_STOPPED"}, {"name": "database-tunnel-corrected", "stop_status": "STOP_REQUESTED"}, {"name": "upstream-worker-baseline", "stop_status": "ALREADY_STOPPED"}, {"name": "upstream-worker-node-loader", "stop_status": "ALREADY_STOPPED"}, {"name": "upstream-web-baseline", "stop_status": "ALREADY_STOPPED"}, {"name": "p0-worker", "stop_status": "ALREADY_STOPPED"}, {"name": "p0-web", "stop_status": "ALREADY_STOPPED"}, {"name": "p0-worker-one-shot", "stop_status": "ALREADY_STOPPED"}, {"name": "p0-web-final", "stop_status": "ALREADY_STOPPED"}, {"name": "p0-web-production-mode", "stop_status": "ALREADY_STOPPED"}, {"name": "p0-worker-drain", "stop_status": "ALREADY_STOPPED"}, {"name": "p0-worker-final-restart", "stop_status": "ALREADY_STOPPED"}, {"name": "p0-worker-isolated-home", "stop_status": "STOP_REQUESTED"}, {"name": "p0-web-isolated-home", "stop_status": "STOP_REQUESTED"}]
+ Container tuc-elmo-p0-postgres Stopping 
+ Container tuc-elmo-p0-postgres Stopped 
+time="2026-11-17T10:25:02+08:00" level=info msg="stopping colima [profile=tuc-p0]"
+time="2026-11-17T10:25:02+08:00" level=info msg="stopping ..." context=docker
+Stopping 'docker.service', but its triggering units are still active:
+docker.socket
+colima-tuc-p0
+time="2026-11-17T10:25:02+08:00" level=info msg="stopping ..." context=vm
+time="2026-11-17T10:25:04+08:00" level=info msg="Sending SIGINT to hostagent process 58791"
+time="2026-11-17T10:25:04+08:00" level=info msg="Waiting for the host agent and the driver processes to shut down"
+time="2026-11-17T10:25:04+08:00" level=info msg="[hostagent] Received SIGINT, shutting down the host agent"
+time="2026-11-17T10:25:04+08:00" level=info msg="[hostagent] Shutting down the host agent"
+time="2026-11-17T10:25:04+08:00" level=info msg="[hostagent] Stopping forwarding \"/var/run/docker.sock\" (guest) to \"<AUDIT_ROOT>/runtime/colima/tuc-p0/docker.sock\" (host)"
+time="2026-11-17T10:25:04+08:00" level=info msg="[hostagent] Stopping forwarding \"/var/run/containerd/containerd.sock\" (guest) to \"<AUDIT_ROOT>/runtime/colima/tuc-p0/containerd.sock\" (host)"
+time="2026-11-17T10:25:04+08:00" level=info msg="[hostagent] Unmounting disk \"colima-tuc-p0\""
+time="2026-11-17T10:25:04+08:00" level=info msg="[hostagent] Shutting down VZ"
+time="2026-11-17T10:25:04+08:00" level=info msg="[hostagent] [VZ] - vm state change: stopped"
+time="2026-11-17T10:25:04+08:00" level=info msg="Waiting for the instance to shut down"
+time="2026-11-17T10:25:05+08:00" level=info msg="The instance colima-tuc-p0 has shut down"
+time="2026-11-17T10:25:05+08:00" level=info msg=done
+Stopped this P0 run. Evidence and volumes retained.

@@ -1,0 +1,332 @@
+{
+  "data": [
+    {
+      "id": "28b7f36e-5bad-47fb-8e5e-0a9515dc7b77",
+      "brandId": "tuc-p0-internal",
+      "value": "Which providers help B2B software companies integrate AI into existing production workflows?",
+      "enabled": true,
+      "tags": [
+        "q01",
+        "non_brand"
+      ],
+      "systemTags": [
+        "unbranded"
+      ],
+      "premiumModels": [],
+      "createdAt": "2026-11-17T01:55:34.636Z",
+      "updatedAt": "2026-11-17T01:55:34.636Z"
+    },
+    {
+      "id": "dfe5b8a4-cd88-411c-9751-a8b60be0138a",
+      "brandId": "tuc-p0-internal",
+      "value": "How should a small enterprise evaluate an external AI integration partner?",
+      "enabled": true,
+      "tags": [
+        "q02",
+        "non_brand"
+      ],
+      "systemTags": [
+        "unbranded"
+      ],
+      "premiumModels": [],
+      "createdAt": "2026-11-17T01:55:34.636Z",
+      "updatedAt": "2026-11-17T01:55:34.636Z"
+    },
+    {
+      "id": "13bef519-6ed7-4852-a56e-869d62b7a12f",
+      "brandId": "tuc-p0-internal",
+      "value": "Which engineering partners can help a company move an AI proof of concept into production?",
+      "enabled": true,
+      "tags": [
+        "q03",
+        "non_brand"
+      ],
+      "systemTags": [
+        "unbranded"
+      ],
+      "premiumModels": [],
+      "createdAt": "2026-11-17T01:55:34.636Z",
+      "updatedAt": "2026-11-17T01:55:34.636Z"
+    },
+    {
+      "id": "73425cbf-4d26-4987-9581-1f50af73b0bd",
+      "brandId": "tuc-p0-internal",
+      "value": "What should a company look for when choosing an AI integration consultancy for a security-sensitive workflow?",
+      "enabled": true,
+      "tags": [
+        "q04",
+        "non_brand"
+      ],
+      "systemTags": [
+        "unbranded"
+      ],
+      "premiumModels": [],
+      "createdAt": "2026-11-17T01:55:34.636Z",
+      "updatedAt": "2026-11-17T01:55:34.636Z"
+    },
+    {
+      "id": "dccd10d9-350f-43a6-8435-5b45c6fcd22d",
+      "brandId": "tuc-p0-internal",
+      "value": "Which service providers offer forward-deployed engineering support for enterprise AI projects?",
+      "enabled": true,
+      "tags": [
+        "q05",
+        "non_brand"
+      ],
+      "systemTags": [
+        "unbranded"
+      ],
+      "premiumModels": [],
+      "createdAt": "2026-11-17T01:55:34.636Z",
+      "updatedAt": "2026-11-17T01:55:34.636Z"
+    },
+    {
+      "id": "fb47279d-2a8f-4953-99dd-7fdf90ad69a3",
+      "brandId": "tuc-p0-internal",
+      "value": "How can a B2B company compare vendors for AI workflow integration and ongoing reliability?",
+      "enabled": true,
+      "tags": [
+        "q06",
+        "non_brand"
+      ],
+      "systemTags": [
+        "unbranded"
+      ],
+      "premiumModels": [],
+      "createdAt": "2026-11-17T01:55:34.636Z",
+      "updatedAt": "2026-11-17T01:55:34.636Z"
+    },
+    {
+      "id": "dd8402af-96c9-4849-ae66-b155cc07fad0",
+      "brandId": "tuc-p0-internal",
+      "value": "What evidence should a buyer request from a provider that builds enterprise AI applications?",
+      "enabled": true,
+      "tags": [
+        "q07",
+        "non_brand"
+      ],
+      "systemTags": [
+        "unbranded"
+      ],
+      "premiumModels": [],
+      "createdAt": "2026-11-17T01:55:34.636Z",
+      "updatedAt": "2026-11-17T01:55:34.636Z"
+    },
+    {
+      "id": "611a5e40-392b-47d1-9bd5-ce308abc54b1",
+      "brandId": "tuc-p0-internal",
+      "value": "Which providers can support API integration, evaluation and observability for enterprise AI workflows?",
+      "enabled": true,
+      "tags": [
+        "q08",
+        "non_brand"
+      ],
+      "systemTags": [
+        "unbranded"
+      ],
+      "premiumModels": [],
+      "createdAt": "2026-11-17T01:55:34.636Z",
+      "updatedAt": "2026-11-17T01:55:34.636Z"
+    },
+    {
+      "id": "fa434e1c-a443-4575-afdf-a78af0f5bbc7",
+      "brandId": "tuc-p0-internal",
+      "value": "What can you verify about TechUnity Connect and the services described on its official website?",
+      "enabled": true,
+      "tags": [
+        "q09",
+        "brand_control"
+      ],
+      "systemTags": [
+        "branded"
+      ],
+      "premiumModels": [],
+      "createdAt": "2026-11-17T01:55:34.636Z",
+      "updatedAt": "2026-11-17T01:55:34.636Z"
+    },
+    {
+      "id": "8cd62bce-a275-4e1f-9ed9-0299aad2da8a",
+      "brandId": "tuc-p0-internal",
+      "value": "What information is available about TechUnity Connect, and what remains uncertain?",
+      "enabled": true,
+      "tags": [
+        "q10",
+        "brand_control"
+      ],
+      "systemTags": [
+        "branded"
+      ],
+      "premiumModels": [],
+      "createdAt": "2026-11-17T01:55:34.636Z",
+      "updatedAt": "2026-11-17T01:55:34.636Z"
+    }
+  ],
+  "prompts": [
+    {
+      "id": "28b7f36e-5bad-47fb-8e5e-0a9515dc7b77",
+      "brandId": "tuc-p0-internal",
+      "value": "Which providers help B2B software companies integrate AI into existing production workflows?",
+      "enabled": true,
+      "tags": [
+        "q01",
+        "non_brand"
+      ],
+      "systemTags": [
+        "unbranded"
+      ],
+      "premiumModels": [],
+      "createdAt": "2026-11-17T01:55:34.636Z",
+      "updatedAt": "2026-11-17T01:55:34.636Z"
+    },
+    {
+      "id": "dfe5b8a4-cd88-411c-9751-a8b60be0138a",
+      "brandId": "tuc-p0-internal",
+      "value": "How should a small enterprise evaluate an external AI integration partner?",
+      "enabled": true,
+      "tags": [
+        "q02",
+        "non_brand"
+      ],
+      "systemTags": [
+        "unbranded"
+      ],
+      "premiumModels": [],
+      "createdAt": "2026-11-17T01:55:34.636Z",
+      "updatedAt": "2026-11-17T01:55:34.636Z"
+    },
+    {
+      "id": "13bef519-6ed7-4852-a56e-869d62b7a12f",
+      "brandId": "tuc-p0-internal",
+      "value": "Which engineering partners can help a company move an AI proof of concept into production?",
+      "enabled": true,
+      "tags": [
+        "q03",
+        "non_brand"
+      ],
+      "systemTags": [
+        "unbranded"
+      ],
+      "premiumModels": [],
+      "createdAt": "2026-11-17T01:55:34.636Z",
+      "updatedAt": "2026-11-17T01:55:34.636Z"
+    },
+    {
+      "id": "73425cbf-4d26-4987-9581-1f50af73b0bd",
+      "brandId": "tuc-p0-internal",
+      "value": "What should a company look for when choosing an AI integration consultancy for a security-sensitive workflow?",
+      "enabled": true,
+      "tags": [
+        "q04",
+        "non_brand"
+      ],
+      "systemTags": [
+        "unbranded"
+      ],
+      "premiumModels": [],
+      "createdAt": "2026-11-17T01:55:34.636Z",
+      "updatedAt": "2026-11-17T01:55:34.636Z"
+    },
+    {
+      "id": "dccd10d9-350f-43a6-8435-5b45c6fcd22d",
+      "brandId": "tuc-p0-internal",
+      "value": "Which service providers offer forward-deployed engineering support for enterprise AI projects?",
+      "enabled": true,
+      "tags": [
+        "q05",
+        "non_brand"
+      ],
+      "systemTags": [
+        "unbranded"
+      ],
+      "premiumModels": [],
+      "createdAt": "2026-11-17T01:55:34.636Z",
+      "updatedAt": "2026-11-17T01:55:34.636Z"
+    },
+    {
+      "id": "fb47279d-2a8f-4953-99dd-7fdf90ad69a3",
+      "brandId": "tuc-p0-internal",
+      "value": "How can a B2B company compare vendors for AI workflow integration and ongoing reliability?",
+      "enabled": true,
+      "tags": [
+        "q06",
+        "non_brand"
+      ],
+      "systemTags": [
+        "unbranded"
+      ],
+      "premiumModels": [],
+      "createdAt": "2026-11-17T01:55:34.636Z",
+      "updatedAt": "2026-11-17T01:55:34.636Z"
+    },
+    {
+      "id": "dd8402af-96c9-4849-ae66-b155cc07fad0",
+      "brandId": "tuc-p0-internal",
+      "value": "What evidence should a buyer request from a provider that builds enterprise AI applications?",
+      "enabled": true,
+      "tags": [
+        "q07",
+        "non_brand"
+      ],
+      "systemTags": [
+        "unbranded"
+      ],
+      "premiumModels": [],
+      "createdAt": "2026-11-17T01:55:34.636Z",
+      "updatedAt": "2026-11-17T01:55:34.636Z"
+    },
+    {
+      "id": "611a5e40-392b-47d1-9bd5-ce308abc54b1",
+      "brandId": "tuc-p0-internal",
+      "value": "Which providers can support API integration, evaluation and observability for enterprise AI workflows?",
+      "enabled": true,
+      "tags": [
+        "q08",
+        "non_brand"
+      ],
+      "systemTags": [
+        "unbranded"
+      ],
+      "premiumModels": [],
+      "createdAt": "2026-11-17T01:55:34.636Z",
+      "updatedAt": "2026-11-17T01:55:34.636Z"
+    },
+    {
+      "id": "fa434e1c-a443-4575-afdf-a78af0f5bbc7",
+      "brandId": "tuc-p0-internal",
+      "value": "What can you verify about TechUnity Connect and the services described on its official website?",
+      "enabled": true,
+      "tags": [
+        "q09",
+        "brand_control"
+      ],
+      "systemTags": [
+        "branded"
+      ],
+      "premiumModels": [],
+      "createdAt": "2026-11-17T01:55:34.636Z",
+      "updatedAt": "2026-11-17T01:55:34.636Z"
+    },
+    {
+      "id": "8cd62bce-a275-4e1f-9ed9-0299aad2da8a",
+      "brandId": "tuc-p0-internal",
+      "value": "What information is available about TechUnity Connect, and what remains uncertain?",
+      "enabled": true,
+      "tags": [
+        "q10",
+        "brand_control"
+      ],
+      "systemTags": [
+        "branded"
+      ],
+      "premiumModels": [],
+      "createdAt": "2026-11-17T01:55:34.636Z",
+      "updatedAt": "2026-11-17T01:55:34.636Z"
+    }
+  ],
+  "pagination": {
+    "page": 1,
+    "limit": 100,
+    "total": 10,
+    "totalPages": 1
+  }
+}

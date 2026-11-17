@@ -1,0 +1,137 @@
+import { getCredential } from "../../secrets";
+import { API_PROVIDER_MAX_OUTPUT_TOKENS, configuredWhen, warnIfOutputCapped } from "../config";
+import type {
+	Provider,
+	ProviderOptions,
+	ScrapeResult,
+	StructuredResearchOptions,
+	StructuredResearchResult,
+} from "../types";
+import { jsonSchemaResponseFormat, parseSchemaJson } from "./ai-sdk";
+
+const MISTRAL_BASE_URL = "https://api.mistral.ai";
+const DEFAULT_MODEL = "mistral-medium-latest";
+// The `-latest` alias rolls forward as new Large generations ship.
+const DEFAULT_RESEARCH_MODEL = "mistral-large-latest";
+
+async function mistralPost(path: string, body: object): Promise<any> {
+	const res = await fetch(`${MISTRAL_BASE_URL}${path}`, {
+		method: "POST",
+		headers: {
+			Authorization: `Bearer ${getCredential("MISTRAL_API_KEY")}`,
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify(body),
+	});
+	if (!res.ok) {
+		throw new Error(`Mistral API error (${res.status}): ${await res.text()}`);
+	}
+	return res.json();
+}
+
+/** A payload field that should hold a list but may be missing or malformed. */
+function asList(value: unknown): any[] {
+	return Array.isArray(value) ? value : [];
+}
+
+/** Best-effort: the query is JSON inside `arguments`, and a malformed one shouldn't fail the response. */
+function conversationWebQueries(data: any): string[] {
+	const queries: string[] = [];
+	for (const entry of asList(data?.outputs)) {
+		if (entry?.type !== "tool.execution" || entry?.name !== "web_search") continue;
+		try {
+			const args = JSON.parse(entry.arguments);
+			if (args?.query) queries.push(args.query);
+		} catch {
+			// ignore — keep going
+		}
+	}
+	return queries;
+}
+
+/** Content is a plain string for single-shot replies and typed chunks when tools cite sources. */
+function conversationText(data: any): string {
+	const texts: string[] = [];
+	for (const entry of asList(data?.outputs)) {
+		if (typeof entry?.content === "string") {
+			texts.push(entry.content);
+			continue;
+		}
+		for (const chunk of asList(entry?.content)) {
+			if (chunk?.type === "text" && typeof chunk.text === "string") texts.push(chunk.text);
+		}
+	}
+	return texts.join("\n");
+}
+
+function parseConversationsResponse(data: any): { textContent: string; webQueries: string[] } {
+	return { textContent: conversationText(data), webQueries: conversationWebQueries(data) };
+}
+
+export const mistralApi: Provider = {
+	id: "mistral-api",
+	name: "Mistral API",
+	access: "api",
+	docsAnchor: "direct-model-apis",
+
+	isConfigured: configuredWhen("MISTRAL_API_KEY"),
+
+	async run(model: string, prompt: string, options?: ProviderOptions): Promise<ScrapeResult> {
+		const version = options?.version ?? DEFAULT_MODEL;
+
+		if (options?.webSearch) {
+			// The web_search connector has no search-count knob, so the token cap is the
+			// only budget. This endpoint reports no finish_reason to log truncation from.
+			const data = await mistralPost("/v1/conversations", {
+				model: version,
+				inputs: prompt,
+				tools: [{ type: "web_search" }],
+				completion_args: { max_tokens: API_PROVIDER_MAX_OUTPUT_TOKENS["mistral-api"] },
+			});
+			return { rawOutput: data, webQueries: conversationWebQueries(data), modelVersion: data?.model ?? version };
+		}
+
+		const data = await mistralPost("/v1/chat/completions", {
+			model: version,
+			messages: [{ role: "user", content: prompt }],
+			max_tokens: API_PROVIDER_MAX_OUTPUT_TOKENS["mistral-api"],
+		});
+		warnIfOutputCapped("mistral-api", version, data?.choices?.[0]?.finish_reason);
+		return {
+			rawOutput: data,
+			webQueries: [],
+			modelVersion: data?.model ?? version,
+		};
+	},
+
+	async runStructuredResearch<T>({
+		prompt,
+		schema,
+		webSearch = true,
+	}: StructuredResearchOptions<T>): Promise<StructuredResearchResult<T>> {
+		const responseFormat = jsonSchemaResponseFormat(schema);
+		if (!webSearch) {
+			// Pure completion: plain chat endpoint with server-validated json_schema.
+			const data = await mistralPost("/v1/chat/completions", {
+				model: DEFAULT_RESEARCH_MODEL,
+				messages: [{ role: "user", content: prompt }],
+				response_format: responseFormat,
+			});
+			return {
+				object: parseSchemaJson(schema, data?.choices?.[0]?.message?.content ?? ""),
+				modelVersion: data?.model ?? DEFAULT_RESEARCH_MODEL,
+			};
+		}
+		// Conversations forwards response_format, so one call gets web search and a validated schema.
+		const data = await mistralPost("/v1/conversations", {
+			model: DEFAULT_RESEARCH_MODEL,
+			inputs: prompt,
+			tools: [{ type: "web_search" }],
+			completion_args: { response_format: responseFormat },
+		});
+		return {
+			object: parseSchemaJson(schema, parseConversationsResponse(data).textContent),
+			modelVersion: data?.model ?? DEFAULT_RESEARCH_MODEL,
+		};
+	},
+};

@@ -1,0 +1,415 @@
+[
+  {
+    "name": "database-tunnel",
+    "pid": 61303,
+    "command": [
+      "/usr/bin/ssh",
+      "-F",
+      "<AUDIT_ROOT>/runtime/lima/colima-tuc-p0/ssh.config",
+      "-o",
+      "ExitOnForwardFailure=yes",
+      "-o",
+      "BatchMode=yes",
+      "-o",
+      "ControlMaster=no",
+      "-o",
+      "ControlPath=none",
+      "-N",
+      "-L",
+      "127.0.0.1:17332:172.18.0.2:5432",
+      "lima-colima-tuc-p0"
+    ],
+    "started_at_utc": "2026-11-17T01:48:43.999955+00:00",
+    "stop_status": "ALREADY_STOPPED"
+  },
+  {
+    "name": "database-tunnel-corrected",
+    "pid": 61473,
+    "command": [
+      "/usr/bin/ssh",
+      "-F",
+      "<AUDIT_ROOT>/runtime/lima/colima-tuc-p0/ssh.config",
+      "-o",
+      "ExitOnForwardFailure=yes",
+      "-o",
+      "BatchMode=yes",
+      "-o",
+      "ControlMaster=no",
+      "-o",
+      "ControlPath=none",
+      "-N",
+      "-L",
+      "127.0.0.1:17332:172.18.0.2:5432",
+      "lima-colima-tuc-p0"
+    ],
+    "started_at_utc": "2026-11-17T01:49:06.516602+00:00",
+    "stop_status": "ALREADY_STOPPED",
+    "stop_requested_at_utc": "2026-11-17T02:25:01.230122+00:00"
+  },
+  {
+    "name": "upstream-worker-baseline",
+    "pid": 62293,
+    "command": [
+      "sandbox-exec",
+      "-f",
+      "<AUDIT_ROOT>/config/runtime.sb",
+      "pnpm",
+      "--filter",
+      "@workspace/worker",
+      "start"
+    ],
+    "started_at_utc": "2026-11-17T01:50:19.076431+00:00",
+    "output": "logs/upstream-worker-baseline.log",
+    "stop_status": "ALREADY_STOPPED"
+  },
+  {
+    "name": "upstream-worker-node-loader",
+    "pid": 62423,
+    "command": [
+      "sandbox-exec",
+      "-f",
+      "<AUDIT_ROOT>/config/runtime.sb",
+      "pnpm",
+      "--filter",
+      "@workspace/worker",
+      "exec",
+      "node",
+      "--import",
+      "tsx",
+      "--import",
+      "./src/instrument.ts",
+      "src/index.ts"
+    ],
+    "started_at_utc": "2026-11-17T01:50:46.534812+00:00",
+    "output": "logs/upstream-worker-node-loader.log",
+    "stop_requested_at_utc": "2026-11-17T01:51:14.115353+00:00",
+    "stop_status": "ALREADY_STOPPED"
+  },
+  {
+    "name": "upstream-web-baseline",
+    "pid": 62534,
+    "command": [
+      "sandbox-exec",
+      "-f",
+      "<AUDIT_ROOT>/config/runtime.sb",
+      "pnpm",
+      "--filter",
+      "@workspace/web",
+      "start"
+    ],
+    "started_at_utc": "2026-11-17T01:51:14.191991+00:00",
+    "output": "logs/upstream-web-baseline.log",
+    "stop_status": "ALREADY_STOPPED"
+  },
+  {
+    "name": "p0-worker",
+    "pid": 63504,
+    "command": [
+      "sandbox-exec",
+      "-f",
+      "<AUDIT_ROOT>/config/runtime.sb",
+      "pnpm",
+      "--filter",
+      "@workspace/worker",
+      "exec",
+      "node",
+      "--import",
+      "tsx",
+      "--import",
+      "./src/instrument.ts",
+      "src/index.ts"
+    ],
+    "started_at_utc": "2026-11-17T01:54:07.030242+00:00",
+    "output": "logs/p0-worker.log",
+    "stop_status": "ALREADY_STOPPED"
+  },
+  {
+    "name": "p0-web",
+    "pid": 63517,
+    "command": [
+      "sandbox-exec",
+      "-f",
+      "<AUDIT_ROOT>/config/runtime.sb",
+      "pnpm",
+      "--filter",
+      "@workspace/web",
+      "start"
+    ],
+    "started_at_utc": "2026-11-17T01:54:07.112285+00:00",
+    "output": "logs/p0-web.log",
+    "stop_status": "ALREADY_STOPPED",
+    "stop_requested_at_utc": "2026-11-17T01:57:18.615486+00:00"
+  },
+  {
+    "name": "p0-worker-one-shot",
+    "pid": 63905,
+    "command": [
+      "sandbox-exec",
+      "-f",
+      "<AUDIT_ROOT>/config/runtime.sb",
+      "pnpm",
+      "--filter",
+      "@workspace/worker",
+      "exec",
+      "node",
+      "--import",
+      "tsx",
+      "--import",
+      "./src/instrument.ts",
+      "src/index.ts"
+    ],
+    "started_at_utc": "2026-11-17T01:55:33.794253+00:00",
+    "output": "logs/p0-worker-one-shot.log",
+    "stop_status": "ALREADY_STOPPED",
+    "stop_requested_at_utc": "2026-11-17T02:05:01.724676+00:00"
+  },
+  {
+    "name": "p0-web-final",
+    "pid": 64794,
+    "command": [
+      "sandbox-exec",
+      "-f",
+      "<AUDIT_ROOT>/config/runtime.sb",
+      "pnpm",
+      "--filter",
+      "@workspace/web",
+      "start"
+    ],
+    "started_at_utc": "2026-11-17T01:57:18.693378+00:00",
+    "output": "logs/p0-web-final.log",
+    "stop_status": "ALREADY_STOPPED",
+    "stop_requested_at_utc": "2026-11-17T02:00:36.010648+00:00"
+  },
+  {
+    "name": "p0-web-production-mode",
+    "pid": 66717,
+    "command": [
+      "sandbox-exec",
+      "-f",
+      "<AUDIT_ROOT>/config/runtime.sb",
+      "pnpm",
+      "--filter",
+      "@workspace/web",
+      "start"
+    ],
+    "started_at_utc": "2026-11-17T02:01:52.375343+00:00",
+    "output": "logs/p0-web-production-mode.log",
+    "stop_status": "ALREADY_STOPPED",
+    "stop_requested_at_utc": "2026-11-17T02:17:33.605467+00:00"
+  },
+  {
+    "name": "p0-worker-drain",
+    "pid": 68869,
+    "command": [
+      "sandbox-exec",
+      "-f",
+      "<AUDIT_ROOT>/config/runtime.sb",
+      "pnpm",
+      "--filter",
+      "@workspace/worker",
+      "exec",
+      "node",
+      "--import",
+      "tsx",
+      "--import",
+      "./src/instrument.ts",
+      "src/index.ts"
+    ],
+    "started_at_utc": "2026-11-17T02:08:59.712853+00:00",
+    "output": "logs/p0-worker-drain.log",
+    "stop_status": "ALREADY_STOPPED",
+    "stop_requested_at_utc": "2026-11-17T02:15:08.485725+00:00"
+  },
+  {
+    "name": "p0-worker-final-restart",
+    "pid": 71843,
+    "command": [
+      "sandbox-exec",
+      "-f",
+      "<AUDIT_ROOT>/config/runtime.sb",
+      "pnpm",
+      "--filter",
+      "@workspace/worker",
+      "exec",
+      "node",
+      "--import",
+      "tsx",
+      "--import",
+      "./src/instrument.ts",
+      "src/index.ts"
+    ],
+    "started_at_utc": "2026-11-17T02:15:08.569780+00:00",
+    "output": "logs/p0-worker-final-restart.log",
+    "stop_status": "ALREADY_STOPPED",
+    "stop_requested_at_utc": "2026-11-17T02:18:22.467132+00:00"
+  },
+  {
+    "name": "p0-worker-isolated-home",
+    "pid": 73701,
+    "command": [
+      "sandbox-exec",
+      "-f",
+      "<AUDIT_ROOT>/config/runtime.sb",
+      "pnpm",
+      "--filter",
+      "@workspace/worker",
+      "exec",
+      "node",
+      "--import",
+      "tsx",
+      "--import",
+      "./src/instrument.ts",
+      "src/index.ts"
+    ],
+    "started_at_utc": "2026-11-17T02:18:22.530266+00:00",
+    "output": "logs/p0-worker-isolated-home.log",
+    "stop_status": "ALREADY_STOPPED",
+    "stop_requested_at_utc": "2026-11-17T02:25:01.290424+00:00"
+  },
+  {
+    "name": "p0-web-isolated-home",
+    "pid": 73709,
+    "command": [
+      "sandbox-exec",
+      "-f",
+      "<AUDIT_ROOT>/config/runtime.sb",
+      "pnpm",
+      "--filter",
+      "@workspace/web",
+      "start"
+    ],
+    "started_at_utc": "2026-11-17T02:18:22.696231+00:00",
+    "output": "logs/p0-web-isolated-home.log",
+    "stop_status": "ALREADY_STOPPED",
+    "stop_requested_at_utc": "2026-11-17T02:25:01.317963+00:00"
+  },
+  {
+    "name": "tunnel-final-restart",
+    "pid": 76649,
+    "command": [
+      "/usr/bin/ssh",
+      "-F",
+      "<AUDIT_ROOT>/runtime/lima/colima-tuc-p0/ssh.config",
+      "-o",
+      "ExitOnForwardFailure=yes",
+      "-o",
+      "BatchMode=yes",
+      "-o",
+      "ControlMaster=no",
+      "-o",
+      "ControlPath=none",
+      "-N",
+      "-L",
+      "127.0.0.1:17332:172.18.0.2:5432",
+      "lima-colima-tuc-p0"
+    ],
+    "started_at_utc": "2026-11-17T02:25:52.210250+00:00",
+    "output": "logs/tunnel-final-restart.log",
+    "stop_status": "ALREADY_STOPPED",
+    "stop_requested_at_utc": "2026-11-17T02:27:56.184587+00:00"
+  },
+  {
+    "name": "worker-final-verified",
+    "pid": 76652,
+    "command": [
+      "sandbox-exec",
+      "-f",
+      "<AUDIT_ROOT>/config/runtime.sb",
+      "pnpm",
+      "--filter",
+      "@workspace/worker",
+      "exec",
+      "node",
+      "--import",
+      "tsx",
+      "--import",
+      "./src/instrument.ts",
+      "src/index.ts"
+    ],
+    "started_at_utc": "2026-11-17T02:25:52.293277+00:00",
+    "output": "logs/worker-final-verified.log",
+    "stop_status": "ALREADY_STOPPED"
+  },
+  {
+    "name": "web-final-verified",
+    "pid": 76666,
+    "command": [
+      "sandbox-exec",
+      "-f",
+      "<AUDIT_ROOT>/config/runtime.sb",
+      "pnpm",
+      "--filter",
+      "@workspace/web",
+      "start"
+    ],
+    "started_at_utc": "2026-11-17T02:25:52.377220+00:00",
+    "output": "logs/web-final-verified.log",
+    "stop_status": "ALREADY_STOPPED",
+    "stop_requested_at_utc": "2026-11-17T02:27:56.228324+00:00"
+  },
+  {
+    "name": "tunnel-read-recovery",
+    "pid": 78082,
+    "command": [
+      "/usr/bin/ssh",
+      "-F",
+      "<AUDIT_ROOT>/runtime/lima/colima-tuc-p0/ssh.config",
+      "-o",
+      "ExitOnForwardFailure=yes",
+      "-o",
+      "BatchMode=yes",
+      "-o",
+      "ControlMaster=no",
+      "-o",
+      "ControlPath=none",
+      "-N",
+      "-L",
+      "127.0.0.1:17332:172.18.0.2:5432",
+      "lima-colima-tuc-p0"
+    ],
+    "started_at_utc": "2026-11-17T02:29:31.305048+00:00",
+    "output": "logs/tunnel-read-recovery.log",
+    "stop_status": "ALREADY_STOPPED",
+    "stop_requested_at_utc": "2026-11-17T02:30:12.362115+00:00"
+  },
+  {
+    "name": "worker-read-recovery",
+    "pid": 78115,
+    "command": [
+      "sandbox-exec",
+      "-f",
+      "<AUDIT_ROOT>/config/runtime.sb",
+      "pnpm",
+      "--filter",
+      "@workspace/worker",
+      "exec",
+      "node",
+      "--import",
+      "tsx",
+      "--import",
+      "./src/instrument.ts",
+      "src/index.ts"
+    ],
+    "started_at_utc": "2026-11-17T02:29:38.384025+00:00",
+    "output": "logs/worker-read-recovery.log",
+    "stop_status": "ALREADY_STOPPED",
+    "stop_requested_at_utc": "2026-11-17T02:30:11.818964+00:00"
+  },
+  {
+    "name": "web-read-recovery",
+    "pid": 78123,
+    "command": [
+      "sandbox-exec",
+      "-f",
+      "<AUDIT_ROOT>/config/runtime.sb",
+      "pnpm",
+      "--filter",
+      "@workspace/web",
+      "start"
+    ],
+    "started_at_utc": "2026-11-17T02:29:38.468067+00:00",
+    "output": "logs/web-read-recovery.log",
+    "stop_status": "ALREADY_STOPPED",
+    "stop_requested_at_utc": "2026-11-17T02:30:12.072937+00:00"
+  }
+]

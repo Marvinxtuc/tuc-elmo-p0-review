@@ -1,0 +1,8 @@
+4: br-c60acd20b44a: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default 
+    link/ether 9a:3f:52:bf:0b:29 brd ff:ff:ff:ff:ff:ff
+    inet 172.18.0.1/16 brd 172.18.255.255 scope global br-c60acd20b44a
+       valid_lft forever preferred_lft forever
+    inet6 fe80::983f:52ff:febf:b29/64 scope link 
+       valid_lft forever preferred_lft forever
+sh: 1: nc: not found
+time="2026-11-17T09:48:54+08:00" level=fatal msg="exit status 127"

@@ -1,0 +1,243 @@
+Scope: all 14 workspace projects
+? Verifying lockfile against supply-chain policies (1831 entries)...
+Progress: resolved 1596, reused 0, downloaded 1, added 0
+Packages are cloned from the content-addressable store to the virtual store.
+  Content-addressable store is at: <AUDIT_ROOT>/runtime/pnpm-store/v11
+  Virtual store is at:             node_modules/.pnpm
+Progress: resolved 1596, reused 0, downloaded 12, added 12
+Progress: resolved 1596, reused 0, downloaded 75, added 15
+Progress: resolved 1596, reused 0, downloaded 147, added 26
+Progress: resolved 1596, reused 0, downloaded 236, added 46
+Progress: resolved 1596, reused 0, downloaded 295, added 70
+Progress: resolved 1596, reused 0, downloaded 336, added 86
+Progress: resolved 1596, reused 0, downloaded 369, added 90
+Progress: resolved 1596, reused 0, downloaded 441, added 98
+Progress: resolved 1596, reused 0, downloaded 478, added 106
+Progress: resolved 1596, reused 0, downloaded 507, added 116
+Downloading @usebruno/requests@0.22.0: 0.00 B/7.13 MB
+Progress: resolved 1596, reused 0, downloaded 535, added 126
+Progress: resolved 1596, reused 0, downloaded 561, added 130
+[WARN] Tarball download average speed 48 KiB/s (size 84 KiB) is below 50 KiB/s: https://registry.npmjs.org/@scalar/json-magic/-/json-magic-0.18.0.tgz (GET)
+Downloading @rolldown/binding-darwin-arm64@1.3.0: 0.00 B/8.17 MB
+Progress: resolved 1596, reused 0, downloaded 593, added 135
+Progress: resolved 1596, reused 0, downloaded 630, added 135
+Progress: resolved 1596, reused 0, downloaded 658, added 154
+Progress: resolved 1596, reused 0, downloaded 686, added 154
+Downloading @typescript/typescript-darwin-arm64@7.0.2: 0.00 B/9.27 MB
+Progress: resolved 1596, reused 0, downloaded 727, added 163
+Downloading @rolldown/binding-darwin-arm64@1.3.0: 1.26 MB/8.17 MB
+Downloading storybook@10.6.6: 0.00 B/6.13 MB
+Progress: resolved 1596, reused 0, downloaded 786, added 222
+Progress: resolved 1596, reused 0, downloaded 859, added 226
+Downloading @typescript/typescript-darwin-arm64@7.0.2: 1.65 MB/9.27 MB
+Progress: resolved 1596, reused 0, downloaded 903, added 227
+Downloading @typescript/typescript-darwin-arm64@7.0.2: 2.42 MB/9.27 MB
+Progress: resolved 1596, reused 0, downloaded 1034, added 227
+Downloading @rolldown/binding-darwin-arm64@1.2.16: 0.00 B/8.01 MB
+Downloading storybook@10.6.6: 2.04 MB/6.13 MB
+Downloading @scalar/api-reference@1.77.0: 0.00 B/13.31 MB
+Downloading @scalar/api-reference@1.77.0: 499.07 kB/13.31 MB
+Downloading @turbo/darwin-arm64@2.11.10: 0.00 B/17.52 MB
+Downloading posthog-js@1.447.3: 0.00 B/8.96 MB
+Downloading react-icons@5.7.0: 0.00 B/22.76 MB
+Downloading posthog-js@1.447.3: 507.90 kB/8.96 MB
+Progress: resolved 1596, reused 0, downloaded 1346, added 227
+Progress: resolved 1596, reused 0, downloaded 1363, added 227
+Downloading @typescript/typescript-darwin-arm64@7.0.2: 6.83 MB/9.27 MB
+[WARN] Request took 16683ms: https://registry.npmjs.org/@storybook%2Freact
+Downloading react-icons@5.7.0: 3.40 MB/22.76 MB
+Downloading @biomejs/cli-darwin-arm64@2.6.6: 0.00 B/31.74 MB
+Progress: resolved 1596, reused 0, downloaded 1480, added 227
+Downloading hls.js@1.7.3: 0.00 B/8.00 MB
+Downloading react-icons@5.7.0: 4.24 MB/22.76 MB
+Downloading react-icons@5.7.0: 4.89 MB/22.76 MB
+Downloading react-icons@5.7.0: 10.76 MB/22.76 MB
+Downloading posthog-js@1.447.3: 1.41 MB/8.96 MB
+Downloading @turbo/darwin-arm64@2.11.10: 16.91 MB/17.52 MB
+Downloading @rolldown/binding-darwin-arm64@1.2.16: 2.11 MB/8.01 MB
+Downloading react-icons@5.7.0: 17.79 MB/22.76 MB
+Downloading @biomejs/cli-darwin-arm64@2.6.6: 5.44 MB/31.74 MB
+Downloading @biomejs/cli-darwin-arm64@2.6.6: 6.89 MB/31.74 MB
+Downloading @biomejs/cli-darwin-arm64@2.6.6: 8.85 MB/31.74 MB
+Downloading @biomejs/cli-darwin-arm64@2.6.6: 10.99 MB/31.74 MB
+Downloading @biomejs/cli-darwin-arm64@2.6.6: 13.54 MB/31.74 MB
+Downloading @biomejs/cli-darwin-arm64@2.6.6: 18.18 MB/31.74 MB
+Downloading @biomejs/cli-darwin-arm64@2.6.6: 26.54 MB/31.74 MB
+Downloading posthog-js@1.447.3: 1.52 MB/8.96 MB
+Downloading @rolldown/binding-darwin-arm64@1.2.16: 2.41 MB/8.01 MB
+Downloading @rolldown/binding-darwin-arm64@1.2.16: 3.96 MB/8.01 MB
+Downloading @rolldown/binding-darwin-arm64@1.2.16: 6.90 MB/8.01 MB
+[WARN] Request took 23847ms: https://registry.npmjs.org/isbot
+Progress: resolved 1596, reused 0, downloaded 1579, added 238
+Progress: resolved 1596, reused 0, downloaded 1579, added 246
+Progress: resolved 1596, reused 0, downloaded 1579, added 254
+Progress: resolved 1596, reused 0, downloaded 1579, added 264
+Downloading posthog-js@1.447.3: 1.65 MB/8.96 MB
+Progress: resolved 1596, reused 0, downloaded 1579, added 279
+Progress: resolved 1596, reused 0, downloaded 1579, added 287
+Downloading storybook@10.6.6: 5.96 MB/6.13 MB
+Downloading posthog-js@1.447.3: 8.96 MB/8.96 MB, done
+Progress: resolved 1596, reused 0, downloaded 1580, added 308
+Progress: resolved 1596, reused 0, downloaded 1580, added 318
+Progress: resolved 1596, reused 0, downloaded 1580, added 326
+Progress: resolved 1596, reused 0, downloaded 1580, added 335
+Downloading storybook@10.6.6: 6.03 MB/6.13 MB
+Progress: resolved 1596, reused 0, downloaded 1580, added 341
+Progress: resolved 1596, reused 0, downloaded 1580, added 367
+Downloading storybook@10.6.6: 6.06 MB/6.13 MB
+Downloading @rolldown/binding-darwin-arm64@1.3.0: 6.39 MB/8.17 MB
+Progress: resolved 1596, reused 0, downloaded 1580, added 391
+Progress: resolved 1596, reused 0, downloaded 1580, added 407
+Progress: resolved 1596, reused 0, downloaded 1580, added 415
+Progress: resolved 1596, reused 0, downloaded 1580, added 424
+Progress: resolved 1596, reused 0, downloaded 1581, added 432
+Progress: resolved 1596, reused 0, downloaded 1581, added 443
+Progress: resolved 1596, reused 0, downloaded 1581, added 448
+Progress: resolved 1596, reused 0, downloaded 1581, added 458
+Progress: resolved 1596, reused 0, downloaded 1581, added 467
+Progress: resolved 1596, reused 0, downloaded 1581, added 480
+Progress: resolved 1596, reused 0, downloaded 1581, added 489
+Progress: resolved 1596, reused 0, downloaded 1581, added 498
+Progress: resolved 1596, reused 0, downloaded 1581, added 507
+Progress: resolved 1596, reused 0, downloaded 1581, added 516
+Progress: resolved 1596, reused 0, downloaded 1581, added 527
+Progress: resolved 1596, reused 0, downloaded 1581, added 535
+Progress: resolved 1596, reused 0, downloaded 1582, added 547
+Progress: resolved 1596, reused 0, downloaded 1582, added 560
+Progress: resolved 1596, reused 0, downloaded 1582, added 568
+Progress: resolved 1596, reused 0, downloaded 1582, added 577
+Progress: resolved 1596, reused 0, downloaded 1582, added 585
+Progress: resolved 1596, reused 0, downloaded 1582, added 586
+Progress: resolved 1596, reused 0, downloaded 1582, added 597
+Progress: resolved 1596, reused 0, downloaded 1582, added 606
+Progress: resolved 1596, reused 0, downloaded 1582, added 615
+Progress: resolved 1596, reused 0, downloaded 1582, added 624
+Progress: resolved 1596, reused 0, downloaded 1582, added 638
+Progress: resolved 1596, reused 0, downloaded 1582, added 646
+Progress: resolved 1596, reused 0, downloaded 1582, added 652
+Progress: resolved 1596, reused 0, downloaded 1582, added 660
+Progress: resolved 1596, reused 0, downloaded 1582, added 669
+Progress: resolved 1596, reused 0, downloaded 1582, added 690
+Progress: resolved 1596, reused 0, downloaded 1582, added 698
+Progress: resolved 1596, reused 0, downloaded 1582, added 705
+Progress: resolved 1596, reused 0, downloaded 1582, added 711
+Progress: resolved 1596, reused 0, downloaded 1582, added 719
+Progress: resolved 1596, reused 0, downloaded 1582, added 728
+Progress: resolved 1596, reused 0, downloaded 1582, added 736
+Progress: resolved 1596, reused 0, downloaded 1582, added 744
+Progress: resolved 1596, reused 0, downloaded 1582, added 752
+Progress: resolved 1596, reused 0, downloaded 1582, added 761
+Progress: resolved 1596, reused 0, downloaded 1582, added 770
+Progress: resolved 1596, reused 0, downloaded 1582, added 778
+Progress: resolved 1596, reused 0, downloaded 1582, added 787
+Progress: resolved 1596, reused 0, downloaded 1582, added 797
+Progress: resolved 1596, reused 0, downloaded 1582, added 805
+Progress: resolved 1596, reused 0, downloaded 1582, added 813
+Progress: resolved 1596, reused 0, downloaded 1582, added 821
+Progress: resolved 1596, reused 0, downloaded 1582, added 827
+Progress: resolved 1596, reused 0, downloaded 1582, added 836
+Progress: resolved 1596, reused 0, downloaded 1582, added 845
+Progress: resolved 1596, reused 0, downloaded 1582, added 856
+Progress: resolved 1596, reused 0, downloaded 1582, added 865
+Progress: resolved 1596, reused 0, downloaded 1582, added 873
+Progress: resolved 1596, reused 0, downloaded 1582, added 883
+Progress: resolved 1596, reused 0, downloaded 1582, added 891
+Progress: resolved 1596, reused 0, downloaded 1582, added 901
+Progress: resolved 1596, reused 0, downloaded 1582, added 922
+Progress: resolved 1596, reused 0, downloaded 1582, added 934
+Progress: resolved 1596, reused 0, downloaded 1582, added 938
+Progress: resolved 1596, reused 0, downloaded 1582, added 949
+Progress: resolved 1596, reused 0, downloaded 1582, added 959
+Progress: resolved 1596, reused 0, downloaded 1582, added 971
+Progress: resolved 1596, reused 0, downloaded 1582, added 984
+Progress: resolved 1596, reused 0, downloaded 1582, added 997
+Progress: resolved 1596, reused 0, downloaded 1582, added 1008
+Progress: resolved 1596, reused 0, downloaded 1582, added 1013
+Progress: resolved 1596, reused 0, downloaded 1582, added 1021
+Progress: resolved 1596, reused 0, downloaded 1582, added 1030
+Progress: resolved 1596, reused 0, downloaded 1582, added 1040
+Progress: resolved 1596, reused 0, downloaded 1582, added 1049
+Progress: resolved 1596, reused 0, downloaded 1582, added 1057
+Progress: resolved 1596, reused 0, downloaded 1582, added 1066
+Progress: resolved 1596, reused 0, downloaded 1582, added 1071
+Progress: resolved 1596, reused 0, downloaded 1582, added 1081
+Progress: resolved 1596, reused 0, downloaded 1582, added 1089
+Progress: resolved 1596, reused 0, downloaded 1582, added 1097
+Progress: resolved 1596, reused 0, downloaded 1582, added 1105
+Progress: resolved 1596, reused 0, downloaded 1582, added 1114
+Progress: resolved 1596, reused 0, downloaded 1582, added 1124
+Progress: resolved 1596, reused 0, downloaded 1582, added 1131
+Progress: resolved 1596, reused 0, downloaded 1582, added 1139
+Progress: resolved 1596, reused 0, downloaded 1582, added 1150
+Progress: resolved 1596, reused 0, downloaded 1582, added 1159
+Progress: resolved 1596, reused 0, downloaded 1582, added 1164
+Progress: resolved 1596, reused 0, downloaded 1582, added 1173
+Progress: resolved 1596, reused 0, downloaded 1582, added 1194
+Progress: resolved 1596, reused 0, downloaded 1582, added 1203
+Progress: resolved 1596, reused 0, downloaded 1582, added 1211
+Progress: resolved 1596, reused 0, downloaded 1582, added 1215
+Progress: resolved 1596, reused 0, downloaded 1582, added 1219
+Progress: resolved 1596, reused 0, downloaded 1582, added 1229
+Progress: resolved 1596, reused 0, downloaded 1582, added 1241
+Progress: resolved 1596, reused 0, downloaded 1582, added 1250
+Progress: resolved 1596, reused 0, downloaded 1582, added 1261
+Progress: resolved 1596, reused 0, downloaded 1582, added 1269
+Progress: resolved 1596, reused 0, downloaded 1582, added 1285
+Progress: resolved 1596, reused 0, downloaded 1582, added 1293
+Progress: resolved 1596, reused 0, downloaded 1582, added 1301
+Progress: resolved 1596, reused 0, downloaded 1582, added 1309
+Progress: resolved 1596, reused 0, downloaded 1582, added 1319
+Progress: resolved 1596, reused 0, downloaded 1582, added 1331
+Progress: resolved 1596, reused 0, downloaded 1582, added 1340
+Progress: resolved 1596, reused 0, downloaded 1582, added 1348
+Progress: resolved 1596, reused 0, downloaded 1582, added 1356
+Progress: resolved 1596, reused 0, downloaded 1582, added 1366
+Progress: resolved 1596, reused 0, downloaded 1582, added 1374
+Progress: resolved 1596, reused 0, downloaded 1582, added 1383
+Progress: resolved 1596, reused 0, downloaded 1582, added 1384
+Progress: resolved 1596, reused 0, downloaded 1582, added 1399
+Progress: resolved 1596, reused 0, downloaded 1582, added 1412
+Progress: resolved 1596, reused 0, downloaded 1582, added 1424
+Progress: resolved 1596, reused 0, downloaded 1582, added 1434
+Progress: resolved 1596, reused 0, downloaded 1582, added 1446
+Progress: resolved 1596, reused 0, downloaded 1582, added 1451
+Progress: resolved 1596, reused 0, downloaded 1582, added 1461
+Progress: resolved 1596, reused 0, downloaded 1582, added 1473
+Progress: resolved 1596, reused 0, downloaded 1582, added 1483
+Progress: resolved 1596, reused 0, downloaded 1582, added 1491
+Progress: resolved 1596, reused 0, downloaded 1582, added 1503
+Progress: resolved 1596, reused 0, downloaded 1582, added 1513
+Progress: resolved 1596, reused 0, downloaded 1582, added 1519
+Progress: resolved 1596, reused 0, downloaded 1582, added 1527
+Progress: resolved 1596, reused 0, downloaded 1582, added 1534
+Progress: resolved 1596, reused 0, downloaded 1582, added 1542
+Progress: resolved 1596, reused 0, downloaded 1582, added 1550
+Progress: resolved 1596, reused 0, downloaded 1582, added 1560
+Progress: resolved 1596, reused 0, downloaded 1582, added 1569
+Progress: resolved 1596, reused 0, downloaded 1582, added 1573
+Progress: resolved 1596, reused 0, downloaded 1582, added 1582
+Progress: resolved 1596, reused 0, downloaded 1582, added 1588
+Progress: resolved 1596, reused 0, downloaded 1582, added 1592
+Progress: resolved 1596, reused 0, downloaded 1582, added 1596
+✓ Lockfile passes supply-chain policies (1831 entries in 4m 23.9s)
+Lockfile is up to date, resolution step is skipped
+Packages: +1596
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Progress: resolved 1596, reused 0, downloaded 1582, added 1596, done
+.../esbuild@0.28.2/node_modules/esbuild postinstall$ node install.js
+.../esbuild@0.28.2/node_modules/esbuild postinstall: Done
+Agent skills awaiting approval: @tanstack/devtools-vite, @tanstack/react-router, @tanstack/react-start.
+Run "pnpm approve" to review them.
+apps/www postinstall$ fumadocs-mdx
+apps/www postinstall: [MDX] generated files in 1.107082999999875ms
+apps/www postinstall: Done
+
+devDependencies:
++ @biomejs/biome 2.6.6
++ @changesets/cli 3.0.3
++ knip 6.44.2
++ tsx 4.23.15
++ turbo 2.11.10
++ typescript 7.0.2
+
+Done in 4m 30.4s using pnpm v12.18.0

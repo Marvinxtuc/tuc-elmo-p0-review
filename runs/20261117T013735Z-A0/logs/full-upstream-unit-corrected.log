@@ -1,0 +1,405 @@
+$ turbo test
+
+   • Packages in scope: @elmohq/cli, @workspace/api-spec, @workspace/config, @workspace/deployment, @workspace/docs, @workspace/lib, @workspace/og, @workspace/site-audit, @workspace/ui, @workspace/web, @workspace/worker, @workspace/www, e2e
+   • Running test in 13 packages
+   • Remote caching disabled
+
+@workspace/config:test: cache miss, executing 67662f12ca9fdc50
+@workspace/lib:codegen: cache miss, executing 07a1314b574891a6
+@workspace/site-audit:test: cache miss, executing a62f4f2d27778e87
+@workspace/config:check-types: cache miss, executing feffeaa8592acbd3
+@workspace/ui:check-types: cache hit, replaying logs 4e599971459ddee7
+@workspace/site-audit:check-types: cache hit, replaying logs 3f6bef566e4c82e5
+@workspace/ui:check-types: $ tsc --noEmit
+@workspace/site-audit:check-types: $ tsc --noEmit
+@workspace/config:check-types: $ tsc --noEmit
+@workspace/lib:codegen: $ pnpm run generate:auth-schema
+@workspace/config:test: $ vitest run
+@workspace/site-audit:test: $ vitest run
+@workspace/lib:codegen: $ bash scripts/generate-auth-schema.sh
+@workspace/lib:codegen: [generate-auth-schema] Running better-auth CLI...
+@workspace/og:check-types: cache miss, executing 5e63a5864d848e59
+@workspace/lib:test: cache miss, executing 7bf7617129719324
+@workspace/og:check-types: $ tsc --noEmit
+@workspace/lib:test: $ vitest run --project=unit
+@workspace/config:test: 
+@workspace/config:test: [1m[30m[46m RUN [49m[39m[22m [36mv5.1.0 [39m[90m<AUDIT_ROOT>/upstream/elmo/packages/config[39m
+@workspace/config:test: 
+@workspace/site-audit:test: 
+@workspace/site-audit:test: [1m[30m[46m RUN [49m[39m[22m [36mv5.1.0 [39m[90m<AUDIT_ROOT>/upstream/elmo/packages/site-audit[39m
+@workspace/site-audit:test: 
+@workspace/www:test: cache miss, executing 6409252b6016542c
+@workspace/www:test: $ vitest run
+@workspace/config:test:  [32m✓[39m src/ai-referral.test.ts [2m([22m[2m25 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+@workspace/lib:test: 
+@workspace/lib:test: [1m[30m[46m RUN [49m[39m[22m [36mv5.1.0 [39m[90m<AUDIT_ROOT>/upstream/elmo/packages/lib[39m
+@workspace/lib:test: 
+@workspace/config:test:  [32m✓[39m src/env-registry.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+@workspace/config:test:  [32m✓[39m src/roles.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+@workspace/config:test:  [32m✓[39m src/env.test.ts [2m([22m[2m18 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+@workspace/config:test:  [32m✓[39m src/referrals.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+@workspace/config:test:  [32m✓[39m src/plans.test.ts [2m([22m[2m33 tests[22m[2m)[22m[32m 13[2mms[22m[39m
+@workspace/config:test:  [32m✓[39m src/scrape-targets.test.ts [2m([22m[2m22 tests[22m[2m)[22m[32m 15[2mms[22m[39m
+@workspace/config:test:  [32m✓[39m src/fanout-support.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 19[2mms[22m[39m
+@workspace/config:test:  [32m✓[39m src/entitlements.test.ts [2m([22m[2m31 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+@workspace/config:test:  [32m✓[39m src/models.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 7[2mms[22m[39m
+@workspace/config:test:  [32m✓[39m src/legal.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+@workspace/config:test: 
+@workspace/config:test: [2m Test Files [22m [1m[32m11 passed[39m[22m[90m (11)[39m
+@workspace/config:test: [2m      Tests [22m [1m[32m157 passed[39m[22m[90m (157)[39m
+@workspace/config:test: [2m   Start at [22m 10:12:35
+@workspace/config:test: [2m   Duration [22m 416ms[2m (transform 52%, import 32%, tests 10%, worker 5%)[22m
+@workspace/config:test: 
+@workspace/lib:test:  [32m✓[39m [30m[42m unit [49m[39m src/mention-judge/clean.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 39[2mms[22m[39m
+@workspace/lib:test: [90mstderr[2m | src/mention-judge/analyze.test.ts[2m > [22m[2mcreateMentionAnalyzer[2m > [22m[2mstamps the stub's judgements apart from Jev's, so a real key re-judges them
+@workspace/lib:test: [22m[39m[mention-judge] TYPESAFE_API_KEY=stub: judging from cue words, not Jev. For tests and development only.
+@workspace/lib:test: 
+@workspace/lib:test:  [32m✓[39m [30m[42m unit [49m[39m src/secrets/crypto.test.ts [2m([22m[2m21 tests[22m[2m)[22m[32m 39[2mms[22m[39m
+@workspace/lib:test: [90mstdout[2m | src/mention-judge/analyze.test.ts[2m > [22m[2mcreateMentionAnalyzer[2m > [22m[2mcalls Jev through OpenRouter, with OpenRouter's model name, when that's the only key
+@workspace/lib:test: [22m[39m[mention-judge] No TYPESAFE_API_KEY: calling Jev through OpenRouter, billed to OPENROUTER_API_KEY.
+@workspace/lib:test: 
+@workspace/lib:test: [90mstdout[2m | src/mention-judge/analyze.test.ts[2m > [22m[2mcreateMentionAnalyzer[2m > [22m[2mstops at a rejected OpenRouter key without trying TypeSafe
+@workspace/lib:test: [22m[39m[mention-judge] No TYPESAFE_API_KEY: calling Jev through OpenRouter, billed to OPENROUTER_API_KEY.
+@workspace/lib:test: 
+@workspace/lib:test: [90mstdout[2m | src/mention-judge/analyze.test.ts[2m > [22m[2mcreateMentionAnalyzer[2m > [22m[2mkeeps judgements made through TypeSafe after switching to OpenRouter
+@workspace/lib:test: [22m[39m[mention-judge] No TYPESAFE_API_KEY: calling Jev through OpenRouter, billed to OPENROUTER_API_KEY.
+@workspace/lib:test: 
+@workspace/lib:test: [90mstderr[2m | src/mention-judge/analyze.test.ts[2m > [22m[2mcreateMentionAnalyzer[2m > [22m[2mjudges locally with the stub key, calling no one
+@workspace/lib:test: [22m[39m[mention-judge] TYPESAFE_API_KEY=stub: judging from cue words, not Jev. For tests and development only.
+@workspace/lib:test: 
+@workspace/www:test: 
+@workspace/www:test: [1m[30m[46m RUN [49m[39m[22m [36mv5.1.0 [39m[90m<AUDIT_ROOT>/upstream/elmo/apps/www[39m
+@workspace/www:test: 
+@workspace/lib:test:  [32m✓[39m [30m[42m unit [49m[39m src/mention-judge/analyze.test.ts [2m([22m[2m21 tests[22m[2m)[22m[32m 67[2mms[22m[39m
+@workspace/lib:test: [90mstderr[2m | src/website-excerpt.test.ts[2m > [22m[2mgetWebsiteExcerpt[2m > [22m[2mpreserves an absolute page URL through both excerpt sources
+@workspace/lib:test: [22m[39m[website-excerpt] jina returned no content for https://www.nike.com/golf?category=clubs#featured
+@workspace/lib:test: 
+@workspace/lib:test: [90mstderr[2m | src/website-excerpt.test.ts[2m > [22m[2mgetWebsiteExcerpt[2m > [22m[2mfalls back to backend fetch + Readability when Jina is blocked (401)
+@workspace/lib:test: [22m[39m[website-excerpt] jina returned no content for https://acme.com
+@workspace/lib:test: 
+@workspace/lib:test: [90mstderr[2m | src/website-excerpt.test.ts[2m > [22m[2mgetWebsiteExcerpt[2m > [22m[2mcontinues past Jina when it throws (network error)
+@workspace/lib:test: [22m[39m[website-excerpt] jina failed for https://acme.com: Error: network down
+@workspace/lib:test:     at [90m<AUDIT_ROOT>/upstream/elmo/packages/lib/[39msrc/website-excerpt.test.ts:127:52
+@workspace/lib:test:     at Mock (file://<AUDIT_ROOT>/upstream/elmo/node_modules/[4m.pnpm[24m/vitest@5.1.0_@opentelemetry+api@1.9.1_@types+node@26.6.6_@vitest+browser-playwright@5.1_6199c7d23a9b280d65281d2e2f190ca6/node_modules/[4mvitest[24m/dist/chunks/spy.DDMXghXv.js:353:40)
+@workspace/lib:test:     at fromJina [90m(<AUDIT_ROOT>/upstream/elmo/packages/lib/[39msrc/website-excerpt.ts:51:25[90m)[39m
+@workspace/lib:test:     at Object.fetch [90m(<AUDIT_ROOT>/upstream/elmo/packages/lib/[39msrc/website-excerpt.ts:24:32[90m)[39m
+@workspace/lib:test:     at getWebsiteExcerpt [90m(<AUDIT_ROOT>/upstream/elmo/packages/lib/[39msrc/website-excerpt.ts:30:33[90m)[39m
+@workspace/lib:test:     at [90m<AUDIT_ROOT>/upstream/elmo/packages/lib/[39msrc/website-excerpt.test.ts:132:16
+@workspace/lib:test:     at file://<AUDIT_ROOT>/upstream/elmo/node_modules/[4m.pnpm[24m/vitest@5.1.0_@opentelemetry+api@1.9.1_@types+node@26.6.6_@vitest+browser-playwright@5.1_6199c7d23a9b280d65281d2e2f190ca6/node_modules/[4mvitest[24m/dist/chunks/run.CjdgFZiW.js:1632:35
+@workspace/lib:test:     at file://<AUDIT_ROOT>/upstream/elmo/node_modules/[4m.pnpm[24m/vitest@5.1.0_@opentelemetry+api@1.9.1_@types+node@26.6.6_@vitest+browser-playwright@5.1_6199c7d23a9b280d65281d2e2f190ca6/node_modules/[4mvitest[24m/dist/chunks/run.CjdgFZiW.js:2801:26
+@workspace/lib:test:     at file://<AUDIT_ROOT>/upstream/elmo/node_modules/[4m.pnpm[24m/vitest@5.1.0_@opentelemetry+api@1.9.1_@types+node@26.6.6_@vitest+browser-playwright@5.1_6199c7d23a9b280d65281d2e2f190ca6/node_modules/[4mvitest[24m/dist/chunks/run.CjdgFZiW.js:3338:20
+@workspace/lib:test:     at new Promise (<anonymous>)
+@workspace/lib:test: 
+@workspace/lib:test: [90mstderr[2m | src/website-excerpt.test.ts[2m > [22m[2mgetWebsiteExcerpt[2m > [22m[2mreturns an empty string when both tiers fail
+@workspace/lib:test: [22m[39m[website-excerpt] jina returned no content for https://acme.com
+@workspace/lib:test: 
+@workspace/lib:test: [90mstderr[2m | src/website-excerpt.test.ts[2m > [22m[2mgetWebsiteExcerpt[2m > [22m[2mreturns an empty string when both tiers fail
+@workspace/lib:test: [22m[39m[website-excerpt] readability returned no content for https://acme.com
+@workspace/lib:test: [website-excerpt] all sources failed for https://acme.com
+@workspace/lib:test: 
+@workspace/lib:test: [90mstderr[2m | src/website-excerpt.test.ts[2m > [22m[2mgetWebsiteExcerpt[2m > [22m[2mstops reading a site that sends an endless body
+@workspace/lib:test: [22m[39m[website-excerpt] jina returned no content for https://acme.com
+@workspace/lib:test: 
+@workspace/lib:test:  [32m✓[39m [30m[42m unit [49m[39m src/providers/registry/sdk-contract.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 207[2mms[22m[39m
+@workspace/lib:test:  [32m✓[39m [30m[42m unit [49m[39m src/mention-judge/passages.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 47[2mms[22m[39m
+@workspace/www:test:  [32m✓[39m src/lib/__tests__/og.test.ts [2m([22m[2m29 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+@workspace/lib:test:  [32m✓[39m [30m[42m unit [49m[39m src/website-excerpt.test.ts [2m([22m[2m11 tests[22m[2m)[22m[33m 448[2mms[22m[39m
+@workspace/site-audit:test:  [32m✓[39m src/parse/parsers.test.ts [2m([22m[2m7 tests[22m[2m)[22m[33m 539[2mms[22m[39m
+@workspace/site-audit:test:    [32m✓[39m parseSitemap [2m(4)[22m
+@workspace/site-audit:test:      [33m[2m✓[22m[39m parses a crafted sitemap of unclosed entries in linear time[33m 459[2mms[22m[39m
+@workspace/www:test:  [32m✓[39m src/lib/__tests__/page-dates.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+@workspace/www:test:  [32m✓[39m src/lib/__tests__/external-link.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+@workspace/www:test:  [32m✓[39m src/lib/__tests__/auth-md.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+@workspace/www:test:  [32m✓[39m src/lib/__tests__/agent-discovery.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+@workspace/www:test:  [32m✓[39m src/lib/__tests__/api-catalog.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 55[2mms[22m[39m
+@workspace/www:test:  [32m✓[39m src/lib/__tests__/seo.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 4[2mms[22m[39m
+@workspace/www:test:  [32m✓[39m src/lib/__tests__/format.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 29[2mms[22m[39m
+@workspace/lib:test: [90mstderr[2m | src/text-extraction.test.ts[2m > [22m[2mtext-extraction[2m > [22m[2mtryExtractTextContent[2m > [22m[2mreports no text when a payload cannot be parsed
+@workspace/lib:test: [22m[39mError extracting text content: SyntaxError: Expected property name or '}' in JSON at position 1 (line 1 column 2)
+@workspace/lib:test:     at JSON.parse (<anonymous>)
+@workspace/lib:test:     at [90m<AUDIT_ROOT>/upstream/elmo/packages/lib/[39msrc/text-extraction.ts:157:54
+@workspace/lib:test:     at firstText [90m(<AUDIT_ROOT>/upstream/elmo/packages/lib/[39msrc/text-extraction.ts:8:17[90m)[39m
+@workspace/lib:test:     at extractTextFromOlostep [90m(<AUDIT_ROOT>/upstream/elmo/packages/lib/[39msrc/text-extraction.ts:154:9[90m)[39m
+@workspace/lib:test:     at extractTextContent [90m(<AUDIT_ROOT>/upstream/elmo/packages/lib/[39msrc/text-extraction.ts:330:67[90m)[39m
+@workspace/lib:test:     at tryExtractTextContent [90m(<AUDIT_ROOT>/upstream/elmo/packages/lib/[39msrc/text-extraction.ts:374:22[90m)[39m
+@workspace/lib:test:     at [90m<AUDIT_ROOT>/upstream/elmo/packages/lib/[39msrc/text-extraction.test.ts:348:11
+@workspace/lib:test:     at file://<AUDIT_ROOT>/upstream/elmo/node_modules/[4m.pnpm[24m/vitest@5.1.0_@opentelemetry+api@1.9.1_@types+node@26.6.6_@vitest+browser-playwright@5.1_6199c7d23a9b280d65281d2e2f190ca6/node_modules/[4mvitest[24m/dist/chunks/run.CjdgFZiW.js:1632:35
+@workspace/lib:test:     at file://<AUDIT_ROOT>/upstream/elmo/node_modules/[4m.pnpm[24m/vitest@5.1.0_@opentelemetry+api@1.9.1_@types+node@26.6.6_@vitest+browser-playwright@5.1_6199c7d23a9b280d65281d2e2f190ca6/node_modules/[4mvitest[24m/dist/chunks/run.CjdgFZiW.js:2801:26
+@workspace/lib:test:     at file://<AUDIT_ROOT>/upstream/elmo/node_modules/[4m.pnpm[24m/vitest@5.1.0_@opentelemetry+api@1.9.1_@types+node@26.6.6_@vitest+browser-playwright@5.1_6199c7d23a9b280d65281d2e2f190ca6/node_modules/[4mvitest[24m/dist/chunks/run.CjdgFZiW.js:3338:20
+@workspace/lib:test: 
+@workspace/lib:test:  [32m✓[39m [30m[42m unit [49m[39m src/text-extraction.test.ts [2m([22m[2m88 tests[22m[2m)[22m[32m 83[2mms[22m[39m
+@workspace/site-audit:test:  [32m✓[39m src/audit.test.ts [2m([22m[2m30 tests[22m[2m)[22m[33m 720[2mms[22m[39m
+@workspace/site-audit:test: 
+@workspace/site-audit:test: [2m Test Files [22m [1m[32m2 passed[39m[22m[90m (2)[39m
+@workspace/site-audit:test: [2m      Tests [22m [1m[32m37 passed[39m[22m[90m (37)[39m
+@workspace/site-audit:test: [2m   Start at [22m 10:12:35
+@workspace/site-audit:test: [2m   Duration [22m 1.38s[2m (tests 61%, import 20%, transform 18%)[22m
+@workspace/site-audit:test: 
+@workspace/lib:test:  [32m✓[39m [30m[42m unit [49m[39m src/providers/registry/searchapi.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 30[2mms[22m[39m
+@workspace/www:test:  [32m✓[39m src/lib/__tests__/html-to-markdown.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 79[2mms[22m[39m
+@workspace/lib:test: [90mstdout[2m | src/onboarding/analyze.test.ts[2m > [22m[2manalyzeBrand[2m > [22m[2muses the full page URL for analysis while retaining the domain identity
+@workspace/lib:test: [22m[39m[onboarding] analyzeBrand start: https://www.nike.com/golf?category=clubs#featured
+@workspace/lib:test: 
+@workspace/lib:test: [90mstdout[2m | src/onboarding/analyze.test.ts[2m > [22m[2manalyzeBrand[2m > [22m[2muses the full page URL for analysis while retaining the domain identity
+@workspace/lib:test: [22m[39m[onboarding] analyzeBrand done: https://www.nike.com/golf?category=clubs#featured in 2ms (tracking="nike.com", brand="Nike Golf", competitors=0, prompts=0)
+@workspace/lib:test: 
+@workspace/lib:test: [90mstdout[2m | src/onboarding/analyze.test.ts[2m > [22m[2manalyzeBrand[2m > [22m[2mscopes a sub-page to its own brand without moving the tracked domain
+@workspace/lib:test: [22m[39m[onboarding] analyzeBrand start: https://www.nike.com/golf
+@workspace/lib:test: 
+@workspace/lib:test: [90mstdout[2m | src/onboarding/analyze.test.ts[2m > [22m[2manalyzeBrand[2m > [22m[2mscopes a sub-page to its own brand without moving the tracked domain
+@workspace/lib:test: [22m[39m[onboarding] analyzeBrand done: https://www.nike.com/golf in 1ms (tracking="nike.com", brand="Nike Golf", competitors=1, prompts=1)
+@workspace/lib:test: 
+@workspace/lib:test: [90mstdout[2m | src/onboarding/analyze.test.ts[2m > [22m[2manalyzeBrand[2m > [22m[2mkeeps the caller's brand name when the model answers with the parent brand
+@workspace/lib:test: [22m[39m[onboarding] analyzeBrand start: nike.com
+@workspace/lib:test: 
+@workspace/lib:test: [90mstdout[2m | src/onboarding/analyze.test.ts[2m > [22m[2manalyzeBrand[2m > [22m[2mkeeps the caller's brand name when the model answers with the parent brand
+@workspace/lib:test: [22m[39m[onboarding] analyzeBrand done: https://nike.com/ in 2ms (tracking="nike.com", brand="Nike Golf", competitors=0, prompts=0)
+@workspace/lib:test: 
+@workspace/lib:test: [90mstdout[2m | src/onboarding/analyze.test.ts[2m > [22m[2manalyzeBrand[2m > [22m[2mkeeps aliases that only contain the brand name inside a longer word
+@workspace/lib:test: [22m[39m[onboarding] analyzeBrand start: acme.com
+@workspace/lib:test: 
+@workspace/lib:test: [90mstdout[2m | src/onboarding/analyze.test.ts[2m > [22m[2manalyzeBrand[2m > [22m[2mkeeps aliases that only contain the brand name inside a longer word
+@workspace/lib:test: [22m[39m[onboarding] analyzeBrand done: https://acme.com/ in 3ms (tracking="acme.com", brand="Acme", competitors=0, prompts=0)
+@workspace/lib:test: 
+@workspace/lib:test:  [32m✓[39m [30m[42m unit [49m[39m src/auth/client-registration.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 172[2mms[22m[39m
+@workspace/lib:test: [90mstdout[2m | src/onboarding/analyze.test.ts[2m > [22m[2manalyzeBrand[2m > [22m[2mtakes the model's brand name when the caller supplied none
+@workspace/lib:test: [22m[39m[onboarding] analyzeBrand start: acmecorp.com
+@workspace/lib:test: 
+@workspace/lib:test: [90mstdout[2m | src/onboarding/analyze.test.ts[2m > [22m[2manalyzeBrand[2m > [22m[2mtakes the model's brand name when the caller supplied none
+@workspace/lib:test: [22m[39m[onboarding] analyzeBrand done: https://acmecorp.com/ in 0ms (tracking="acmecorp.com", brand="Acme", competitors=0, prompts=0)
+@workspace/lib:test: 
+@workspace/lib:test: [90mstdout[2m | src/onboarding/analyze.test.ts[2m > [22m[2manalyzeBrand[2m > [22m[2mnormalizes brand fields, dedupes domains, and filters self-referential competitors
+@workspace/lib:test: [22m[39m[onboarding] analyzeBrand start: https://www.acme.com
+@workspace/lib:test: 
+@workspace/lib:test: [90mstdout[2m | src/onboarding/analyze.test.ts[2m > [22m[2manalyzeBrand[2m > [22m[2mnormalizes brand fields, dedupes domains, and filters self-referential competitors
+@workspace/lib:test: [22m[39m[onboarding] analyzeBrand done: https://www.acme.com/ in 3ms (tracking="acme.com", brand="Acme", competitors=1, prompts=2)
+@workspace/lib:test: 
+@workspace/lib:test: [90mstdout[2m | src/onboarding/analyze.test.ts[2m > [22m[2manalyzeBrand[2m > [22m[2mfalls back to inferred brand name when LLM omits it
+@workspace/lib:test: [22m[39m[onboarding] analyzeBrand start: nike.com
+@workspace/lib:test: 
+@workspace/lib:test: [90mstdout[2m | src/onboarding/analyze.test.ts[2m > [22m[2manalyzeBrand[2m > [22m[2mfalls back to inferred brand name when LLM omits it
+@workspace/lib:test: [22m[39m[onboarding] analyzeBrand done: https://nike.com/ in 0ms (tracking="nike.com", brand="Nike", competitors=0, prompts=0)
+@workspace/lib:test: 
+@workspace/lib:test: [90mstdout[2m | src/onboarding/analyze.test.ts[2m > [22m[2manalyzeBrand[2m > [22m[2mrespects maxCompetitors=0 / maxPrompts=0
+@workspace/lib:test: [22m[39m[onboarding] analyzeBrand start: acme.com
+@workspace/lib:test: 
+@workspace/lib:test: [90mstdout[2m | src/onboarding/analyze.test.ts[2m > [22m[2manalyzeBrand[2m > [22m[2mrespects maxCompetitors=0 / maxPrompts=0
+@workspace/lib:test: [22m[39m[onboarding] analyzeBrand done: https://acme.com/ in 1ms (tracking="acme.com", brand="Acme", competitors=0, prompts=0)
+@workspace/lib:test: 
+@workspace/lib:test: [90mstdout[2m | src/onboarding/analyze.test.ts[2m > [22m[2manalyzeBrand[2m > [22m[2mcaps competitors and prompts at the requested maxes
+@workspace/lib:test: [22m[39m[onboarding] analyzeBrand start: acme.com
+@workspace/lib:test: 
+@workspace/lib:test: [90mstdout[2m | src/onboarding/analyze.test.ts[2m > [22m[2manalyzeBrand[2m > [22m[2mcaps competitors and prompts at the requested maxes
+@workspace/lib:test: [22m[39m[onboarding] analyzeBrand done: https://acme.com/ in 1ms (tracking="acme.com", brand="Acme", competitors=3, prompts=5)
+@workspace/lib:test: 
+@workspace/lib:test:  [32m✓[39m [30m[42m unit [49m[39m src/onboarding/analyze.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 33[2mms[22m[39m
+@workspace/www:test:  [32m✓[39m src/lib/__tests__/request-handler.test.ts [2m([22m[2m34 tests[22m[2m)[22m[32m 119[2mms[22m[39m
+@workspace/www:test: 
+@workspace/www:test: [2m Test Files [22m [1m[32m10 passed[39m[22m[90m (10)[39m
+@workspace/www:test: [2m      Tests [22m [1m[32m100 passed[39m[22m[90m (100)[39m
+@workspace/www:test: [2m   Start at [22m 10:12:36
+@workspace/www:test: [2m   Duration [22m 966ms[2m (transform 54%, import 30%, tests 13%, worker 2%)[22m
+@workspace/www:test: 
+@workspace/lib:test:  [32m✓[39m [30m[42m unit [49m[39m src/citations/domain-categories.test.ts [2m([22m[2m40 tests[22m[2m)[22m[32m 20[2mms[22m[39m
+@workspace/lib:test:  [32m✓[39m [30m[42m unit [49m[39m src/providers/registry/cloro.test.ts [2m([22m[2m17 tests[22m[2m)[22m[32m 210[2mms[22m[39m
+@workspace/lib:test:  [32m✓[39m [30m[42m unit [49m[39m src/providers/registry/oxylabs.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 66[2mms[22m[39m
+@workspace/lib:test:  [32m✓[39m [30m[42m unit [49m[39m src/secrets/store.test.ts [2m([22m[2m17 tests[22m[2m)[22m[32m 21[2mms[22m[39m
+@workspace/lib:test:  [32m✓[39m [30m[42m unit [49m[39m src/mentions.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 22[2mms[22m[39m
+@workspace/lib:test:  [32m✓[39m [30m[42m unit [49m[39m src/entitlements/guards.test.ts [2m([22m[2m37 tests[22m[2m)[22m[32m 16[2mms[22m[39m
+@workspace/lib:test:  [32m✓[39m [30m[42m unit [49m[39m src/providers/registry/brightdata.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 61[2mms[22m[39m
+@workspace/lib:test:  [32m✓[39m [30m[42m unit [49m[39m src/report-metrics.test.ts [2m([22m[2m49 tests[22m[2m)[22m[32m 13[2mms[22m[39m
+@workspace/lib:test:  [32m✓[39m [30m[42m unit [49m[39m src/providers/registry/dataforseo.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 30[2mms[22m[39m
+@workspace/lib:test:  [32m✓[39m [30m[42m unit [49m[39m src/providers/registry/scrape-shared.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 13[2mms[22m[39m
+@workspace/lib:codegen: 2026-11-17T02:12:37.952Z WARN [Better Auth]: [better-auth] Warning: your BETTER_AUTH_SECRET should be at least 32 characters long for adequate security. Generate one with `npx auth secret` or `openssl rand -base64 32`.
+@workspace/lib:codegen: 2026-11-17T02:12:37.953Z WARN [Better Auth]: [better-auth] Warning: your BETTER_AUTH_SECRET appears low-entropy. Use a randomly generated secret for production.
+@workspace/lib:codegen: (node:70593) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file://<AUDIT_ROOT>/upstream/elmo/packages/lib/src/auth/_cli-helper.ts?_1 is not specified and it doesn't parse as CommonJS.
+@workspace/lib:codegen: Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+@workspace/lib:codegen: To eliminate this warning, add "type": "module" to <AUDIT_ROOT>/upstream/elmo/packages/lib/package.json.
+@workspace/lib:codegen: (Use `node --trace-warnings ...` to show where the warning was created)
+@workspace/lib:test:  [32m✓[39m [30m[42m unit [49m[39m src/rollups/dirty.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+@workspace/lib:codegen: 2026-11-17T02:12:37.999Z ERROR [Better Auth]: oauth-provider: could not seed `resources` at startup; retrying on first resource access. DrizzleQueryError: Failed query: select "id", "identifier", "name", "access_token_ttl", "refresh_token_ttl", "signing_algorithm", "signing_key_id", "allowed_scopes", "custom_claims", "dpop_bound_access_tokens_required", "disabled", "created_at", "updated_at", "policy_version", "metadata" from "oauth_resource" where "oauth_resource"."identifier" = $1
+@workspace/lib:codegen: params: http://localhost:3000/api/mcp
+@workspace/lib:codegen:     at NodePgPreparedQuery.queryWithCache (file://<AUDIT_ROOT>/upstream/elmo/node_modules/.pnpm/drizzle-orm@0.45.4_@opentelemetry+api@1.9.1_@prisma+client@5.22.0_@types+pg@8.23.1_@ups_92f99198eb55338f836db97c47c39192/node_modules/drizzle-orm/pg-core/session.js:41:15)
+@workspace/lib:codegen:     at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+@workspace/lib:codegen:     at async file://<AUDIT_ROOT>/upstream/elmo/node_modules/.pnpm/drizzle-orm@0.45.4_@opentelemetry+api@1.9.1_@prisma+client@5.22.0_@types+pg@8.23.1_@ups_92f99198eb55338f836db97c47c39192/node_modules/drizzle-orm/node-postgres/session.js:117:22
+@workspace/lib:codegen:     ... 4 lines matching cause stack trace ...
+@workspace/lib:codegen:     at async runPluginInit (file://<AUDIT_ROOT>/upstream/elmo/node_modules/.pnpm/better-auth@1.7.18_@opentelemetry+api@1.9.1_@prisma+client@5.22.0_@tanstack+react-start_37be7c4c7fd434939aab09609688ae4c/node_modules/better-auth/dist/context/helpers.mjs:18:40)
+@workspace/lib:codegen:     at async createAuthContext (file://<AUDIT_ROOT>/upstream/elmo/node_modules/.pnpm/better-auth@1.7.18_@opentelemetry+api@1.9.1_@prisma+client@5.22.0_@tanstack+react-start_37be7c4c7fd434939aab09609688ae4c/node_modules/better-auth/dist/context/create-context.mjs:230:32)
+@workspace/lib:codegen:     at async init (file://<AUDIT_ROOT>/upstream/elmo/node_modules/.pnpm/better-auth@1.7.18_@opentelemetry+api@1.9.1_@prisma+client@5.22.0_@tanstack+react-start_37be7c4c7fd434939aab09609688ae4c/node_modules/better-auth/dist/context/init.mjs:10:14) {
+@workspace/lib:codegen:   query: 'select "id", "identifier", "name", "access_token_ttl", "refresh_token_ttl", "signing_algorithm", "signing_key_id", "allowed_scopes", "custom_claims", "dpop_bound_access_tokens_required", "disabled", "created_at", "updated_at", "policy_version", "metadata" from "oauth_resource" where "oauth_resource"."identifier" = $1',
+@workspace/lib:codegen:   params: [ 'http://localhost:3000/api/mcp' ],
+@workspace/lib:codegen:   cause: Error: connect ECONNREFUSED 127.0.0.1:5432
+@workspace/lib:codegen:       at <AUDIT_ROOT>/upstream/elmo/node_modules/.pnpm/pg-pool@3.14.0_pg@8.23.1/node_modules/pg-pool/index.js:45:11
+@workspace/lib:codegen:       at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+@workspace/lib:codegen:       at async file://<AUDIT_ROOT>/upstream/elmo/node_modules/.pnpm/drizzle-orm@0.45.4_@opentelemetry+api@1.9.1_@prisma+client@5.22.0_@types+pg@8.23.1_@ups_92f99198eb55338f836db97c47c39192/node_modules/drizzle-orm/node-postgres/session.js:124:18
+@workspace/lib:codegen:       at async NodePgPreparedQuery.queryWithCache (file://<AUDIT_ROOT>/upstream/elmo/node_modules/.pnpm/drizzle-orm@0.45.4_@opentelemetry+api@1.9.1_@prisma+client@5.22.0_@types+pg@8.23.1_@ups_92f99198eb55338f836db97c47c39192/node_modules/drizzle-orm/pg-core/session.js:39:16)
+@workspace/lib:codegen:       at async file://<AUDIT_ROOT>/upstream/elmo/node_modules/.pnpm/drizzle-orm@0.45.4_@opentelemetry+api@1.9.1_@prisma+client@5.22.0_@types+pg@8.23.1_@ups_92f99198eb55338f836db97c47c39192/node_modules/drizzle-orm/node-postgres/session.js:117:22
+@workspace/lib:codegen:       at async Object.findOne (file://<AUDIT_ROOT>/upstream/elmo/node_modules/.pnpm/@better-auth+drizzle-adapter@1.7.18_@better-auth+core@1.7.18_@better-auth+utils@0.5.1_@_80eed34955ead807cbf4fad49964b393/node_modules/@better-auth/drizzle-adapter/dist/index.mjs:358:17)
+@workspace/lib:codegen:       at async Object.findOne (file://<AUDIT_ROOT>/upstream/elmo/node_modules/.pnpm/@better-auth+core@1.7.18_@better-auth+utils@0.5.1_@better-fetch+fetch@1.3.3_@openteleme_b7f67274173cd10c5b397b02c253b500/node_modules/@better-auth/core/dist/db/adapter/factory.mjs:584:16)
+@workspace/lib:codegen:       at async seedResources (file://<AUDIT_ROOT>/upstream/elmo/node_modules/.pnpm/@better-auth+oauth-provider@1.7.18_@better-auth+core@1.7.18_@better-auth+utils@0.5.1_@b_ab97e105f6a96c9368b794ba110f7572/node_modules/@better-auth/oauth-provider/dist/authorize-BzDrbYtI.mjs:1191:20)
+@workspace/lib:codegen:       at async Object.init (file://<AUDIT_ROOT>/upstream/elmo/node_modules/.pnpm/@better-auth+oauth-provider@1.7.18_@better-auth+core@1.7.18_@better-auth+utils@0.5.1_@b_ab97e105f6a96c9368b794ba110f7572/node_modules/@better-auth/oauth-provider/dist/authorize-BzDrbYtI.mjs:7132:4)
+@workspace/lib:codegen:       at async runPluginInit (file://<AUDIT_ROOT>/upstream/elmo/node_modules/.pnpm/better-auth@1.7.18_@opentelemetry+api@1.9.1_@prisma+client@5.22.0_@tanstack+react-start_37be7c4c7fd434939aab09609688ae4c/node_modules/better-auth/dist/context/helpers.mjs:18:40) {
+@workspace/lib:codegen:     errno: -61,
+@workspace/lib:codegen:     code: 'ECONNREFUSED',
+@workspace/lib:codegen:     syscall: 'connect',
+@workspace/lib:codegen:     address: '127.0.0.1',
+@workspace/lib:codegen:     port: 5432
+@workspace/lib:codegen:   }
+@workspace/lib:codegen: }
+@workspace/lib:codegen: ⠋ preparing schema...
+@workspace/lib:test:  [32m✓[39m [30m[42m unit [49m[39m src/tag-utils.test.ts [2m([22m[2m42 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+@workspace/lib:test:  [32m✓[39m [30m[42m unit [49m[39m src/providers/registry/poll-task.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+@workspace/lib:codegen: 🚀 Schema was generated successfully!
+@workspace/lib:test:  [32m✓[39m [30m[42m unit [49m[39m src/providers/registry/anthropic-api.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+@workspace/lib:test:  [32m✓[39m [30m[42m unit [49m[39m src/providers/registry/openrouter.test.ts [2m([22m[2m10 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+@workspace/lib:test:  [32m✓[39m [30m[42m unit [49m[39m src/auth/redirect-uri.test.ts [2m([22m[2m21 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+@workspace/lib:codegen: [generate-auth-schema] Written      583 lines to <AUDIT_ROOT>/upstream/elmo/packages/lib/src/db/schema-auth.ts
+@workspace/lib:check-types: cache miss, executing a0b1882748ab7e38
+@workspace/lib:check-types: $ tsc --noEmit
+@workspace/lib:test:  [32m✓[39m [30m[42m unit [49m[39m src/app-urls.test.ts [2m([22m[2m20 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+@workspace/lib:test:  [32m✓[39m [30m[42m unit [49m[39m src/bulk-prompts.test.ts [2m([22m[2m19 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+@workspace/lib:test:  [32m✓[39m [30m[42m unit [49m[39m src/rollups/bucket.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+@workspace/lib:test:  [32m✓[39m [30m[42m unit [49m[39m src/onboarding/utils.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+@workspace/lib:test:  [32m✓[39m [30m[42m unit [49m[39m src/providers/registry/openai-api.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 16[2mms[22m[39m
+@workspace/lib:test: [90mstderr[2m | src/run-policy/policy.test.ts
+@workspace/lib:test: [22m[39mSCRAPE_TARGETS: skipping "perplexity:brightdata:online". Perplexity now requires a login, so no scraper can reach it, but its Sonar model API still works. Replace it with perplexity:openrouter:perplexity/sonar:online or perplexity:dataforseo:online. See https://www.elmohq.com/docs/user-guide/providers.
+@workspace/lib:test: 
+@workspace/lib:test:  [32m✓[39m [30m[42m unit [49m[39m src/run-policy/policy.test.ts [2m([22m[2m51 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+@workspace/lib:test:  [32m✓[39m [30m[42m unit [49m[39m src/run-policy/maintenance.test.ts [2m([22m[2m19 tests[22m[2m)[22m[32m 17[2mms[22m[39m
+@workspace/lib:test:  [32m✓[39m [30m[42m unit [49m[39m src/providers/config.test.ts [2m([22m[2m41 tests[22m[2m)[22m[32m 41[2mms[22m[39m
+@workspace/lib:test:  [32m✓[39m [30m[42m unit [49m[39m src/rollups/chunk.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+@workspace/lib:test:  [32m✓[39m [30m[42m unit [49m[39m src/providers/runner.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+@workspace/lib:test:  [32m✓[39m [30m[42m unit [49m[39m src/onboarding/suggest-prompts.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+@workspace/lib:test:  [32m✓[39m [30m[42m unit [49m[39m src/reports/lifecycle.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+@workspace/lib:test:  [32m✓[39m [30m[42m unit [49m[39m src/run-backoff.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+@workspace/deployment:check-types: cache miss, executing 96092377d36ed7bf
+@workspace/deployment:test: cache miss, executing c79bc901b126cb3a
+@elmohq/cli:test: cache miss, executing 5d330a64dda1a944
+@workspace/deployment:check-types: $ tsc --noEmit
+@elmohq/cli:test: $ vitest run
+@workspace/deployment:test: $ vitest run
+@workspace/lib:test:  [32m✓[39m [30m[42m unit [49m[39m src/providers/coverage.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+@workspace/lib:test:  [32m✓[39m [30m[42m unit [49m[39m src/citations/page-classification.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+@workspace/lib:test:  [32m✓[39m [30m[42m unit [49m[39m src/brand-state.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+@workspace/deployment:test: 
+@workspace/deployment:test: [1m[30m[46m RUN [49m[39m[22m [36mv5.1.0 [39m[90m<AUDIT_ROOT>/upstream/elmo/packages/deployment[39m
+@workspace/deployment:test: 
+@workspace/lib:test:  [32m✓[39m [30m[42m unit [49m[39m src/scheduling-under-failure.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+@workspace/lib:test:  [32m✓[39m [30m[42m unit [49m[39m src/db/unique-names.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+@workspace/deployment:test:  [32m✓[39m src/email-templates.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 18[2mms[22m[39m
+@workspace/deployment:test:  [32m✓[39m src/deployment.test.ts [2m([22m[2m13 tests[22m[2m)[22m[32m 13[2mms[22m[39m
+@elmohq/cli:test: 
+@elmohq/cli:test: [1m[30m[46m RUN [49m[39m[22m [36mv5.1.0 [39m[90m<AUDIT_ROOT>/upstream/elmo/apps/cli[39m
+@elmohq/cli:test: 
+@workspace/lib:test:  [32m✓[39m [30m[42m unit [49m[39m src/constants.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+@workspace/lib:test:  [32m✓[39m [30m[42m unit [49m[39m src/usage/cost.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+@workspace/lib:test:  [32m✓[39m [30m[42m unit [49m[39m src/auth/permissions.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+@workspace/lib:test:  [32m✓[39m [30m[42m unit [49m[39m src/expedite.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+@elmohq/cli:test:  [32m✓[39m src/migrations/planner.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+@workspace/lib:test:  [31m❯[39m [30m[42m unit [49m[39m src/mention-judge/jev.test.ts [2m([22m[2m15 tests[22m[2m | [22m[31m1 failed[39m[2m)[22m[33m 5041[2mms[22m[39m
+@workspace/lib:test:    [32m✓[39m typesafeTransport [2m(4)[22m
+@workspace/lib:test:      [32m✓[39m sends the request with the key and returns every answer[32m 24[2mms[22m[39m
+@workspace/lib:test:      [32m✓[39m says so when the key is rejected[32m 3[2mms[22m[39m
+@workspace/lib:test:      [32m✓[39m throws on an error status, so the job retries[32m 1[2mms[22m[39m
+@workspace/lib:test:      [32m✓[39m throws when a question goes unanswered rather than judging on half an answer[32m 1[2mms[22m[39m
+@workspace/lib:test:    [32m✓[39m openRouterTransport [2m(6)[22m
+@workspace/lib:test:      [32m✓[39m asks Jev through OpenRouter with the OpenRouter key[32m 1[2mms[22m[39m
+@workspace/lib:test:      [32m✓[39m uses a key changed since the last call[32m 1[2mms[22m[39m
+@workspace/lib:test:      [32m✓[39m names the OpenRouter key when it's rejected or out of credit[32m 1[2mms[22m[39m
+@workspace/lib:test:      [32m✓[39m says the key is gone, without calling OpenRouter, once it's removed from settings[32m 1[2mms[22m[39m
+@workspace/lib:test:      [32m✓[39m recognises a too-large request in the error OpenRouter wraps TypeSafe's in[32m 1[2mms[22m[39m
+@workspace/lib:test:      [32m✓[39m reports a rate limit with how long OpenRouter asks to wait[32m 1[2mms[22m[39m
+@workspace/lib:test:    [31m❯[39m adaptivePool [2m(5)[22m
+@workspace/lib:test:      [32m✓[39m reports a rate limit with how long Jev asks to wait[32m 0[2mms[22m[39m
+@workspace/lib:test:      [32m✓[39m spaces calls out, closer together while they succeed[32m 1[2mms[22m[39m
+@workspace/lib:test:      [32m✓[39m waits out a rate limit, sends the call again, and slows down after[32m 0[2mms[22m[39m
+@workspace/lib:test: [31m     [31m×[31m keeps close to the account's limit, and follows it down without dropping calls[39m[33m 5005[2mms[22m[39m
+@workspace/lib:test:      [32m✓[39m gives up after repeated rate limits, so the job retries later, and passes other failures straight on[32m 1[2mms[22m[39m
+@elmohq/cli:test:  [32m✓[39m src/compose-pin.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+@elmohq/cli:test:  [32m✓[39m src/core/pool.test.ts [2m([22m[2m8 tests[22m[2m)[22m[32m 120[2mms[22m[39m
+@elmohq/cli:test:  [32m✓[39m src/core/brand-pack.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 19[2mms[22m[39m
+@workspace/worker:test: cache miss, executing 2d73a2bb3770f5fa
+@workspace/web:test: cache miss, executing 0aeeabd45a9e0d82
+@workspace/web:test: $ vitest run --project=unit
+@workspace/worker:test: $ vitest run --project=unit
+@elmohq/cli:test:  [32m✓[39m src/core/output.test.ts [2m([22m[2m17 tests[22m[2m)[22m[32m 27[2mms[22m[39m
+@workspace/deployment:test: [90mstdout[2m | src/auth-hooks/whitelabel.test.ts[2m > [22m[2msyncAuth0User[2m > [22m[2mapplies org memberships and flags from the user's Auth0 app_metadata
+@workspace/deployment:test: [22m[39m[auth0-sync] Syncing user=user_1
+@workspace/deployment:test: 
+@workspace/deployment:test: [90mstdout[2m | src/auth-hooks/whitelabel.test.ts[2m > [22m[2msyncAuth0User[2m > [22m[2mapplies org memberships and flags from the user's Auth0 app_metadata
+@workspace/deployment:test: [22m[39m[auth0-sync] user=user_1 already in sync
+@workspace/deployment:test: 
+@elmohq/cli:test:  [32m✓[39m src/core/report-html.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 37[2mms[22m[39m
+@elmohq/cli:test:  [32m✓[39m src/migrations/example.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+@workspace/deployment:test: [90mstdout[2m | src/auth-hooks/whitelabel.test.ts[2m > [22m[2msyncAuth0User[2m > [22m[2mrevokes all access when app_metadata is missing
+@workspace/deployment:test: [22m[39m[auth0-sync] Syncing user=user_1
+@workspace/deployment:test: 
+@workspace/deployment:test: [90mstdout[2m | src/auth-hooks/whitelabel.test.ts[2m > [22m[2msyncAuth0User[2m > [22m[2mrevokes all access when app_metadata is missing
+@workspace/deployment:test: [22m[39m[auth0-sync] user=user_1 already in sync
+@workspace/deployment:test: 
+@workspace/lib:test:  [32m✓[39m [30m[42m unit [49m[39m src/run-policy/cycle.test.ts [2m([22m[2m15 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+@workspace/deployment:test: [90mstdout[2m | src/auth-hooks/whitelabel.test.ts[2m > [22m[2msyncAuth0User[2m > [22m[2mfails without touching memberships when Auth0 rejects the management credentials
+@workspace/deployment:test: [22m[39m[auth0-sync] Syncing user=user_1
+@workspace/deployment:test: 
+@workspace/deployment:test:  [32m✓[39m src/auth-hooks/whitelabel.test.ts [2m([22m[2m3 tests[22m[2m)[22m[33m 845[2mms[22m[39m
+@workspace/deployment:test:    [32m✓[39m syncAuth0User [2m(3)[22m
+@workspace/deployment:test:      [33m[2m✓[22m[39m applies org memberships and flags from the user's Auth0 app_metadata[33m 703[2mms[22m[39m
+@elmohq/cli:test:  [32m✓[39m src/providers.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+@elmohq/cli:test:  [32m✓[39m src/judge.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+@elmohq/cli:test:  [32m✓[39m src/core/paths.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+@elmohq/cli:test:  [32m✓[39m src/core/ui.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+@workspace/lib:test: [90mstderr[2m | src/run-policy/brand-plans.test.ts
+@workspace/lib:test: [22m[39mSCRAPE_TARGETS: skipping "perplexity:brightdata:online". Perplexity now requires a login, so no scraper can reach it, but its Sonar model API still works. Replace it with perplexity:openrouter:perplexity/sonar:online or perplexity:dataforseo:online. See https://www.elmohq.com/docs/user-guide/providers.
+@workspace/lib:test: 
+@workspace/lib:test:  [32m✓[39m [30m[42m unit [49m[39m src/run-policy/brand-plans.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+@workspace/deployment:test:  [32m✓[39m src/disposable-domains.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+@elmohq/cli:test:  [32m✓[39m src/migrations/encryption-key.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+@workspace/lib:test:  [32m✓[39m [30m[42m unit [49m[39m src/providers/registry/mistral-api.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+@workspace/lib:test:  [32m✓[39m [30m[42m unit [49m[39m src/entitlements/service.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+@workspace/deployment:test:  [32m✓[39m src/billing/dunning.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+@workspace/worker:test: 
+@workspace/worker:test: [1m[30m[46m RUN [49m[39m[22m [36mv5.1.0 [39m[90m<AUDIT_ROOT>/upstream/elmo/apps/worker[39m
+@workspace/worker:test: 
+@workspace/lib:test:  [32m✓[39m [30m[42m unit [49m[39m src/onboarding/llm.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+@elmohq/cli:test:  [32m✓[39m src/commands/audit.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 3[2mms[22m[39m
+@workspace/deployment:test:  [32m✓[39m src/billing/addon.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+@workspace/worker:test: [90mstdout[2m | src/mention-judge/index.test.ts[2m > [22m[2mreads the OpenRouter key as a provider credential when there's no TypeSafe key
+@workspace/worker:test: [22m[39m[mention-judge] No TYPESAFE_API_KEY: calling Jev through OpenRouter, billed to OPENROUTER_API_KEY.
+@workspace/worker:test: 
+@workspace/worker:test:  [32m✓[39m [30m[42m unit [49m[39m src/mention-judge/index.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 21[2mms[22m[39m
+@workspace/lib:test: [90mstderr[2m | src/p0-policy.test.ts[2m > [22m[2mP0 offline request policy[2m > [22m[2mrejects real judge credentials and fallback selection in offline mode
+@workspace/lib:test: [22m[39m[mention-judge] TYPESAFE_API_KEY=stub: judging from cue words, not Jev. For tests and development only.
+@workspace/lib:test: 
+@workspace/lib:test:  [32m✓[39m [30m[42m unit [49m[39m src/p0-policy.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 4[2mms[22m[39m
+@workspace/lib:test: 
+@workspace/lib:test: [31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 1 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+@workspace/lib:test: 
+@workspace/lib:test: [41m[1m FAIL [22m[49m [30m[42m unit [49m[39m src/mention-judge/jev.test.ts[2m > [22madaptivePool[2m > [22mkeeps close to the account's limit, and follows it down without dropping calls
+@workspace/lib:test: [31m[1mError[22m: Test timed out in 5000ms.
+@workspace/lib:test: If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".[39m
+@workspace/lib:test: [36m [2m❯[22m src/mention-judge/jev.test.ts:[2m166:2[22m[39m
+@workspace/lib:test:     [90m164|[39m  })[33m;[39m
+@workspace/lib:test:     [90m165|[39m
+@workspace/lib:test:     [90m166|[39m  it("keeps close to the account's limit, and follows it down without d…
+@workspace/lib:test:     [90m   |[39m  [31m^[39m
+@workspace/lib:test:     [90m167|[39m   [35mlet[39m time [33m=[39m [34m0[39m[33m;[39m
+@workspace/lib:test:     [90m168|[39m   [35mconst[39m timers[33m:[39m { at[33m:[39m number[33m;[39m resolve[33m:[39m () [33m=>[39m [35mvoid[39m }[] [33m=[39m [][33m;[39m
+@workspace/lib:test: 
+@workspace/lib:test: [31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m
+@workspace/lib:test: 
+@workspace/lib:test: 
+@workspace/lib:test: [2m Test Files [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m54 passed[39m[22m[90m (55)[39m
+@workspace/lib:test: [2m      Tests [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m856 passed[39m[22m[90m (857)[39m
+@workspace/lib:test: [2m   Start at [22m 10:12:35
+@workspace/lib:test: [2m   Duration [22m 6.70s[2m (import 81%, tests 16%, transform 3%, worker 1%)[22m
+@workspace/lib:test: 
+@workspace/lib:test: [ELIFECYCLE] Test failed. See above for more details.
+@workspace/lib#test:  ERROR  command (<AUDIT_ROOT>/upstream/elmo/packages/lib) <AUDIT_ROOT>/runtime/pnpm-native/package/pnpm run test exited (1)
+
+ Tasks:    10 successful, 15 total
+Cached:    2 cached, 15 total
+  Time:    7.36s 
+Failed:    @workspace/lib#test
+
+ ERROR  run failed: command  exited (1)
+[ELIFECYCLE] Test failed. See above for more details.

@@ -1,0 +1,20 @@
+{
+  "mode": "UPSTREAM_STUB",
+  "planned": 10,
+  "stored": 10,
+  "stub_processed": 10,
+  "qualified_live_judgements": 0,
+  "groups": {
+    "non_brand": {
+      "answers": 8,
+      "stub_mentions": 0
+    },
+    "brand_control": {
+      "answers": 2,
+      "stub_mentions": 2
+    }
+  },
+  "live_visibility": null,
+  "live_citation_rate": null,
+  "semantic_quality": null
+}

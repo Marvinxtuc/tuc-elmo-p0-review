@@ -1,0 +1,1 @@
+{"source": "OS_POLICY_AND_APPLICATION_CHECKS", "runtime_policy_sha256": "cbc8bda6e55a0102494180dd5fd86137d362b4717cd8cb895dd8e448d997fded", "allowed_runtime_outbound": "localhost:17332", "public_api_routes_enabled": false, "proof_log": "logs/os-egress-proof.log", "browser_evidence": "browser-brand.json", "live_requests": 0, "full_packet_capture": false}

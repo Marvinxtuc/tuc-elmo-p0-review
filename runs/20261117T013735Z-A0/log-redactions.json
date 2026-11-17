@@ -1,0 +1,8 @@
+{
+  "redacted_protocol_token_paths": [
+    "runs/20261117T013735Z-A0/logs/p0-worker-isolated-home.log",
+    "runs/20261117T013735Z-A0/logs/worker-final-verified.log"
+  ],
+  "originals": "Project-private secrets/private-runtime-logs",
+  "real_provider_credentials_used": false
+}

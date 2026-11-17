@@ -1,0 +1,26 @@
+Starting pg-boss worker...
+SCRAPE_TARGETS validated
+[mention-judge] TYPESAFE_API_KEY=stub: judging from cue words, not Jev. For tests and development only.
+Judging mentions with stub+request-1
+pg-boss started
+Queues created
+Scheduled maintenance job (every 5 minutes)
+Scheduled request-reprocesses job (every minute)
+Scheduled refresh-rollups job (every minute)
+[rollups-startup] rollups behind version 3; full mark and catch-up queued
+Registered handler: process-prompt
+Registered handler: generate-report
+Registered handler: analyze-brand
+Registered handler: suggest-prompts
+Registered handler: schedule-maintenance
+Registered handler: derive-runs
+Registered handler: reprocess
+Registered handler: request-reprocesses
+Registered handler: refresh-rollups
+Registered handler: rollup-catch-up
+All handlers registered, worker is ready
+[rollup-catch-up] rollups moving to version 3: marked 0 buckets
+[background-migration] legacy-citation-pages finished (0 rows this run)
+[background-migration] legacy-run-text-by-engine finished (0 rows this run)
+Received SIGTERM, shutting down gracefully...
+Worker stopped

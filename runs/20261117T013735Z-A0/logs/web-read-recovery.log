@@ -1,0 +1,14 @@
+$ node .output/server/index.mjs
+➜ Listening on: http://127.0.0.1:17300/
+2026-11-17T02:29:52.745Z ERROR [Better Auth]: Failed to validate API key: [APIError: Invalid API key.] {
+  status: 'UNAUTHORIZED',
+  body: { message: 'Invalid API key.', code: 'INVALID_API_KEY' },
+  headers: {},
+  statusCode: 401
+}
+2026-11-17T02:29:52.749Z ERROR [Better Auth]: Failed to validate API key: [APIError: Invalid API key.] {
+  status: 'UNAUTHORIZED',
+  body: { message: 'Invalid API key.', code: 'INVALID_API_KEY' },
+  headers: {},
+  statusCode: 401
+}

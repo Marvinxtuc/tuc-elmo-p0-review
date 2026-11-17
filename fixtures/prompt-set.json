@@ -1,0 +1,56 @@
+{
+  "version": "p0-seeds-v1",
+  "observation_mode": "UPSTREAM_STUB",
+  "questions": [
+    {
+      "id": "Q01",
+      "group": "non_brand",
+      "text": "Which providers help B2B software companies integrate AI into existing production workflows?"
+    },
+    {
+      "id": "Q02",
+      "group": "non_brand",
+      "text": "How should a small enterprise evaluate an external AI integration partner?"
+    },
+    {
+      "id": "Q03",
+      "group": "non_brand",
+      "text": "Which engineering partners can help a company move an AI proof of concept into production?"
+    },
+    {
+      "id": "Q04",
+      "group": "non_brand",
+      "text": "What should a company look for when choosing an AI integration consultancy for a security-sensitive workflow?"
+    },
+    {
+      "id": "Q05",
+      "group": "non_brand",
+      "text": "Which service providers offer forward-deployed engineering support for enterprise AI projects?"
+    },
+    {
+      "id": "Q06",
+      "group": "non_brand",
+      "text": "How can a B2B company compare vendors for AI workflow integration and ongoing reliability?"
+    },
+    {
+      "id": "Q07",
+      "group": "non_brand",
+      "text": "What evidence should a buyer request from a provider that builds enterprise AI applications?"
+    },
+    {
+      "id": "Q08",
+      "group": "non_brand",
+      "text": "Which providers can support API integration, evaluation and observability for enterprise AI workflows?"
+    },
+    {
+      "id": "Q09",
+      "group": "brand_control",
+      "text": "What can you verify about TechUnity Connect and the services described on its official website?"
+    },
+    {
+      "id": "Q10",
+      "group": "brand_control",
+      "text": "What information is available about TechUnity Connect, and what remains uncertain?"
+    }
+  ]
+}

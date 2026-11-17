@@ -1,0 +1,30 @@
+{
+  "approval_id": "A0-user-20261117",
+  "authority": "User message in this chat",
+  "approval_text": "A0 approved by user. A1 not granted.",
+  "recorded_at_utc": "2026-11-17T01:37:35.835220+00:00",
+  "approved_by": "PROJECT_OWNER",
+  "scope_reference": "G0 G1_G5_EXECUTION_CHECKLIST.md, owner decision 1",
+  "scope": [
+    "G1",
+    "G2",
+    "G3 offline",
+    "G5 offline"
+  ],
+  "runtime_root": "<AUDIT_ROOT>",
+  "machine": "Current local Mac mini",
+  "new_test_databases": [
+    "tuc_elmo_p0_test",
+    "tuc_elmo_p0_restore"
+  ],
+  "resources_proposed_and_approved": {
+    "vcpus": 2,
+    "memory_gib": 6,
+    "new_disk_gib": 10
+  },
+  "new_cash_spend_usd": 0,
+  "A1": "NOT_GRANTED",
+  "production_changes": false,
+  "real_model_calls": false,
+  "deletion_or_volume_cleanup_approved": false
+}

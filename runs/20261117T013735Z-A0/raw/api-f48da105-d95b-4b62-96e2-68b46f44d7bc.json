@@ -1,0 +1,21 @@
+{
+  "id": "f48da105-d95b-4b62-96e2-68b46f44d7bc",
+  "promptId": "dccd10d9-350f-43a6-8435-5b45c6fcd22d",
+  "brandId": "tuc-p0-internal",
+  "model": "stub",
+  "provider": "stub",
+  "webSearchEnabled": false,
+  "brandMentioned": false,
+  "competitorsMentioned": [],
+  "assessments": {
+    "brand": null,
+    "competitors": {}
+  },
+  "webQueries": [],
+  "citationCount": 0,
+  "createdAt": "2026-11-17T01:55:45.164Z",
+  "answer": {
+    "text": "Which service providers offer forward-deployed engineering support for enterprise AI projects?"
+  },
+  "citations": []
+}

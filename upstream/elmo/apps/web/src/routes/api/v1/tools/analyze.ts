@@ -1,0 +1,56 @@
+/**
+ * POST /api/v1/tools/analyze
+ *
+ * Run brand analysis without persisting anything. Returns suggested
+ * additionalDomains, aliases, competitors, and prompts so the caller can
+ * feed the result into POST /api/v1/brands themselves (or filter it first).
+ *
+ * Protected by API key authentication.
+ */
+import { createFileRoute } from "@tanstack/react-router";
+import { analyzeBrand, cleanOnboardingUrl } from "@workspace/lib/onboarding";
+import { z } from "zod";
+import { createApiHandler, withMethodGuard } from "@/lib/api/handler";
+import { onboardingSuggestionSchema } from "@/lib/api/schemas/tools";
+
+const analyzeBody = z.object({
+	// Mirrors the checks inside analyzeBrand so an unparseable or unfetchable
+	// website is a 400 here instead of an opaque 500 from the analyzer. A full
+	// page URL is analyzed as given; the returned `website` is its domain.
+	website: z
+		.string("website is required")
+		.trim()
+		.min(1, "website is required")
+		.refine((website) => cleanOnboardingUrl(website) !== "", "website must be a valid domain or http(s) URL"),
+	brandName: z.string().trim().optional(),
+	maxCompetitors: z
+		.int("maxCompetitors must be a non-negative integer")
+		.min(0, "maxCompetitors must be a non-negative integer")
+		.max(100, "maxCompetitors must be at most 100")
+		.default(20),
+	maxPrompts: z
+		.int("maxPrompts must be a non-negative integer")
+		.min(0, "maxPrompts must be a non-negative integer")
+		.max(100, "maxPrompts must be at most 100")
+		.default(30),
+});
+
+export const Route = createFileRoute("/api/v1/tools/analyze")({
+	server: {
+		handlers: withMethodGuard({
+			POST: createApiHandler({
+				response: onboardingSuggestionSchema,
+				adminOnly: true,
+				body: analyzeBody,
+				handle: async ({ body }) => {
+					return await analyzeBrand({
+						website: body.website,
+						brandName: body.brandName,
+						maxCompetitors: body.maxCompetitors,
+						maxPrompts: body.maxPrompts,
+					});
+				},
+			}),
+		}),
+	},
+});

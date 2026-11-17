@@ -1,0 +1,104 @@
+{
+  "metadata": {
+    "vulnerabilities": {
+      "info": 0,
+      "low": 1,
+      "moderate": 6,
+      "high": 0,
+      "critical": 0
+    },
+    "dependencies": 1049,
+    "devDependencies": 589,
+    "optionalDependencies": 312,
+    "totalDependencies": 1846
+  },
+  "advisories": [
+    {
+      "id": "GHSA-qv5m-9pm6-hqp3",
+      "module": "@hono/node-server",
+      "severity": "moderate",
+      "title": "@hono/node-server: Unhandled `ECONNRESET` on the socket during an asynchronous WebSocket upgrade crashes the process",
+      "paths": [
+        "e2e>@modelcontextprotocol/sdk>@hono/node-server",
+        "apps__web>@modelcontextprotocol/sdk>@hono/node-server"
+      ],
+      "url": "https://github.com/advisories/GHSA-qv5m-9pm6-hqp3"
+    },
+    {
+      "id": "GHSA-jpvv-r467-5p4w",
+      "module": "@hono/node-server",
+      "severity": "moderate",
+      "title": "@hono/node-server: Backslash in the request path is parsed as a path separator, bypassing path-based access control at a reverse proxy",
+      "paths": [
+        "e2e>@modelcontextprotocol/sdk>@hono/node-server",
+        "apps__web>@modelcontextprotocol/sdk>@hono/node-server"
+      ],
+      "url": "https://github.com/advisories/GHSA-jpvv-r467-5p4w"
+    },
+    {
+      "id": "GHSA-4m76-xfj5-7975",
+      "module": "hono",
+      "severity": "moderate",
+      "title": "Hono: `mount()` and `app.mount()` can forward a path that bypasses middleware scoped inside the mount prefix",
+      "paths": [
+        "e2e>@modelcontextprotocol/sdk>@hono/node-server>hono",
+        "e2e>@modelcontextprotocol/sdk>hono",
+        "apps__web>@modelcontextprotocol/sdk>@hono/node-server>hono",
+        "apps__web>@modelcontextprotocol/sdk>hono"
+      ],
+      "url": "https://github.com/advisories/GHSA-4m76-xfj5-7975"
+    },
+    {
+      "id": "GHSA-h7mg-cq63-vhpq",
+      "module": "hono",
+      "severity": "moderate",
+      "title": "Hono: RegExpRouter skips wildcard middleware for some route sets and for paths with an encoded line terminator",
+      "paths": [
+        "e2e>@modelcontextprotocol/sdk>@hono/node-server>hono",
+        "e2e>@modelcontextprotocol/sdk>hono",
+        "apps__web>@modelcontextprotocol/sdk>@hono/node-server>hono",
+        "apps__web>@modelcontextprotocol/sdk>hono"
+      ],
+      "url": "https://github.com/advisories/GHSA-h7mg-cq63-vhpq"
+    },
+    {
+      "id": "GHSA-3gg2-335m-rxc6",
+      "module": "hono",
+      "severity": "low",
+      "title": "Hono: `css` helper does not escape a closing tag split between the template and an interpolated value, allowing HTML injection",
+      "paths": [
+        "e2e>@modelcontextprotocol/sdk>@hono/node-server>hono",
+        "e2e>@modelcontextprotocol/sdk>hono",
+        "apps__web>@modelcontextprotocol/sdk>@hono/node-server>hono",
+        "apps__web>@modelcontextprotocol/sdk>hono"
+      ],
+      "url": "https://github.com/advisories/GHSA-3gg2-335m-rxc6"
+    },
+    {
+      "id": "GHSA-46wx-v44x-9hh2",
+      "module": "hono",
+      "severity": "moderate",
+      "title": "Hono: `csrf()` does not check requests sent by hyperlink auditing (`text/ping`)",
+      "paths": [
+        "e2e>@modelcontextprotocol/sdk>@hono/node-server>hono",
+        "e2e>@modelcontextprotocol/sdk>hono",
+        "apps__web>@modelcontextprotocol/sdk>@hono/node-server>hono",
+        "apps__web>@modelcontextprotocol/sdk>hono"
+      ],
+      "url": "https://github.com/advisories/GHSA-46wx-v44x-9hh2"
+    },
+    {
+      "id": "GHSA-4h7h-rv7c-7m2v",
+      "module": "hono",
+      "severity": "moderate",
+      "title": "Hono: `validator('form')` skips validation for `multipart/form-data` requests with extra parameters",
+      "paths": [
+        "e2e>@modelcontextprotocol/sdk>@hono/node-server>hono",
+        "e2e>@modelcontextprotocol/sdk>hono",
+        "apps__web>@modelcontextprotocol/sdk>@hono/node-server>hono",
+        "apps__web>@modelcontextprotocol/sdk>hono"
+      ],
+      "url": "https://github.com/advisories/GHSA-4h7h-rv7c-7m2v"
+    }
+  ]
+}

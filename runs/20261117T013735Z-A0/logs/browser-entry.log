@@ -1,0 +1,7 @@
+{
+  "url": "http://127.0.0.1:17300/auth/register",
+  "text": "{\"status\":500,\"statusText\":\"\",\"unhandled\":true,\"message\":\"HTTPError\"}",
+  "inputs": [],
+  "pageErrors": [],
+  "blocked": []
+}

@@ -1,0 +1,21 @@
+{
+  "id": "bc70d260-2f55-44fd-a5ed-2ce65cfaa3f1",
+  "promptId": "13bef519-6ed7-4852-a56e-869d62b7a12f",
+  "brandId": "tuc-p0-internal",
+  "model": "stub",
+  "provider": "stub",
+  "webSearchEnabled": false,
+  "brandMentioned": false,
+  "competitorsMentioned": [],
+  "assessments": {
+    "brand": null,
+    "competitors": {}
+  },
+  "webQueries": [],
+  "citationCount": 0,
+  "createdAt": "2026-11-17T01:55:39.179Z",
+  "answer": {
+    "text": "Which engineering partners can help a company move an AI proof of concept into production?"
+  },
+  "citations": []
+}

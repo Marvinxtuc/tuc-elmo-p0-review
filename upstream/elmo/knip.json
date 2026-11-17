@@ -1,0 +1,83 @@
+{
+  "$schema": "https://unpkg.com/knip@5/schema.json",
+  "ignoreWorkspaces": [
+    "packages/ui"
+  ],
+  "workspaces": {
+    ".": {
+      "entry": [
+        "turbo.json"
+      ],
+      "ignoreBinaries": [
+        "playwright",
+        "drizzle-kit"
+      ]
+    },
+    "apps/web": {
+      "entry": [
+        "src/routes/**/*.{ts,tsx}!",
+        "scripts/*.ts"
+      ],
+      "project": [
+        "src/**/*.{ts,tsx}",
+        "scripts/**/*.ts"
+      ],
+      "ignore": [
+        "src/stories/_mocks/**"
+      ],
+      "ignoreDependencies": [
+        "tailwindcss",
+        "tw-animate-css",
+        "@tailwindcss/typography",
+        "@fontsource/geist-sans",
+        "@base-ui/react",
+        "@takumi-rs/core"
+      ]
+    },
+    "apps/www": {
+      "entry": [
+        "scripts/**"
+      ],
+      "ignoreDependencies": [
+        "shiki",
+        "@takumi-rs/core"
+      ]
+    },
+    "apps/cli": {
+      "ignoreDependencies": [
+        "@ai-sdk/anthropic",
+        "@ai-sdk/openai",
+        "@anthropic-ai/sdk",
+        "@brightdata/sdk",
+        "ai",
+        "dataforseo-client",
+        "olostep"
+      ]
+    },
+    "packages/og": {
+      "ignoreDependencies": [
+        "nitro"
+      ]
+    },
+    "packages/lib": {
+      "entry": [
+        "scripts/*.mjs"
+      ],
+      "ignoreDependencies": [
+        "auth"
+      ]
+    },
+    "e2e": {
+      "entry": [
+        "*.ts",
+        "tests/**/*.setup.ts"
+      ],
+      "project": [
+        "**/*.ts"
+      ],
+      "ignoreBinaries": [
+        "script"
+      ]
+    }
+  }
+}

@@ -1,0 +1,10 @@
+packages/config check-types$ tsc --noEmit
+packages/config check-types: Done
+packages/lib check-types$ tsc --noEmit
+packages/lib check-types: Done
+packages/deployment check-types$ tsc --noEmit
+packages/deployment check-types: Done
+apps/worker check-types$ tsc --noEmit
+apps/web check-types$ tsc --noEmit
+apps/worker check-types: Done
+apps/web check-types: Done
