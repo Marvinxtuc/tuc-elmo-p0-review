@@ -1,0 +1,19 @@
+✔ COST-01 missing approval and live endpoint fail before HTTP (11.676ms)
+✔ COST-02 missing evidence, shared quota, expiry and quota expiry fail closed (12.542125ms)
+✔ COST-03 twenty processes share one atomic slot across all roles (613.928833ms)
+✔ COST-04 input output thinking tools search providerOptions stream and budget limits (23.909083ms)
+✔ PRV-01 PRV-05 and COST-08 bind provider endpoint region model role and credential (25.546375ms)
+✔ COST-05 401 403 429 5xx timeout disconnect redirect unknown usage halt without retry or refund (93.300125ms)
+{"method":"revoke","stopped_within_ms":8}
+{"method":"emergencyStop","stopped_within_ms":7}
+✔ COST-09 revoke and emergency stop cancel in-flight and deny subsequent roles (18.187083ms)
+{"fixture_directory":"<USER_HOME>/Desktop/tuc-elmo-b1/runtime/guard-tests-jtHwLE","local_http_hits":13,"real_model_calls":0}
+✔ PRV-06 successful local fixture has explicit empty tools and bounded usage (3.548083ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1096.426709

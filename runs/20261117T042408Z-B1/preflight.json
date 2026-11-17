@@ -1,0 +1,10 @@
+{
+  "run_id": "20261117T042408Z-B1",
+  "baseline": "b287610a2576531a52fe6fe90bccf0fa70d80648",
+  "branch": "b1-offline-remediation-20261117",
+  "source_runtime_reused": true,
+  "dependency_trees": 14,
+  "authority": "approvals/B1.json",
+  "real_provider_calls": 0,
+  "stage": "B1"
+}

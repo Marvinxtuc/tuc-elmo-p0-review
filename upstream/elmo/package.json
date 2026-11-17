@@ -15,7 +15,7 @@
     "test": "turbo test",
     "format": "biome format --write --config-path=biome.json .",
     "knip": "knip",
-    "elmo": "tsx apps/cli/src/index.ts",
+    "elmo": "node --import tsx apps/cli/src/index.ts",
     "cli:link": "npm unlink -g @elmohq/cli || true && pnpm -C apps/cli build && (cd apps/cli && npm link)",
     "cli:unlink": "npm unlink -g @elmohq/cli",
     "changeset": "changeset",

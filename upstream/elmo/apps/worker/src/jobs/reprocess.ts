@@ -7,6 +7,7 @@ import {
 	MENTIONS_KEY,
 	NAME_MATCHED_MENTIONS_STAMP,
 } from "@workspace/lib/analysis-versions";
+import { isP0Offline } from "@workspace/lib/constants";
 import { db } from "@workspace/lib/db/db";
 import type { DbConnection } from "@workspace/lib/db/db-connection";
 import {
@@ -275,11 +276,13 @@ export async function adoptCurrentStamps(conn: DbConnection = db): Promise<numbe
 }
 
 export async function requestReprocessesJob(): Promise<void> {
+	if (isP0Offline()) throw new Error("P0 rejects unapproved generation jobs before side effects");
 	const requested = await requestStaleReprocesses();
 	if (requested > 0) console.log(`[reprocess] requested passes for ${requested} brands`);
 }
 
 export async function reprocessJob(jobs: Job<ReprocessData>[]): Promise<void> {
+	if (isP0Offline()) throw new Error("P0 rejects unapproved generation jobs before side effects");
 	for (const job of jobs) {
 		await runReprocess(job.data);
 	}

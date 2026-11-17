@@ -1,0 +1,8 @@
+packages/lib check-types$ tsc --noEmit
+packages/lib check-types: Done
+apps/worker check-types$ tsc --noEmit
+apps/web check-types$ tsc --noEmit
+apps/cli check-types$ tsc -p tsconfig.json
+apps/cli check-types: Done
+apps/worker check-types: Done
+apps/web check-types: Done

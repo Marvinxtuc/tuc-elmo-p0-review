@@ -1,0 +1,80 @@
+{
+  "route": "/status/403",
+  "hits": 1,
+  "snapshot": {
+    "attempts": [
+      {
+        "id": "3f189b2b-e515-4081-8591-1b138fe5a14b",
+        "approval_id": "fixture",
+        "role": "sample",
+        "owner_pid": 6002,
+        "started_at": 1794890818102,
+        "ended_at": 1794890818103,
+        "state": "UNKNOWN_CHARGE",
+        "reserved_tokens": 101,
+        "input_bound": 85,
+        "output_bound": 16,
+        "input_used": null,
+        "output_used": null,
+        "body_sha256": "65dd88cda51d187b0ddad695508240fdc296b9b62bc1b6d38fe129c943a2f52b",
+        "error_code": "HTTP_403"
+      }
+    ],
+    "events": [
+      {
+        "sequence": 1,
+        "at": 1794890818102,
+        "kind": "MOCK_APPROVAL_REGISTERED",
+        "approval_id": "fixture",
+        "attempt_id": null,
+        "detail": "No live authorization"
+      },
+      {
+        "sequence": 2,
+        "at": 1794890818102,
+        "kind": "RESERVED",
+        "approval_id": "fixture",
+        "attempt_id": "3f189b2b-e515-4081-8591-1b138fe5a14b",
+        "detail": "sample"
+      },
+      {
+        "sequence": 3,
+        "at": 1794890818102,
+        "kind": "HTTP_ATTEMPT",
+        "approval_id": "fixture",
+        "attempt_id": "3f189b2b-e515-4081-8591-1b138fe5a14b",
+        "detail": "http://127.0.0.1:17441/status/403"
+      },
+      {
+        "sequence": 4,
+        "at": 1794890818103,
+        "kind": "UNKNOWN_CHARGE",
+        "approval_id": "fixture",
+        "attempt_id": "3f189b2b-e515-4081-8591-1b138fe5a14b",
+        "detail": "HTTP_403"
+      },
+      {
+        "sequence": 5,
+        "at": 1794890818103,
+        "kind": "HALTED",
+        "approval_id": "fixture",
+        "attempt_id": null,
+        "detail": "BATCH_HALTED"
+      },
+      {
+        "sequence": 6,
+        "at": 1794890818103,
+        "kind": "DENIED",
+        "approval_id": "fixture",
+        "attempt_id": null,
+        "detail": "BATCH_HALTED"
+      }
+    ],
+    "approvals": [
+      {
+        "id": "fixture",
+        "halted": "BATCH_HALTED"
+      }
+    ]
+  }
+}

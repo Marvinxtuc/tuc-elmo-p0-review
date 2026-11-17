@@ -202,3 +202,17 @@ describe("the MCP server", () => {
 		await close();
 	});
 });
+
+it("rejects a directly registered write tool in offline mode without calling its implementation", async () => {
+	vi.stubEnv("TUC_P0_OFFLINE", "1");
+	const write = vi.fn(async () => ({ changed: true }));
+	const { client, close } = await connect([stubTool({ name: "unapproved_writer", readOnly: false, run: write })]);
+	try {
+		const response = await client.callTool({ name: "unapproved_writer", arguments: {} });
+		expect(response.isError).toBe(true);
+		expect(textOf(response)).toBe("P0_READ_ONLY");
+		expect(write).not.toHaveBeenCalled();
+	} finally {
+		await close();
+	}
+});

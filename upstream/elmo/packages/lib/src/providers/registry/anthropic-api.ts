@@ -8,6 +8,7 @@ import {
 	RESEARCH_WEB_SEARCH_MAX_USES,
 	warnIfOutputCapped,
 } from "../config";
+import { guardProvider } from "../p0";
 import type {
 	Provider,
 	ProviderOptions,
@@ -26,7 +27,7 @@ function getAnthropicLanguageModel(model: string) {
 }
 
 function getClient(): Anthropic {
-	return new Anthropic({ apiKey: getCredential("ANTHROPIC_API_KEY")! });
+	return new Anthropic({ maxRetries: 0, apiKey: getCredential("ANTHROPIC_API_KEY")! });
 }
 
 async function runAnthropic(prompt: string, model: string, options?: ProviderOptions): Promise<ScrapeResult> {
@@ -92,7 +93,7 @@ async function runAnthropic(prompt: string, model: string, options?: ProviderOpt
 	};
 }
 
-export const anthropicApi: Provider = {
+export const anthropicApi: Provider = guardProvider({
 	id: "anthropic-api",
 	name: "Anthropic API",
 	access: "api",
@@ -119,4 +120,4 @@ export const anthropicApi: Provider = {
 		});
 		return { object, modelVersion: DEFAULT_RESEARCH_MODEL };
 	},
-};
+});

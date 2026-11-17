@@ -1,0 +1,24 @@
+packages/lib/src/secrets/store.ts:61:23 lint/complexity/noExcessiveCognitiveComplexity ━━━━━━━━━━━━━
+
+  × Excessive complexity of 16 detected (max: 15).
+  
+    59 │ }
+    60 │ 
+  > 61 │ export async function refreshCredentialOverlay(): Promise<void> {
+       │                       ^^^^^^^^^^^^^^^^^^^^^^^^
+    62 │ 	let keyring: Keyring | null = null;
+    63 │ 	try {
+  
+  i Please refactor this function to reduce its complexity score from 16 to the max allowed complexity 15.
+  
+
+Skipped 118 suggested fixes.
+If you wish to apply the suggested (unsafe) fixes, use the command biome check --write --unsafe
+
+Checked 1076 files in 439ms. Fixed 1 file.
+Found 1 error.
+check ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Some errors were emitted while applying fixes.
+  
+

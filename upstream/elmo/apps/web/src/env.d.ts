@@ -79,6 +79,8 @@ declare global {
 			readonly SENTRY_TRACES_SAMPLE_RATE?: string;
 			readonly DISABLE_TELEMETRY?: string;
 			readonly TUC_P0_OFFLINE?: string;
+			readonly TUC_P0_STAGE?: string;
+			readonly TUC_P0_BATCH_ID?: string;
 			readonly STRIPE_SECRET_KEY?: string;
 			readonly STRIPE_WEBHOOK_SECRET?: string;
 			readonly RESEND_API_KEY?: string;

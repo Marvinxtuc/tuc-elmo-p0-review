@@ -1,0 +1,45 @@
+Starting pg-boss worker...
+[secrets] could not load stored credentials — using environment credentials for now: DrizzleQueryError: Failed query: select "name", "encrypted_value" from "secrets"
+params: 
+    at NodePgPreparedQuery.queryWithCache (<USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo/node_modules/.pnpm/drizzle-orm@0.45.4_@opentelemetry+api@1.9.1_@prisma+client@5.22.0_@types+pg@8.23.1_@ups_92f99198eb55338f836db97c47c39192/node_modules/src/pg-core/session.ts:73:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async <anonymous> (<USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo/node_modules/.pnpm/drizzle-orm@0.45.4_@opentelemetry+api@1.9.1_@prisma+client@5.22.0_@types+pg@8.23.1_@ups_92f99198eb55338f836db97c47c39192/node_modules/src/node-postgres/session.ts:154:19)
+    ... 2 lines matching cause stack trace ...
+    at async main (<USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo/apps/worker/src/index.ts:46:2) {
+  query: 'select "name", "encrypted_value" from "secrets"',
+  params: [],
+  cause: Error: connect ECONNREFUSED 127.0.0.1:17332
+      at <USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo/node_modules/.pnpm/pg-pool@3.14.0_pg@8.23.1/node_modules/pg-pool/index.js:45:11
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async <anonymous> (<USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo/node_modules/.pnpm/drizzle-orm@0.45.4_@opentelemetry+api@1.9.1_@prisma+client@5.22.0_@types+pg@8.23.1_@ups_92f99198eb55338f836db97c47c39192/node_modules/src/node-postgres/session.ts:161:13)
+      at async NodePgPreparedQuery.queryWithCache (<USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo/node_modules/.pnpm/drizzle-orm@0.45.4_@opentelemetry+api@1.9.1_@prisma+client@5.22.0_@types+pg@8.23.1_@ups_92f99198eb55338f836db97c47c39192/node_modules/src/pg-core/session.ts:71:12)
+      at async <anonymous> (<USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo/node_modules/.pnpm/drizzle-orm@0.45.4_@opentelemetry+api@1.9.1_@prisma+client@5.22.0_@types+pg@8.23.1_@ups_92f99198eb55338f836db97c47c39192/node_modules/src/node-postgres/session.ts:154:19)
+      at async refreshCredentialOverlay (<USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo/packages/lib/src/secrets/store.ts:76:15)
+      at async startCredentialRefresh (<USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo/packages/lib/src/secrets/refresh.ts:33:2)
+      at async main (<USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo/apps/worker/src/index.ts:46:2) {
+    errno: -61,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 17332
+  }
+}
+SCRAPE_TARGETS validated
+[mention-judge] TYPESAFE_API_KEY=stub: judging from cue words, not Jev. For tests and development only.
+Judging mentions with stub+request-1
+Failed to start worker: Error: connect ECONNREFUSED 127.0.0.1:17332
+    at <USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo/node_modules/.pnpm/pg-pool@3.14.0_pg@8.23.1/node_modules/pg-pool/index.js:45:11
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async Db.executeSql (<USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo/node_modules/.pnpm/pg-boss@12.38.1_@opentelemetry+api@1.9.1/node_modules/pg-boss/dist/db.js:156:16)
+    at async Contractor.isInstalled (<USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo/node_modules/.pnpm/pg-boss@12.38.1_@opentelemetry+api@1.9.1/node_modules/pg-boss/dist/contractor.js:80:24)
+    at async Contractor.check (<USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo/node_modules/.pnpm/pg-boss@12.38.1_@opentelemetry+api@1.9.1/node_modules/pg-boss/dist/contractor.js:256:27)
+    at async PgBoss.#doStart (<USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo/node_modules/.pnpm/pg-boss@12.38.1_@opentelemetry+api@1.9.1/node_modules/pg-boss/dist/index.js:215:13)
+    at async PgBoss.#startAttempts (<USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo/node_modules/.pnpm/pg-boss@12.38.1_@opentelemetry+api@1.9.1/node_modules/pg-boss/dist/index.js:171:28)
+    at async PgBoss.start (<USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo/node_modules/.pnpm/pg-boss@12.38.1_@opentelemetry+api@1.9.1/node_modules/pg-boss/dist/index.js:155:20)
+    at async main (<USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo/apps/worker/src/index.ts:66:2) {
+  errno: -61,
+  code: 'ECONNREFUSED',
+  syscall: 'connect',
+  address: '127.0.0.1',
+  port: 17332
+}

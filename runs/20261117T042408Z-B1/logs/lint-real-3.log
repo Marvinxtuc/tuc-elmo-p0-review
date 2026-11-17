@@ -1,0 +1,483 @@
+$ biome check --diagnostic-level=error --config-path=biome.json .
+apps/cli/src/index.ts:2:1 assist/source/organizeImports  FIXABLE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Sort these imports.
+  
+    1 │ #!/usr/bin/env node
+  > 2 │ import { Command } from "commander";
+      │ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  > 3 │ import { assertP0Runtime } from "@workspace/lib/constants";
+      │ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    4 │ import pc from "picocolors";
+    5 │ import { type AuditOptions, runAudit } from "./commands/audit.js";
+  
+  i Safe fix: Organize imports and exports (Biome)
+  
+     1  1 │   #!/usr/bin/env node
+     2    │ - import·{·Command·}·from·"commander";
+     3    │ - import·{·assertP0Runtime·}·from·"@workspace/lib/constants";
+        2 │ + import·{·assertP0Runtime·}·from·"@workspace/lib/constants";
+        3 │ + import·{·Command·}·from·"commander";
+     4  4 │   import pc from "picocolors";
+     5  5 │   import { type AuditOptions, runAudit } from "./commands/audit.js";
+  
+
+apps/web/src/server.ts format ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Formatter would have printed the following content:
+  
+    60 60 │           assertP0Runtime();
+    61 61 │           const path = new URL(request.url).pathname;
+    62    │ - → → → → if·(
+    63    │ - → → → → → isP0Offline()·&&
+    64    │ - → → → → → !["GET",·"HEAD",·"OPTIONS"].includes(request.method)·&&
+    65    │ - → → → → → !/^\/api\/mcp\/?$/.test(path)
+    66    │ - → → → → )·{
+       62 │ + → → → → if·(isP0Offline()·&&·!["GET",·"HEAD",·"OPTIONS"].includes(request.method)·&&·!/^\/api\/mcp\/?$/.test(path))·{
+    67 63 │             return Response.json({ code: "P0_READ_ONLY" }, { status: 403 });
+    68 64 │           }
+  
+
+apps/worker/src/index.ts:1:1 assist/source/organizeImports  FIXABLE  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Sort these imports.
+  
+   > 1 │ import * as Sentry from "@sentry/node";
+       │ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   > 2 │ import { assertRequiredEnv } from "@workspace/config/env";
+   > 3 │ import { parseScrapeTargets } from "@workspace/config/scrape-targets";
+   > 4 │ import { getDeploymentFeatures } from "@workspace/deployment";
+        ...
+  > 25 │ import { initializePipeline } from "./rollups-startup";
+  > 26 │ import { quarantineP0Jobs } from "./p0-jobs";
+       │ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    27 │ import { shutdownTelemetry } from "./telemetry";
+    28 │ 
+  
+  i Safe fix: Organize imports and exports (Biome)
+  
+     23  23 │   import { MAINTENANCE_CRON } from "./jobs/schedule-maintenance";
+     24  24 │   import { configureMentionAnalyzer, mentionAnalyzer } from "./mention-judge";
+     25     │ - import·{·initializePipeline·}·from·"./rollups-startup";
+     26     │ - import·{·quarantineP0Jobs·}·from·"./p0-jobs";
+         25 │ + import·{·quarantineP0Jobs·}·from·"./p0-jobs";
+         26 │ + import·{·initializePipeline·}·from·"./rollups-startup";
+     27  27 │   import { shutdownTelemetry } from "./telemetry";
+     28  28 │   
+  
+
+apps/www/scripts/check-sitemap.mjs format ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Formatter would have printed the following content:
+  
+    48 48 │   
+    49 49 │   const port = process.env.TUC_P0_STAGE === "quality" ? 17440 : await freePort();
+    50    │ - const·server·=·spawn(process.execPath,·[SERVER],·{·env:·{·...process.env,·PORT:·String(port),·HOST:·"127.0.0.1"·},·stdio:·"ignore"·});
+       50 │ + const·server·=·spawn(process.execPath,·[SERVER],·{
+       51 │ + → env:·{·...process.env,·PORT:·String(port),·HOST:·"127.0.0.1"·},
+       52 │ + → stdio:·"ignore",
+       53 │ + });
+    51 54 │   
+    52 55 │   try {
+  
+
+packages/lib/src/constants.ts format ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Formatter would have printed the following content:
+  
+     1  1 │   export function isP0Offline(): boolean {
+     2    │ - → return·(
+     3    │ - → → typeof·process·===·"undefined"·||
+     4    │ - → → process.env.TUC_P0_STAGE·!==·"quality"·||
+     5    │ - → → process.env.TUC_P0_OFFLINE·===·"1"
+     6    │ - → );
+        2 │ + → return·typeof·process·===·"undefined"·||·process.env.TUC_P0_STAGE·!==·"quality"·||·process.env.TUC_P0_OFFLINE·===·"1";
+     7  3 │   }
+     8  4 │   
+  
+
+packages/lib/src/p0-policy.test.ts:1:1 assist/source/organizeImports  FIXABLE  ━━━━━━━━━━━━━━━━━━━━━
+
+  × Sort these imports.
+  
+  > 1 │ import { afterEach, describe, expect, it, vi } from "vitest";
+      │ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  > 2 │ import { createMentionAnalyzer } from "./mention-judge/analyze";
+  > 3 │ import { isP0Offline } from "./constants";
+      │ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    4 │ import { typesafeTransport } from "./mention-judge/jev";
+    5 │ import { getProvider } from "./providers";
+  
+  i Safe fix: Organize imports and exports (Biome)
+  
+     1  1 │   import { afterEach, describe, expect, it, vi } from "vitest";
+     2    │ - import·{·createMentionAnalyzer·}·from·"./mention-judge/analyze";
+     3    │ - import·{·isP0Offline·}·from·"./constants";
+        2 │ + import·{·isP0Offline·}·from·"./constants";
+        3 │ + import·{·createMentionAnalyzer·}·from·"./mention-judge/analyze";
+     4  4 │   import { typesafeTransport } from "./mention-judge/jev";
+     5  5 │   import { getProvider } from "./providers";
+  
+
+packages/lib/src/p0-policy.test.ts format ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Formatter would have printed the following content:
+  
+    22 22 │       const transport = vi.fn();
+    23 23 │       await expect(openaiApi.run("chatgpt", "synthetic prompt")).rejects.toThrow("direct provider");
+    24    │ - → → await·expect(typesafeTransport("synthetic-account-a",·transport)({·model:·"fixture",·state:·{},·questions:·{}·}))
+    25    │ - → → → .rejects.toThrow("direct·judge");
+       24 │ + → → await·expect(
+       25 │ + → → → typesafeTransport("synthetic-account-a",·transport)({·model:·"fixture",·state:·{},·questions:·{}·}),
+       26 │ + → → ).rejects.toThrow("direct·judge");
+    26 27 │       expect(transport).not.toHaveBeenCalled();
+    27 28 │     });
+  
+
+packages/lib/src/providers/registry/anthropic-api.ts:1:1 assist/source/organizeImports  FIXABLE  ━━━━━━━━━━
+
+  × Sort these imports.
+  
+   > 1 │ import { guardProvider } from "../p0";
+       │ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   > 2 │ import { anthropic, createAnthropic } from "@ai-sdk/anthropic";
+   > 3 │ import Anthropic from "@anthropic-ai/sdk";
+   > 4 │ import { getCredential } from "../../secrets";
+        ...
+  > 10 │ 	warnIfOutputCapped,
+  > 11 │ } from "../config";
+       │ ^^^^^^^^^^^^^^^^^^^
+    12 │ import type {
+    13 │ 	Provider,
+  
+  i Safe fix: Organize imports and exports (Biome)
+  
+      1     │ - import·{·guardProvider·}·from·"../p0";
+      2     │ - import·{·anthropic,·createAnthropic·}·from·"@ai-sdk/anthropic";
+      3     │ - import·Anthropic·from·"@anthropic-ai/sdk";
+      4     │ - import·{·getCredential·}·from·"../../secrets";
+      5     │ - import·{
+      6     │ - → ANTHROPIC_WEB_SEARCH_MAX_USES,
+      7     │ - → API_PROVIDER_MAX_OUTPUT_TOKENS,
+      8     │ - → configuredWhen,
+      9     │ - → RESEARCH_WEB_SEARCH_MAX_USES,
+     10     │ - → warnIfOutputCapped,
+     11     │ - }·from·"../config";
+          1 │ + import·{·anthropic,·createAnthropic·}·from·"@ai-sdk/anthropic";
+          2 │ + import·Anthropic·from·"@anthropic-ai/sdk";
+          3 │ + import·{·getCredential·}·from·"../../secrets";
+          4 │ + import·{
+          5 │ + → ANTHROPIC_WEB_SEARCH_MAX_USES,
+          6 │ + → API_PROVIDER_MAX_OUTPUT_TOKENS,
+          7 │ + → configuredWhen,
+          8 │ + → RESEARCH_WEB_SEARCH_MAX_USES,
+          9 │ + → warnIfOutputCapped,
+         10 │ + }·from·"../config";
+         11 │ + import·{·guardProvider·}·from·"../p0";
+     12  12 │   import type {
+     13  13 │     Provider,
+  
+
+packages/lib/src/providers/registry/brightdata.ts:1:1 assist/source/organizeImports  FIXABLE  ━━━━━━━━━━
+
+  × Sort these imports.
+  
+  > 1 │ import { guardProvider } from "../p0";
+      │ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  > 2 │ import { bdclient } from "@brightdata/sdk";
+  > 3 │ import { getCredential } from "../../secrets";
+  > 4 │ import { extractCitationsFromBrightdata } from "../../text-extraction";
+  > 5 │ import { configuredWhen, reportedWebQueries } from "../config";
+      │ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    6 │ import type { ModelConfig, Provider, ProviderOptions, ScrapeResult } from "../types";
+    7 │ import { pollTask, type TaskState } from "./poll-task";
+  
+  i Safe fix: Organize imports and exports (Biome)
+  
+      1     │ - import·{·guardProvider·}·from·"../p0";
+      2     │ - import·{·bdclient·}·from·"@brightdata/sdk";
+      3     │ - import·{·getCredential·}·from·"../../secrets";
+      4     │ - import·{·extractCitationsFromBrightdata·}·from·"../../text-extraction";
+      5     │ - import·{·configuredWhen,·reportedWebQueries·}·from·"../config";
+          1 │ + import·{·bdclient·}·from·"@brightdata/sdk";
+          2 │ + import·{·getCredential·}·from·"../../secrets";
+          3 │ + import·{·extractCitationsFromBrightdata·}·from·"../../text-extraction";
+          4 │ + import·{·configuredWhen,·reportedWebQueries·}·from·"../config";
+          5 │ + import·{·guardProvider·}·from·"../p0";
+      6   6 │   import type { ModelConfig, Provider, ProviderOptions, ScrapeResult } from "../types";
+      7   7 │   import { pollTask, type TaskState } from "./poll-task";
+  
+
+packages/lib/src/providers/registry/cloro.ts:1:1 assist/source/organizeImports  FIXABLE  ━━━━━━━━━━━
+
+  × Sort these imports.
+  
+  > 1 │ import { guardProvider } from "../p0";
+      │ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  > 2 │ import { getCredential } from "../../secrets";
+  > 3 │ import { type Citation, cloroAnswer, extractCitationsFromCloro } from "../../text-extraction";
+  > 4 │ import { configuredWhen, reportedWebQueries } from "../config";
+      │ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    5 │ import type { ModelConfig, Provider, ScrapeResult } from "../types";
+    6 │ import { pollTask, type TaskState } from "./poll-task";
+  
+  i Safe fix: Organize imports and exports (Biome)
+  
+      1     │ - import·{·guardProvider·}·from·"../p0";
+      2     │ - import·{·getCredential·}·from·"../../secrets";
+      3     │ - import·{·type·Citation,·cloroAnswer,·extractCitationsFromCloro·}·from·"../../text-extraction";
+      4     │ - import·{·configuredWhen,·reportedWebQueries·}·from·"../config";
+          1 │ + import·{·getCredential·}·from·"../../secrets";
+          2 │ + import·{·type·Citation,·cloroAnswer,·extractCitationsFromCloro·}·from·"../../text-extraction";
+          3 │ + import·{·configuredWhen,·reportedWebQueries·}·from·"../config";
+          4 │ + import·{·guardProvider·}·from·"../p0";
+      5   5 │   import type { ModelConfig, Provider, ScrapeResult } from "../types";
+      6   6 │   import { pollTask, type TaskState } from "./poll-task";
+  
+
+packages/lib/src/providers/registry/dataforseo.ts:1:1 assist/source/organizeImports  FIXABLE  ━━━━━━━━━━
+
+  × Sort these imports.
+  
+   > 1 │ import { guardProvider } from "../p0";
+       │ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   > 2 │ import * as client from "dataforseo-client";
+   > 3 │ import {
+   > 4 │ 	extractCitationsFromDataforseoLlm,
+   > 5 │ 	extractCitationsFromDataforseoScraper,
+   > 6 │ 	extractCitationsFromGoogle,
+   > 7 │ } from "../../text-extraction";
+   > 8 │ import { reportedWebQueries } from "../config";
+       │ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+     9 │ import type { ModelConfig, Provider, ProviderAccess, ProviderOptions, ScrapeResult } from "../types";
+    10 │ import {
+  
+  i Safe fix: Organize imports and exports (Biome)
+  
+      1     │ - import·{·guardProvider·}·from·"../p0";
+      2     │ - import·*·as·client·from·"dataforseo-client";
+      3     │ - import·{
+      4     │ - → extractCitationsFromDataforseoLlm,
+      5     │ - → extractCitationsFromDataforseoScraper,
+      6     │ - → extractCitationsFromGoogle,
+      7     │ - }·from·"../../text-extraction";
+      8     │ - import·{·reportedWebQueries·}·from·"../config";
+          1 │ + import·*·as·client·from·"dataforseo-client";
+          2 │ + import·{
+          3 │ + → extractCitationsFromDataforseoLlm,
+          4 │ + → extractCitationsFromDataforseoScraper,
+          5 │ + → extractCitationsFromGoogle,
+          6 │ + }·from·"../../text-extraction";
+          7 │ + import·{·reportedWebQueries·}·from·"../config";
+          8 │ + import·{·guardProvider·}·from·"../p0";
+      9   9 │   import type { ModelConfig, Provider, ProviderAccess, ProviderOptions, ScrapeResult } from "../types";
+     10  10 │   import {
+  
+
+packages/lib/src/providers/registry/mistral-api.ts:1:1 assist/source/organizeImports  FIXABLE  ━━━━━━━━━━
+
+  × Sort these imports.
+  
+  > 1 │ import { guardProvider } from "../p0";
+      │ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  > 2 │ import { getCredential } from "../../secrets";
+  > 3 │ import { API_PROVIDER_MAX_OUTPUT_TOKENS, configuredWhen, warnIfOutputCapped } from "../config";
+      │ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    4 │ import type {
+    5 │ 	Provider,
+  
+  i Safe fix: Organize imports and exports (Biome)
+  
+      1     │ - import·{·guardProvider·}·from·"../p0";
+      2     │ - import·{·getCredential·}·from·"../../secrets";
+      3     │ - import·{·API_PROVIDER_MAX_OUTPUT_TOKENS,·configuredWhen,·warnIfOutputCapped·}·from·"../config";
+          1 │ + import·{·getCredential·}·from·"../../secrets";
+          2 │ + import·{·API_PROVIDER_MAX_OUTPUT_TOKENS,·configuredWhen,·warnIfOutputCapped·}·from·"../config";
+          3 │ + import·{·guardProvider·}·from·"../p0";
+      4   4 │   import type {
+      5   5 │   	Provider,
+  
+
+packages/lib/src/providers/registry/olostep.ts:1:1 assist/source/organizeImports  FIXABLE  ━━━━━━━━━━
+
+  × Sort these imports.
+  
+  > 1 │ import { guardProvider } from "../p0";
+      │ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  > 2 │ import Olostep from "olostep";
+  > 3 │ import { getCredential } from "../../secrets";
+  > 4 │ import { type Citation, normalizeCitationTitle } from "../../text-extraction";
+  > 5 │ import { configuredWhen, reportedWebQueries } from "../config";
+      │ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    6 │ import type { ModelConfig, Provider, ProviderOptions, ScrapeResult } from "../types";
+    7 │ import { nonEmptyStrings } from "./scrape-shared";
+  
+  i Safe fix: Organize imports and exports (Biome)
+  
+      1     │ - import·{·guardProvider·}·from·"../p0";
+      2     │ - import·Olostep·from·"olostep";
+      3     │ - import·{·getCredential·}·from·"../../secrets";
+      4     │ - import·{·type·Citation,·normalizeCitationTitle·}·from·"../../text-extraction";
+      5     │ - import·{·configuredWhen,·reportedWebQueries·}·from·"../config";
+          1 │ + import·Olostep·from·"olostep";
+          2 │ + import·{·getCredential·}·from·"../../secrets";
+          3 │ + import·{·type·Citation,·normalizeCitationTitle·}·from·"../../text-extraction";
+          4 │ + import·{·configuredWhen,·reportedWebQueries·}·from·"../config";
+          5 │ + import·{·guardProvider·}·from·"../p0";
+      6   6 │   import type { ModelConfig, Provider, ProviderOptions, ScrapeResult } from "../types";
+      7   7 │   import { nonEmptyStrings } from "./scrape-shared";
+  
+
+packages/lib/src/providers/registry/openai-api.ts:1:1 assist/source/organizeImports  FIXABLE  ━━━━━━━━━━
+
+  × Sort these imports.
+  
+   > 1 │ import { guardProvider } from "../p0";
+       │ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   > 2 │ import { createOpenAI, openai } from "@ai-sdk/openai";
+   > 3 │ import { generateText, type InferToolOutput } from "ai";
+   > 4 │ import { getCredential } from "../../secrets";
+        ...
+  > 13 │ 	warnIfOutputCapped,
+  > 14 │ } from "../config";
+       │ ^^^^^^^^^^^^^^^^^^^
+    15 │ import type {
+    16 │ 	Provider,
+  
+  i Safe fix: Organize imports and exports (Biome)
+  
+      1     │ - import·{·guardProvider·}·from·"../p0";
+      2     │ - import·{·createOpenAI,·openai·}·from·"@ai-sdk/openai";
+      3     │ - import·{·generateText,·type·InferToolOutput·}·from·"ai";
+      4     │ - import·{·getCredential·}·from·"../../secrets";
+      5     │ - import·{
+      6     │ - → API_PROVIDER_MAX_OUTPUT_TOKENS,
+      7     │ - → configuredWhen,
+      8     │ - → OPENAI_WEB_SEARCH_CONTEXT_SIZE,
+      9     │ - → OPENAI_WEB_SEARCH_MAX_TOOL_CALLS,
+     10     │ - → RESEARCH_WEB_SEARCH_CONTEXT_SIZE,
+     11     │ - → RESEARCH_WEB_SEARCH_MAX_USES,
+     12     │ - → reportedWebQueries,
+     13     │ - → warnIfOutputCapped,
+     14     │ - }·from·"../config";
+          1 │ + import·{·createOpenAI,·openai·}·from·"@ai-sdk/openai";
+          2 │ + import·{·generateText,·type·InferToolOutput·}·from·"ai";
+          3 │ + import·{·getCredential·}·from·"../../secrets";
+          4 │ + import·{
+          5 │ + → API_PROVIDER_MAX_OUTPUT_TOKENS,
+          6 │ + → configuredWhen,
+          7 │ + → OPENAI_WEB_SEARCH_CONTEXT_SIZE,
+          8 │ + → OPENAI_WEB_SEARCH_MAX_TOOL_CALLS,
+          9 │ + → RESEARCH_WEB_SEARCH_CONTEXT_SIZE,
+         10 │ + → RESEARCH_WEB_SEARCH_MAX_USES,
+         11 │ + → reportedWebQueries,
+         12 │ + → warnIfOutputCapped,
+         13 │ + }·from·"../config";
+         14 │ + import·{·guardProvider·}·from·"../p0";
+     15  15 │   import type {
+     16  16 │     Provider,
+  
+
+packages/lib/src/providers/registry/openrouter.ts:1:1 assist/source/organizeImports  FIXABLE  ━━━━━━━━━━
+
+  × Sort these imports.
+  
+  > 1 │ import { guardProvider } from "../p0";
+      │ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  > 2 │ import { getCredential } from "../../secrets";
+  > 3 │ import { type Citation, normalizeCitationTitle } from "../../text-extraction";
+  > 4 │ import { API_PROVIDER_MAX_OUTPUT_TOKENS, configuredWhen, reportedWebQueries, warnIfOutputCapped } from "../config";
+      │ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    5 │ import type {
+    6 │ 	Provider,
+  
+  i Safe fix: Organize imports and exports (Biome)
+  
+      1     │ - import·{·guardProvider·}·from·"../p0";
+      2     │ - import·{·getCredential·}·from·"../../secrets";
+      3     │ - import·{·type·Citation,·normalizeCitationTitle·}·from·"../../text-extraction";
+      4     │ - import·{·API_PROVIDER_MAX_OUTPUT_TOKENS,·configuredWhen,·reportedWebQueries,·warnIfOutputCapped·}·from·"../config";
+          1 │ + import·{·getCredential·}·from·"../../secrets";
+          2 │ + import·{·type·Citation,·normalizeCitationTitle·}·from·"../../text-extraction";
+          3 │ + import·{·API_PROVIDER_MAX_OUTPUT_TOKENS,·configuredWhen,·reportedWebQueries,·warnIfOutputCapped·}·from·"../config";
+          4 │ + import·{·guardProvider·}·from·"../p0";
+      5   5 │   import type {
+      6   6 │   	Provider,
+  
+
+packages/lib/src/providers/registry/oxylabs.ts:1:1 assist/source/organizeImports  FIXABLE  ━━━━━━━━━━
+
+  × Sort these imports.
+  
+  > 1 │ import { guardProvider } from "../p0";
+      │ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  > 2 │ import { getCredential } from "../../secrets";
+  > 3 │ import { type Citation, extractCitationsFromOxylabs } from "../../text-extraction";
+  > 4 │ import { configuredWhen, reportedWebQueries } from "../config";
+      │ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    5 │ import type { ModelConfig, Provider, ProviderOptions, ScrapeResult } from "../types";
+    6 │ import { pollTask, type TaskState } from "./poll-task";
+  
+  i Safe fix: Organize imports and exports (Biome)
+  
+      1     │ - import·{·guardProvider·}·from·"../p0";
+      2     │ - import·{·getCredential·}·from·"../../secrets";
+      3     │ - import·{·type·Citation,·extractCitationsFromOxylabs·}·from·"../../text-extraction";
+      4     │ - import·{·configuredWhen,·reportedWebQueries·}·from·"../config";
+          1 │ + import·{·getCredential·}·from·"../../secrets";
+          2 │ + import·{·type·Citation,·extractCitationsFromOxylabs·}·from·"../../text-extraction";
+          3 │ + import·{·configuredWhen,·reportedWebQueries·}·from·"../config";
+          4 │ + import·{·guardProvider·}·from·"../p0";
+      5   5 │   import type { ModelConfig, Provider, ProviderOptions, ScrapeResult } from "../types";
+      6   6 │   import { pollTask, type TaskState } from "./poll-task";
+  
+
+packages/lib/src/providers/registry/searchapi.ts:1:1 assist/source/organizeImports  FIXABLE  ━━━━━━━━━━
+
+  × Sort these imports.
+  
+  > 1 │ import { guardProvider } from "../p0";
+      │ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  > 2 │ import { getCredential } from "../../secrets";
+  > 3 │ import { type Citation, extractCitationsFromSearchapi, searchapiText } from "../../text-extraction";
+  > 4 │ import { configuredWhen, reportedWebQueries } from "../config";
+      │ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    5 │ import type { ModelConfig, Provider, ProviderOptions, ScrapeResult } from "../types";
+    6 │ import {
+  
+  i Safe fix: Organize imports and exports (Biome)
+  
+      1     │ - import·{·guardProvider·}·from·"../p0";
+      2     │ - import·{·getCredential·}·from·"../../secrets";
+      3     │ - import·{·type·Citation,·extractCitationsFromSearchapi,·searchapiText·}·from·"../../text-extraction";
+      4     │ - import·{·configuredWhen,·reportedWebQueries·}·from·"../config";
+          1 │ + import·{·getCredential·}·from·"../../secrets";
+          2 │ + import·{·type·Citation,·extractCitationsFromSearchapi,·searchapiText·}·from·"../../text-extraction";
+          3 │ + import·{·configuredWhen,·reportedWebQueries·}·from·"../config";
+          4 │ + import·{·guardProvider·}·from·"../p0";
+      5   5 │   import type { ModelConfig, Provider, ProviderOptions, ScrapeResult } from "../types";
+      6   6 │   import {
+  
+
+packages/lib/src/secrets/store.ts:55:23 lint/complexity/noExcessiveCognitiveComplexity ━━━━━━━━━━━━━
+
+  × Excessive complexity of 16 detected (max: 15).
+  
+    53 │  *  throwing, so one bad row can't take out the others. The overlay is swapped
+    54 │  *  only after every row has been read, so a failed load leaves it untouched. */
+  > 55 │ export async function refreshCredentialOverlay(): Promise<void> {
+       │                       ^^^^^^^^^^^^^^^^^^^^^^^^
+    56 │ 	let keyring: Keyring | null = null;
+    57 │ 	try {
+  
+  i Please refactor this function to reduce its complexity score from 16 to the max allowed complexity 15.
+  
+
+Checked 1076 files in 283ms. No fixes applied.
+Found 18 errors.
+check ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Some errors were emitted while running checks.
+  
+
+[ELIFECYCLE] Command failed with exit code 1.

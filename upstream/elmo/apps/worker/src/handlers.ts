@@ -23,6 +23,7 @@ import { MAINTENANCE_CRON, type ScheduleMaintenanceData, scheduleMaintenanceJob 
 import { type SuggestPromptsData, type SuggestPromptsResult, suggestPromptsJob } from "./jobs/suggest-prompts";
 import { type SyncAuth0MembershipsData, syncAuth0MembershipsJob } from "./jobs/sync-auth0-memberships";
 import { mentionAnalyzer } from "./mention-judge";
+import { assertP0Job } from "./p0-jobs";
 import { JOB_SAMPLE_RATE_ATTRIBUTE, JOB_SPAN_OP, JOB_TRACE_RATE } from "./tracing";
 
 interface JobTracing {
@@ -57,6 +58,7 @@ function withSentry<T, R>(
 					},
 					async () => {
 						try {
+							for (const job of jobs) assertP0Job(queueName, job.data);
 							return await handler(jobs);
 						} catch (error) {
 							Sentry.captureException(error);
@@ -86,6 +88,15 @@ const MAINTENANCE_MONITOR = {
 } satisfies JobTracing["monitor"];
 
 export async function registerHandlers(boss: PgBoss): Promise<void> {
+	if (isP0Offline()) {
+		await boss.work<RefreshRollupsData>(
+			REFRESH_ROLLUPS_QUEUE,
+			{ localConcurrency: 1 },
+			withSentry(REFRESH_ROLLUPS_QUEUE, refreshRollupsJob),
+		);
+		console.log("P0 offline handler registered: refresh-rollups");
+		return;
+	}
 	await boss.work<ProcessPromptData>(
 		PROCESS_PROMPT_QUEUE,
 		{ localConcurrency: isP0Offline() ? 1 : 10 },

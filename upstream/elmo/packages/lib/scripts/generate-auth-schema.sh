@@ -13,6 +13,19 @@ AUTH_CONFIG="$PKG_DIR/src/auth/_cli-helper.ts"
 OUTPUT="$PKG_DIR/src/db/schema-auth.ts"
 TMP_OUTPUT="/tmp/better-auth-schema-gen.ts"
 
+if [ "${TUC_P0_STAGE:-}" = "quality" ]; then
+  node --input-type=module -e '
+    import { readFileSync } from "node:fs";
+    import { createHash } from "node:crypto";
+    const actual = createHash("sha256").update(readFileSync(process.argv[1])).digest("hex");
+    if (!process.env.TUC_P0_SCHEMA_SHA256 || actual !== process.env.TUC_P0_SCHEMA_SHA256) {
+      throw new Error("Frozen schema snapshot differs");
+    }
+    console.log("Verified frozen auth schema without database initialization");
+  ' "$OUTPUT"
+  exit 0
+fi
+
 # The CLI needs a file that default-exports or exports `auth`.
 # Our real config exports a factory function, so we use a thin wrapper.
 #

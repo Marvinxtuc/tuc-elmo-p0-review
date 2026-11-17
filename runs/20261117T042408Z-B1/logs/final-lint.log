@@ -1,0 +1,25 @@
+$ biome check --diagnostic-level=error --config-path=biome.json .
+packages/lib/src/constants.ts format ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Formatter would have printed the following content:
+  
+     2  2 │     if (typeof process === "undefined") return true;
+     3  3 │     const policy = (globalThis as Record<symbol, { stage?: string } | undefined>)[Symbol.for("tuc.p0.policy-loaded")];
+     4    │ - → return·(
+     5    │ - → → process.env.TUC_P0_STAGE·!==·"quality"·||
+     6    │ - → → policy?.stage·!==·"quality"·||
+     7    │ - → → process.env.TUC_P0_OFFLINE·!==·"0"
+     8    │ - → );
+        4 │ + → return·process.env.TUC_P0_STAGE·!==·"quality"·||·policy?.stage·!==·"quality"·||·process.env.TUC_P0_OFFLINE·!==·"0";
+     9  5 │   }
+    10  6 │   
+  
+
+Checked 1077 files in 212ms. No fixes applied.
+Found 1 error.
+check ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Some errors were emitted while running checks.
+  
+
+[ELIFECYCLE] Command failed with exit code 1.

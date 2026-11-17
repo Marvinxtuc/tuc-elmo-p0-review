@@ -68,9 +68,12 @@
     "RESEND_FROM_EMAIL",
     "TURNSTILE_SECRET_KEY",
     "VITE_TURNSTILE_SITE_KEY",
+    "TUC_P0_STAGE",
+    "TUC_P0_BATCH_ID",
     "TUC_P0_OFFLINE",
     "VITE_TUC_P0_MODE"
   ],
+  "globalPassThroughEnv": ["NODE_OPTIONS", "TUC_P0_EGRESS_LOG", "TUC_P0_POLICY_SHA256", "TUC_P0_LEDGER", "TUC_P0_SCHEMA_SHA256"],
   "tasks": {
     "//#format": {
       "cache": false

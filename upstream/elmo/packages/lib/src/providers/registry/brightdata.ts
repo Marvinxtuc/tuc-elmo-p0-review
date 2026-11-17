@@ -2,6 +2,7 @@ import { bdclient } from "@brightdata/sdk";
 import { getCredential } from "../../secrets";
 import { extractCitationsFromBrightdata } from "../../text-extraction";
 import { configuredWhen, reportedWebQueries } from "../config";
+import { guardProvider } from "../p0";
 import type { ModelConfig, Provider, ProviderOptions, ScrapeResult } from "../types";
 import { pollTask, type TaskState } from "./poll-task";
 import { type Attempt, hasWebSearchToggle, nonEmptyStrings, retryTransient } from "./scrape-shared";
@@ -122,7 +123,7 @@ export function extractWebQueries(record: Record<string, any>): string[] {
 	return nonEmptyStrings(smq?.queries ?? smq);
 }
 
-export const brightdata: Provider = {
+export const brightdata: Provider = guardProvider({
 	id: "brightdata",
 	name: "BrightData",
 	access: "scraped",
@@ -196,7 +197,7 @@ export const brightdata: Provider = {
 			await client.close();
 		}
 	},
-};
+});
 
 async function triggerSnapshot(datasetId: string, model: string, prompt: string, webSearch: boolean): Promise<string> {
 	const response = await fetch(

@@ -1,0 +1,15 @@
+{
+  "approved_vm_cpu": 2,
+  "approved_vm_memory_gib": 6,
+  "existing_vm_disk_gib": 6,
+  "limits_increased": false,
+  "du_kib": {
+    "A0": 8375672,
+    "B1": 2316708,
+    "review_clone": 50676
+  },
+  "apfs_cow_dependency_clones": true,
+  "physical_new_allocation_status": "PARTIAL_UNATTRIBUTED",
+  "host_free_kib_at_sample": 18709020,
+  "approved_total_new_disk_gib": 10
+}

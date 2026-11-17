@@ -1,6 +1,8 @@
 /** Jev, from TypeSafe (https://typesafe.ai). Each question is answered independently against the same state. */
 
 /** Pinned: a new Jev version changes judgements, so moving to one is a deliberate re-judge. */
+import { isP0Offline } from "../constants";
+
 export const JEV_MODEL = "jev-1.13.0";
 /**
  * The same Jev release through OpenRouter, stamped as JEV_MODEL so switching gateway doesn't
@@ -77,6 +79,7 @@ function systemOneTransport(
 	fetchImpl: typeof fetch,
 ): JevTransport {
 	return async (request) => {
+		if (isP0Offline()) throw new Error("P0 offline policy blocks direct judge requests");
 		const response = await fetchImpl(endpoint, {
 			method: "POST",
 			headers: { "Content-Type": "application/json", Authorization: `Bearer ${apiKey()}` },

@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { assertP0Runtime } from "@workspace/lib/constants";
 import { Command } from "commander";
 import pc from "picocolors";
 import { type AuditOptions, runAudit } from "./commands/audit.js";
@@ -14,6 +15,10 @@ import { printBanner } from "./util.js";
 import { getPackageVersion, maybeNotifyNewVersion } from "./version.js";
 
 async function main() {
+	assertP0Runtime();
+	if (process.argv.slice(2).some((argument) => !["--help", "-h", "--version", "-V"].includes(argument))) {
+		throw new Error("P0 CLI is read-only and rejects execution commands");
+	}
 	const version = await getPackageVersion();
 	const program = new Command();
 

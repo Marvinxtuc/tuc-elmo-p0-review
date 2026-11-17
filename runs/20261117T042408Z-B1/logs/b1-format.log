@@ -1,0 +1,6 @@
+sandbox-exec: host must be * or localhost in network address
+
+Backtrace: 
+<USER_HOME>/Desktop/tuc-elmo-b1/config/quality.sb:4:26:
+	(remote ip "127.0.0.1:17440")
+

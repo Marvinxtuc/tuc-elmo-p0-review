@@ -1,0 +1,12 @@
+[
+  {
+    "database": "tuc_elmo_p0_test",
+    "bytes": 158365,
+    "sha256": "7937c9b5b8e0ee508c4e2ab37f2b9557de09488d8ae71f139814cf5292c391aa"
+  },
+  {
+    "database": "tuc_elmo_p0_restore",
+    "bytes": 155599,
+    "sha256": "41fde62ab8c8b4edebb0be3ea998bd181dfd53bc7299dfa291f5520d0cee2160"
+  }
+]

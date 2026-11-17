@@ -1,0 +1,429 @@
+{
+  "schema_version": "B1-offline-1",
+  "run_id": "20261117T042408Z-B1",
+  "original_results_preserved": true,
+  "live_model_calls": 0,
+  "new_results": [
+    {
+      "test_id": "COST-01",
+      "suite": "B1-offline",
+      "status": "PASS",
+      "scope_qualified": true,
+      "actual": "Missing approval and live endpoint rejected",
+      "started_at": "2026-11-17T04:46:57.500698+00:00",
+      "ended_at": "2026-11-17T04:54:07.254360+00:00",
+      "assertion_exit_code": 0,
+      "command_exit_codes": {
+        "guard-final-1": 0,
+        "policy-final-check": 0
+      },
+      "evidence_refs": [
+        "runs/20261117T042408Z-B1/logs/guard-final-1.log",
+        "runs/20261117T042408Z-B1/logs/policy-final-check.log"
+      ],
+      "reviewer": "Executor self-check, independent review pending"
+    },
+    {
+      "test_id": "COST-02",
+      "suite": "B1-offline",
+      "status": "PASS",
+      "scope_qualified": true,
+      "actual": "Expired approval/quota and missing exclusive quota evidence rejected",
+      "started_at": "2026-11-17T04:46:57.500698+00:00",
+      "ended_at": "2026-11-17T04:46:58.480508+00:00",
+      "assertion_exit_code": 0,
+      "command_exit_codes": {
+        "guard-final-1": 0
+      },
+      "evidence_refs": [
+        "runs/20261117T042408Z-B1/logs/guard-final-1.log"
+      ],
+      "reviewer": "Executor self-check, independent review pending"
+    },
+    {
+      "test_id": "COST-03",
+      "suite": "B1-offline",
+      "status": "PASS",
+      "scope_qualified": true,
+      "actual": "20 independent processes, 1 HTTP hit, 19 pre-send rejections",
+      "started_at": "2026-11-17T04:46:57.500698+00:00",
+      "ended_at": "2026-11-17T04:46:58.480508+00:00",
+      "assertion_exit_code": 0,
+      "command_exit_codes": {
+        "guard-final-1": 0
+      },
+      "evidence_refs": [
+        "runs/20261117T042408Z-B1/logs/guard-final-1.log"
+      ],
+      "reviewer": "Executor self-check, independent review pending"
+    },
+    {
+      "test_id": "COST-04",
+      "suite": "B1-offline",
+      "status": "PASS",
+      "scope_qualified": true,
+      "actual": "Input/output bounds, unsupported thinking/providerOptions/search/tools/stream and aggregate budget rejected",
+      "started_at": "2026-11-17T04:46:57.500698+00:00",
+      "ended_at": "2026-11-17T04:46:58.480508+00:00",
+      "assertion_exit_code": 0,
+      "command_exit_codes": {
+        "guard-final-1": 0
+      },
+      "evidence_refs": [
+        "runs/20261117T042408Z-B1/logs/guard-final-1.log"
+      ],
+      "reviewer": "Executor self-check, independent review pending"
+    },
+    {
+      "test_id": "COST-05",
+      "suite": "B1-offline",
+      "status": "PASS",
+      "scope_qualified": true,
+      "actual": "Mock HTTP failures retain reservation and halt, SDK fake retry contrast, abandoned process recovery",
+      "started_at": "2026-11-17T04:46:57.500698+00:00",
+      "ended_at": "2026-11-17T04:50:35.608030+00:00",
+      "assertion_exit_code": 0,
+      "command_exit_codes": {
+        "guard-final-1": 0,
+        "lib-verified": 0
+      },
+      "evidence_refs": [
+        "runs/20261117T042408Z-B1/logs/guard-final-1.log",
+        "runs/20261117T042408Z-B1/logs/lib-verified.log"
+      ],
+      "reviewer": "Executor self-check, independent review pending"
+    },
+    {
+      "test_id": "COST-06",
+      "suite": "B1-offline",
+      "status": "PASS",
+      "scope_qualified": true,
+      "actual": "Web/MCP/CLI, direct provider, structured research and generation jobs rejected before business writes",
+      "started_at": "2026-11-17T04:44:18.443562+00:00",
+      "ended_at": "2026-11-17T04:54:07.254360+00:00",
+      "assertion_exit_code": 0,
+      "command_exit_codes": {
+        "policy-final-check": 0,
+        "worker-complete": 0,
+        "web-contract-1": 0
+      },
+      "evidence_refs": [
+        "runs/20261117T042408Z-B1/logs/policy-final-check.log",
+        "runs/20261117T042408Z-B1/logs/worker-complete.log",
+        "runs/20261117T042408Z-B1/logs/web-contract-1.log",
+        "runs/20261117T042408Z-B1/runtime-verification.json",
+        "runs/20261117T042408Z-B1/api-negative.json",
+        "runs/20261117T042408Z-B1/mcp-negative.json"
+      ],
+      "reviewer": "Executor self-check, independent review pending"
+    },
+    {
+      "test_id": "COST-07",
+      "suite": "B1-offline",
+      "status": "PASS",
+      "scope_qualified": true,
+      "actual": "Changed synthetic alias, competitor, stale judge stamp and job version payload with restored-worker restarts",
+      "started_at": "2026-11-17T04:45:52.073012+00:00",
+      "ended_at": "2026-11-17T04:49:20.472646+00:00",
+      "assertion_exit_code": 0,
+      "command_exit_codes": {
+        "historical-fixture-seed": 0,
+        "competitor-change": 0,
+        "worker-restart-1": -15,
+        "worker-restart-2": -15,
+        "worker-restart-3": -15
+      },
+      "evidence_refs": [
+        "runs/20261117T042408Z-B1/logs/historical-fixture-seed.log",
+        "runs/20261117T042408Z-B1/logs/competitor-change.log",
+        "runs/20261117T042408Z-B1/logs/worker-restart-1.log",
+        "runs/20261117T042408Z-B1/logs/worker-restart-2.log",
+        "runs/20261117T042408Z-B1/logs/worker-restart-3.log",
+        "runs/20261117T042408Z-B1/runtime-verification.json",
+        "runs/20261117T042408Z-B1/api-negative.json",
+        "runs/20261117T042408Z-B1/mcp-negative.json"
+      ],
+      "reviewer": "Executor self-check, independent review pending"
+    },
+    {
+      "test_id": "COST-08",
+      "suite": "B1-offline",
+      "status": "PASS",
+      "scope_qualified": true,
+      "actual": "Synthetic A/B credential binding, 401 halts, wrong decrypt key and database-store failure mask env fallback",
+      "started_at": "2026-11-17T04:46:57.500698+00:00",
+      "ended_at": "2026-11-17T04:50:35.608030+00:00",
+      "assertion_exit_code": 0,
+      "command_exit_codes": {
+        "guard-final-1": 0,
+        "lib-verified": 0
+      },
+      "evidence_refs": [
+        "runs/20261117T042408Z-B1/logs/guard-final-1.log",
+        "runs/20261117T042408Z-B1/logs/lib-verified.log"
+      ],
+      "reviewer": "Executor self-check, independent review pending"
+    },
+    {
+      "test_id": "COST-09",
+      "suite": "B1-offline",
+      "status": "PASS",
+      "scope_qualified": true,
+      "actual": "Local slow request revoked/stopped, subsequent roles refused, in-flight charge unknown",
+      "started_at": "2026-11-17T04:46:57.500698+00:00",
+      "ended_at": "2026-11-17T04:46:58.480508+00:00",
+      "assertion_exit_code": 0,
+      "command_exit_codes": {
+        "guard-final-1": 0
+      },
+      "evidence_refs": [
+        "runs/20261117T042408Z-B1/logs/guard-final-1.log"
+      ],
+      "reviewer": "Executor self-check, independent review pending"
+    },
+    {
+      "test_id": "PRV-01",
+      "suite": "B1-offline",
+      "status": "PASS",
+      "scope_qualified": true,
+      "actual": "Parser/target validation and exact offline/mock provider+model admission",
+      "started_at": "2026-11-17T04:44:45.031297+00:00",
+      "ended_at": "2026-11-17T04:50:35.608030+00:00",
+      "assertion_exit_code": 0,
+      "command_exit_codes": {
+        "config-tests-1": 0,
+        "lib-verified": 0,
+        "guard-final-1": 0
+      },
+      "evidence_refs": [
+        "runs/20261117T042408Z-B1/logs/config-tests-1.log",
+        "runs/20261117T042408Z-B1/logs/lib-verified.log",
+        "runs/20261117T042408Z-B1/logs/guard-final-1.log"
+      ],
+      "reviewer": "Executor self-check, independent review pending"
+    },
+    {
+      "test_id": "PRV-05",
+      "suite": "B1-offline",
+      "status": "PASS",
+      "scope_qualified": true,
+      "actual": "Local endpoint/region/workspace/credential mismatch and HTTP 401/403",
+      "started_at": "2026-11-17T04:46:57.500698+00:00",
+      "ended_at": "2026-11-17T04:46:58.480508+00:00",
+      "assertion_exit_code": 0,
+      "command_exit_codes": {
+        "guard-final-1": 0
+      },
+      "evidence_refs": [
+        "runs/20261117T042408Z-B1/logs/guard-final-1.log"
+      ],
+      "reviewer": "Executor self-check, independent review pending"
+    },
+    {
+      "test_id": "PRV-06",
+      "suite": "B1-offline",
+      "status": "PASS",
+      "scope_qualified": true,
+      "actual": "Real routes denied, mock tools/search/providerOptions denied, unexpected returned tools halt",
+      "started_at": "2026-11-17T04:46:57.500698+00:00",
+      "ended_at": "2026-11-17T04:54:07.254360+00:00",
+      "assertion_exit_code": 0,
+      "command_exit_codes": {
+        "guard-final-1": 0,
+        "policy-final-check": 0
+      },
+      "evidence_refs": [
+        "runs/20261117T042408Z-B1/logs/guard-final-1.log",
+        "runs/20261117T042408Z-B1/logs/policy-final-check.log"
+      ],
+      "reviewer": "Executor self-check, independent review pending"
+    },
+    {
+      "test_id": "SEC-07",
+      "suite": "B1-offline",
+      "status": "PASS",
+      "scope_qualified": true,
+      "actual": "Synthetic encryption/decryption/restoration and unreadable key/env-fallback refusal",
+      "started_at": "2026-11-17T04:50:31.926527+00:00",
+      "ended_at": "2026-11-17T04:50:35.608030+00:00",
+      "assertion_exit_code": 0,
+      "command_exit_codes": {
+        "lib-verified": 0
+      },
+      "evidence_refs": [
+        "runs/20261117T042408Z-B1/logs/lib-verified.log"
+      ],
+      "reviewer": "Executor self-check, independent review pending"
+    },
+    {
+      "test_id": "SEC-08",
+      "suite": "B1-offline",
+      "status": "PASS",
+      "scope_qualified": true,
+      "actual": "Finite active-listener IPv4/IPv6/proxy/native-child, DNS and redirect negatives",
+      "started_at": "2026-11-17T04:46:15.364909+00:00",
+      "ended_at": "2026-11-17T04:46:58.480508+00:00",
+      "assertion_exit_code": 0,
+      "command_exit_codes": {
+        "egress-active-listener": 0,
+        "guard-final-1": 0
+      },
+      "evidence_refs": [
+        "runs/20261117T042408Z-B1/logs/egress-active-listener.log",
+        "runs/20261117T042408Z-B1/logs/guard-final-1.log"
+      ],
+      "reviewer": "Executor self-check, independent review pending"
+    }
+  ],
+  "remaining_not_run": [
+    {
+      "test_id": "COST-10",
+      "status": "NOT_RUN",
+      "scope": "Unexecuted original acceptance case"
+    },
+    {
+      "test_id": "PRV-02",
+      "status": "NOT_RUN",
+      "scope": "Unexecuted original acceptance case"
+    },
+    {
+      "test_id": "PRV-03",
+      "status": "NOT_RUN",
+      "scope": "Unexecuted original acceptance case"
+    },
+    {
+      "test_id": "PRV-04",
+      "status": "NOT_RUN",
+      "scope": "Unexecuted original acceptance case"
+    },
+    {
+      "test_id": "PRV-07",
+      "status": "NOT_RUN",
+      "scope": "Unexecuted original acceptance case"
+    },
+    {
+      "test_id": "PRV-08",
+      "status": "NOT_RUN",
+      "scope": "Unexecuted original acceptance case"
+    },
+    {
+      "test_id": "PRV-09",
+      "status": "NOT_RUN",
+      "scope": "Unexecuted original acceptance case"
+    },
+    {
+      "test_id": "JUD-02",
+      "status": "NOT_RUN",
+      "scope": "Unexecuted original acceptance case"
+    },
+    {
+      "test_id": "JUD-03",
+      "status": "NOT_RUN",
+      "scope": "Unexecuted original acceptance case"
+    },
+    {
+      "test_id": "JUD-04",
+      "status": "NOT_RUN",
+      "scope": "Unexecuted original acceptance case"
+    },
+    {
+      "test_id": "JUD-05",
+      "status": "NOT_RUN",
+      "scope": "Unexecuted original acceptance case"
+    },
+    {
+      "test_id": "JUD-06",
+      "status": "NOT_RUN",
+      "scope": "Unexecuted original acceptance case"
+    },
+    {
+      "test_id": "JUD-07",
+      "status": "NOT_RUN",
+      "scope": "Unexecuted original acceptance case"
+    },
+    {
+      "test_id": "DATA-02",
+      "status": "NOT_RUN",
+      "scope": "Unexecuted original acceptance case"
+    },
+    {
+      "test_id": "DATA-03",
+      "status": "NOT_RUN",
+      "scope": "Unexecuted original acceptance case"
+    },
+    {
+      "test_id": "DATA-04",
+      "status": "NOT_RUN",
+      "scope": "Unexecuted original acceptance case"
+    },
+    {
+      "test_id": "DATA-05",
+      "status": "NOT_RUN",
+      "scope": "Unexecuted original acceptance case"
+    },
+    {
+      "test_id": "DATA-06",
+      "status": "NOT_RUN",
+      "scope": "Unexecuted original acceptance case"
+    },
+    {
+      "test_id": "SEC-02",
+      "status": "NOT_RUN",
+      "scope": "Unexecuted original acceptance case"
+    },
+    {
+      "test_id": "SEC-03",
+      "status": "NOT_RUN",
+      "scope": "Unexecuted original acceptance case"
+    },
+    {
+      "test_id": "SEC-05",
+      "status": "NOT_RUN",
+      "scope": "Unexecuted original acceptance case"
+    },
+    {
+      "test_id": "SEC-06",
+      "status": "NOT_RUN",
+      "scope": "Unexecuted original acceptance case"
+    },
+    {
+      "test_id": "OPS-01",
+      "status": "NOT_RUN",
+      "scope": "Unexecuted original acceptance case"
+    },
+    {
+      "test_id": "OPS-02",
+      "status": "NOT_RUN",
+      "scope": "Unexecuted original acceptance case"
+    },
+    {
+      "test_id": "OPS-04",
+      "status": "NOT_RUN",
+      "scope": "Unexecuted original acceptance case"
+    },
+    {
+      "test_id": "OPS-06",
+      "status": "NOT_RUN",
+      "scope": "Unexecuted original acceptance case"
+    },
+    {
+      "test_id": "INT-03",
+      "status": "NOT_RUN",
+      "scope": "Unexecuted original acceptance case"
+    },
+    {
+      "test_id": "INT-04",
+      "status": "NOT_RUN",
+      "scope": "Unexecuted original acceptance case"
+    }
+  ],
+  "proposed_overlay": {
+    "PASS": 31,
+    "PARTIAL": 5,
+    "NOT_RUN": 28
+  },
+  "additional_verification_limits": [
+    "Website full-tree hash read stalled",
+    "APFS COW physical allocation attribution pending"
+  ]
+}

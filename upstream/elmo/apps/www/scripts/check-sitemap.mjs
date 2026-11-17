@@ -16,7 +16,7 @@ const EXEMPT = new Set(["/changelog"]);
 
 function freePort() {
 	return new Promise((resolve, reject) => {
-		const probe = createServer().listen(0, "127.0.0.1", () => {
+		const probe = createServer().listen(process.env.TUC_P0_STAGE === "quality" ? 17440 : 0, "127.0.0.1", () => {
 			const { port } = probe.address();
 			probe.close(() => resolve(port));
 		});
@@ -46,8 +46,11 @@ if (!existsSync(SERVER)) {
 	process.exit(1);
 }
 
-const port = await freePort();
-const server = spawn(process.execPath, [SERVER], { env: { ...process.env, PORT: String(port) }, stdio: "ignore" });
+const port = process.env.TUC_P0_STAGE === "quality" ? 17440 : await freePort();
+const server = spawn(process.execPath, [SERVER], {
+	env: { ...process.env, PORT: String(port), HOST: "127.0.0.1" },
+	stdio: "ignore",
+});
 
 try {
 	const xml = await fetchSitemap(port, Date.now() + 30_000);

@@ -1,0 +1,10 @@
+$ node --import tsx --import ./src/instrument.ts src/index.ts
+Starting pg-boss worker...
+SCRAPE_TARGETS validated
+[mention-judge] TYPESAFE_API_KEY=stub: judging from cue words, not Jev. For tests and development only.
+Judging mentions with stub+request-1
+pg-boss started
+P0 offline handler registered: refresh-rollups
+All handlers registered, worker is ready
+Received SIGTERM, shutting down gracefully...
+Worker stopped

@@ -1,0 +1,184 @@
+[
+  {
+    "label": "worker-start-1",
+    "command": [
+      "/usr/bin/sandbox-exec",
+      "-f",
+      "<USER_HOME>/Desktop/tuc-elmo-b1/config/runtime.sb",
+      "pnpm",
+      "--config.verifyDepsBeforeRun=false",
+      "--filter",
+      "@workspace/worker",
+      "start"
+    ],
+    "cwd": "<USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo",
+    "stage": "runtime",
+    "started_at_utc": "2026-11-17T04:42:49.312870+00:00",
+    "policy_sha256": "cbc8bda6e55a0102494180dd5fd86137d362b4717cd8cb895dd8e448d997fded",
+    "offline": "1",
+    "output": "logs/worker-start-1.log",
+    "pid": 4252
+  },
+  {
+    "label": "web-start-1",
+    "command": [
+      "/usr/bin/sandbox-exec",
+      "-f",
+      "<USER_HOME>/Desktop/tuc-elmo-b1/config/runtime.sb",
+      "pnpm",
+      "--config.verifyDepsBeforeRun=false",
+      "--filter",
+      "@workspace/web",
+      "start"
+    ],
+    "cwd": "<USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo",
+    "stage": "runtime",
+    "started_at_utc": "2026-11-17T04:42:49.360919+00:00",
+    "policy_sha256": "cbc8bda6e55a0102494180dd5fd86137d362b4717cd8cb895dd8e448d997fded",
+    "offline": "1",
+    "output": "logs/web-start-1.log",
+    "pid": 4260
+  },
+  {
+    "label": "worker-start-2",
+    "command": [
+      "/usr/bin/sandbox-exec",
+      "-f",
+      "<USER_HOME>/Desktop/tuc-elmo-b1/config/runtime.sb",
+      "node",
+      "--import",
+      "tsx",
+      "--import",
+      "./src/instrument.ts",
+      "src/index.ts"
+    ],
+    "cwd": "<USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo/apps/worker",
+    "stage": "runtime",
+    "started_at_utc": "2026-11-17T04:43:02.664550+00:00",
+    "policy_sha256": "cbc8bda6e55a0102494180dd5fd86137d362b4717cd8cb895dd8e448d997fded",
+    "offline": "1",
+    "output": "logs/worker-start-2.log",
+    "pid": 4362
+  },
+  {
+    "label": "worker-start-3",
+    "command": [
+      "/usr/bin/sandbox-exec",
+      "-f",
+      "<USER_HOME>/Desktop/tuc-elmo-b1/config/runtime.sb",
+      "node",
+      "--import",
+      "tsx",
+      "--import",
+      "./src/instrument.ts",
+      "src/index.ts"
+    ],
+    "cwd": "<USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo/apps/worker",
+    "stage": "runtime",
+    "started_at_utc": "2026-11-17T04:43:08.507006+00:00",
+    "policy_sha256": "cbc8bda6e55a0102494180dd5fd86137d362b4717cd8cb895dd8e448d997fded",
+    "offline": "1",
+    "output": "logs/worker-start-3.log",
+    "pid": 4419
+  },
+  {
+    "label": "worker-restart-1",
+    "command": [
+      "/usr/bin/sandbox-exec",
+      "-f",
+      "<USER_HOME>/Desktop/tuc-elmo-b1/config/runtime.sb",
+      "pnpm",
+      "--config.verifyDepsBeforeRun=false",
+      "--filter",
+      "@workspace/worker",
+      "start"
+    ],
+    "cwd": "<USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo",
+    "stage": "runtime",
+    "started_at_utc": "2026-11-17T04:45:52.223541+00:00",
+    "policy_sha256": "cbc8bda6e55a0102494180dd5fd86137d362b4717cd8cb895dd8e448d997fded",
+    "offline": "1",
+    "output": "logs/worker-restart-1.log",
+    "pid": 5571
+  },
+  {
+    "label": "worker-restart-2",
+    "command": [
+      "/usr/bin/sandbox-exec",
+      "-f",
+      "<USER_HOME>/Desktop/tuc-elmo-b1/config/runtime.sb",
+      "pnpm",
+      "--config.verifyDepsBeforeRun=false",
+      "--filter",
+      "@workspace/worker",
+      "start"
+    ],
+    "cwd": "<USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo",
+    "stage": "runtime",
+    "started_at_utc": "2026-11-17T04:46:49.247466+00:00",
+    "policy_sha256": "cbc8bda6e55a0102494180dd5fd86137d362b4717cd8cb895dd8e448d997fded",
+    "offline": "1",
+    "output": "logs/worker-restart-2.log",
+    "pid": 5946
+  },
+  {
+    "label": "worker-restart-3",
+    "command": [
+      "/usr/bin/sandbox-exec",
+      "-f",
+      "<USER_HOME>/Desktop/tuc-elmo-b1/config/runtime.sb",
+      "pnpm",
+      "--config.verifyDepsBeforeRun=false",
+      "--filter",
+      "@workspace/worker",
+      "start"
+    ],
+    "cwd": "<USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo",
+    "stage": "runtime",
+    "started_at_utc": "2026-11-17T04:47:28.868793+00:00",
+    "policy_sha256": "cbc8bda6e55a0102494180dd5fd86137d362b4717cd8cb895dd8e448d997fded",
+    "offline": "1",
+    "output": "logs/worker-restart-3.log",
+    "pid": 6328
+  },
+  {
+    "label": "web-start-final",
+    "command": [
+      "/usr/bin/sandbox-exec",
+      "-f",
+      "<USER_HOME>/Desktop/tuc-elmo-b1/config/runtime.sb",
+      "pnpm",
+      "--config.verifyDepsBeforeRun=false",
+      "--filter",
+      "@workspace/web",
+      "start"
+    ],
+    "cwd": "<USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo",
+    "stage": "runtime",
+    "started_at_utc": "2026-11-17T04:47:47.481069+00:00",
+    "policy_sha256": "cbc8bda6e55a0102494180dd5fd86137d362b4717cd8cb895dd8e448d997fded",
+    "offline": "1",
+    "output": "logs/web-start-final.log",
+    "pid": 6548
+  },
+  {
+    "label": "web-start-delivery",
+    "command": [
+      "/usr/bin/sandbox-exec",
+      "-f",
+      "<USER_HOME>/Desktop/tuc-elmo-b1/config/runtime.sb",
+      "pnpm",
+      "--config.verifyDepsBeforeRun=false",
+      "--filter",
+      "@workspace/web",
+      "start"
+    ],
+    "cwd": "<USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo",
+    "stage": "runtime",
+    "started_at_utc": "2026-11-17T04:48:47.006251+00:00",
+    "policy_sha256": "cbc8bda6e55a0102494180dd5fd86137d362b4717cd8cb895dd8e448d997fded",
+    "offline": "1",
+    "output": "logs/web-start-delivery.log",
+    "pid": 7142
+  }
+]

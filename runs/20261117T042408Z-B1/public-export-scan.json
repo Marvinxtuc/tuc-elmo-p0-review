@@ -1,0 +1,9 @@
+{
+  "changed_file_count_scanned": 188,
+  "private_test_secret_matches": 0,
+  "personal_home_path_matches": 0,
+  "selected_general_secret_pattern_matches": 0,
+  "scope": "B1 changed public export, exact private test values and selected patterns",
+  "full_history_and_high_entropy_scan": "NOT_RUN, F-07 remains pending B3",
+  "private_originals": "runtime/evidence-original-20261117T042408Z-B1 excluded from public export"
+}

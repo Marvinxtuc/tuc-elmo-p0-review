@@ -1,0 +1,18 @@
+$ vitest run --project=unit
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.1.0 [39m[90m<USER_HOME>/Desktop/tuc-elmo-b1/upstream/elmo/apps/worker[39m
+
+ [32m✓[39m [30m[42m unit [49m[39m src/p0-jobs.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 2[2mms[22m[39m
+[90mstdout[2m | src/mention-judge/index.test.ts[2m > [22m[2mreads the OpenRouter key as a provider credential when there's no TypeSafe key
+[22m[39m[mention-judge] No TYPESAFE_API_KEY: calling Jev through OpenRouter, billed to OPENROUTER_API_KEY.
+
+ [32m✓[39m [30m[42m unit [49m[39m src/mention-judge/index.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 14[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/jobs/reprocess.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 2[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/jobs/derive-runs.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+ [32m✓[39m [30m[42m unit [49m[39m src/p0-generation.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 2[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m5 passed[39m[22m[90m (5)[39m
+[2m      Tests [22m [1m[32m17 passed[39m[22m[90m (17)[39m
+[2m   Start at [22m 12:50:51
+[2m   Duration [22m 950ms[2m (import 91%, transform 7%, tests 2%, worker 1%)[22m
+

@@ -1,3 +1,4 @@
+import { isP0Offline } from "@workspace/lib/constants";
 import { db } from "@workspace/lib/db/db";
 import { reports } from "@workspace/lib/db/schema";
 import { describeReportPhase, type ReportPhase, reportProgress } from "@workspace/lib/reports/lifecycle";
@@ -8,6 +9,7 @@ import { processReportJob, type ReportJobData } from "../report-worker";
 export interface GenerateReportData extends ReportJobData {}
 
 export async function generateReportJob(jobs: Job<GenerateReportData>[]): Promise<void> {
+	if (isP0Offline()) throw new Error("P0 rejects unapproved generation jobs before side effects");
 	for (const job of jobs) {
 		const { reportId, brandName, brandAliases, brandWebsite, manualPrompts } = job.data;
 

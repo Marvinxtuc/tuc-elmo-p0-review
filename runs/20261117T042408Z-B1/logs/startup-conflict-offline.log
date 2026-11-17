@@ -1,0 +1,19 @@
+<USER_HOME>/Desktop/tuc-elmo-b1/harness/offline-preload.cjs:8
+if (stage !== 'quality' && process.env.TUC_P0_OFFLINE !== '1') throw new GuardDenied('P0_OFFLINE_REQUIRED');
+                                                               ^
+
+GuardDenied: P0_OFFLINE_REQUIRED
+    at Object.<anonymous> (<USER_HOME>/Desktop/tuc-elmo-b1/harness/offline-preload.cjs:8:70)
+    at Module._compile (node:internal/modules/cjs/loader:1929:14)
+    at Object..js (node:internal/modules/cjs/loader:2060:10)
+    at Module.load (node:internal/modules/cjs/loader:1651:32)
+    at Module._load (node:internal/modules/cjs/loader:1443:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:261:19)
+    at Module.require (node:internal/modules/cjs/loader:1674:12)
+    at node:internal/modules/cjs/loader:2221:12
+    at loadPreloadModules (node:internal/process/pre_execution:737:5)
+    at initializeModuleLoaders (node:internal/process/pre_execution:244:5) {
+  code: 'P0_OFFLINE_REQUIRED'
+}
+
+Node.js v24.22.3

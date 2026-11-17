@@ -1,6 +1,7 @@
 import { getCredential } from "../../secrets";
 import { type Citation, extractCitationsFromOxylabs } from "../../text-extraction";
 import { configuredWhen, reportedWebQueries } from "../config";
+import { guardProvider } from "../p0";
 import type { ModelConfig, Provider, ProviderOptions, ScrapeResult } from "../types";
 import { pollTask, type TaskState } from "./poll-task";
 import {
@@ -133,7 +134,7 @@ async function runAsyncQuery(body: Record<string, any>): Promise<OxylabsPayload>
 // Oxylabs exposes search queries under different keys depending on the source.
 const OXYLABS_QUERY_KEYS = ["search_queries", "web_search_queries"] as const;
 
-export const oxylabs: Provider = {
+export const oxylabs: Provider = guardProvider({
 	id: "oxylabs",
 	name: "Oxylabs",
 	access: "scraped",
@@ -187,4 +188,4 @@ export const oxylabs: Provider = {
 						: undefined,
 		};
 	},
-};
+});

@@ -407,6 +407,18 @@ export const ENV_REGISTRY: EnvVarSpec[] = [
 		description: "Set to any value to disable telemetry.",
 	},
 	{
+		name: "TUC_P0_STAGE",
+		scope: "server",
+		requiredBy: "optional",
+		description: "Enforced P0 runtime or isolated quality stage.",
+	},
+	{
+		name: "TUC_P0_BATCH_ID",
+		scope: "server",
+		requiredBy: "optional",
+		description: "Current finite P0 batch identity.",
+	},
+	{
 		name: "TUC_P0_OFFLINE",
 		scope: "server",
 		requiredBy: "optional",

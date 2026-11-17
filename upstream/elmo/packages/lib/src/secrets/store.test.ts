@@ -46,6 +46,24 @@ afterEach(() => {
 });
 
 describe("getCredential", () => {
+	it("fails closed for an unreadable stored credential instead of selecting the environment account", async () => {
+		vi.stubEnv("TUC_P0_OFFLINE", "1");
+		vi.stubEnv("ELMO_ENCRYPTION_KEY", KEY_B64);
+		vi.stubEnv("OPENAI_API_KEY", "synthetic-account-b");
+		dbState.rows = [await encryptedRow("OPENAI_API_KEY", "synthetic-account-a", Buffer.alloc(32, 9))];
+		await refreshCredentialOverlay();
+		expect(() => getCredential("OPENAI_API_KEY")).toThrow("unreadable");
+		expect(withStoredCredentials().OPENAI_API_KEY).toBeUndefined();
+	});
+
+	it("fails closed on a credential-store failure in the isolated runtime", async () => {
+		vi.stubEnv("TUC_P0_OFFLINE", "1");
+		vi.stubEnv("ELMO_ENCRYPTION_KEY", KEY_B64);
+		vi.stubEnv("OPENAI_API_KEY", "synthetic-account-b");
+		dbState.error = new Error("synthetic store failure");
+		await expect(refreshCredentialOverlay()).rejects.toThrow("synthetic store failure");
+		expect(() => getCredential("OPENAI_API_KEY")).toThrow("unreadable");
+	});
 	it("falls back to process.env when the overlay is empty", () => {
 		vi.stubEnv("OPENAI_API_KEY", "env-value");
 		expect(getCredential("OPENAI_API_KEY")).toBe("env-value");
